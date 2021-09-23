@@ -13,7 +13,6 @@
             //added this delay here as some solutions may require it to update properly (i.e., click code may complete before the navigation changes)
             //TODO: add code for processing the current selection //Change color of nav on mouseover
             //Note: likely you'll want to call updateCurrentPage towards the end
-            updateCurrentPage();
         }, 100);
     </script>
     <style>
@@ -34,17 +33,20 @@
             display: inline-block;
             width: 10%;
             background-color: rgb(180, 180, 200);
-            background-size: 100%;
-            background-position: left;
         }
         
         nav li:hover {
             background-color: rgb(140, 140, 200);
         }
         
-        nav li a {
+        a {
             color: rgb(0, 0, 0);
             text-decoration: none;
+            text-transform: capitalize;
+        }
+        
+        h1 {
+            text-transform: capitalize;
         }
         
         li {
