@@ -6,13 +6,10 @@ $a4 = [10.01, -12.22, 0.23, 19.20, -5.13, 3.12];
 function getTotal($arr) {
     echo "<br>Processing Array:<br><pre>" . var_export($arr, true) . "</pre>";
     $total = 0.00;
-    //TODO do adding here
     for ($x = 0; $x < count($arr); $x++){
         $total += $arr[$x];
     }
-    //TODO do rounding stuff here
-    $total = round($total, $precision = 2, $mode = PHP_ROUND_HALF_DOWN);
-
+    $total = round($total, $precision = 2, $mode = PHP_ROUND_HALF_UP);
     echo "The total is " . var_export($total, true);
 }
 echo "Problem 2: Adding Floats<br>";
