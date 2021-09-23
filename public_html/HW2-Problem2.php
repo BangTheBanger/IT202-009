@@ -8,10 +8,10 @@ function getTotal($arr) {
     $total = 0.00;
     //TODO do adding here
     for ($x = 0; $x < count($arr); $x++){
-        $total = round($total, $precision = 2) + round($arr[$x], $precision = 2);
+        $total += $arr[$x];
     }
     //TODO do rounding stuff here
-    $total = round($total, $precision = 2);
+    $total = round($total, $precision = 2, $mode = PHP_ROUND_HALF_DOWN);
 
     echo "The total is " . var_export($total, true);
 }
