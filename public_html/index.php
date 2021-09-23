@@ -1,6 +1,7 @@
 <?php echo "It works!<br>Filipe Atanes' website, for IT202-009";?>
+<title>Homepage</title>
 <ul>
-    <li><a href="index.php">Index Page</a></li>
+    <li><a href="index.php">Homepage</a></li>
     <li><h3>Homework 2 - Problems 1-3</h3>
     <ul>
         <li><a href="HW2/HW2-Problem1.php">HW 2 - Problem 1</a>

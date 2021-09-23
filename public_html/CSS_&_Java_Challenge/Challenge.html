@@ -9,15 +9,12 @@
             console.log("loaded via javascript");
             //TODO: add any extra onload processing you may need here
         });
-
-        function getCurrentSelection() {
-            setTimeout(() => {
-                //added this delay here as some solutions may require it to update properly (i.e., click code may complete before the navigation changes)
-                //TODO: add code for processing the current selection //Change color of nav on mouseover
-
-                //Note: likely you'll want to call updateCurrentPage towards the end
-            }, 100);
-        }
+        setTimeout(() => {
+            //added this delay here as some solutions may require it to update properly (i.e., click code may complete before the navigation changes)
+            //TODO: add code for processing the current selection //Change color of nav on mouseover
+            //Note: likely you'll want to call updateCurrentPage towards the end
+            updateCurrentPage();
+        }, 100);
     </script>
     <style>
         /* TODO: make edits here */
@@ -25,11 +22,6 @@
         body {
             background-color: rgb(9, 10, 15);
             color: rgb(136, 136, 136);
-        }
-        
-        a {
-            color: rgb(0, 0, 0);
-            text-decoration: none;
         }
         
         nav ul {
@@ -42,9 +34,17 @@
             display: inline-block;
             width: 10%;
             background-color: rgb(180, 180, 200);
-            /*background-image: url('../../assets/Button.png');*/
             background-size: 100%;
             background-position: left;
+        }
+        
+        nav li:hover {
+            background-color: rgb(140, 140, 200);
+        }
+        
+        nav li a {
+            color: rgb(0, 0, 0);
+            text-decoration: none;
         }
         
         li {
