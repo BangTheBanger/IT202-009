@@ -5,14 +5,16 @@
     <title>Problem 1</title>
     <meta charset="utf-8" />
     <script>
-        anchorlist = document.getElementsByTagName("a");
-        h1list = document.getElementsByTagName("h1");
-        titlelist = document.getElementsByTagName("title");
+        /*
+                anchorlist = document.getElementsByTagName("a");
+                h1list = document.getElementsByTagName("h1");
+                titlelist = document.getElementsByTagName("title");
+                */
 
         window.addEventListener("load", () => {
             console.log("loaded via javascript");
             //TODO: add any extra onload processing you may need here
-
+            /*
             for (var x = anchorlist.length - 1; x >= 0; --x) {
                 anchorlist[x].onclick = function() {
                     for (var i = h1list.length - 1; i >= 0; --i) {
@@ -23,14 +25,20 @@
                     }
                 }
             }
+            */
         });
 
+
+        anchorlist = document.getElementsByTagName("a");
         setTimeout(() => {
             //added this delay here as some solutions may require it to update properly (i.e., click code may complete before the navigation changes)
             //TODO: add code for processing the current selection //Change color of nav on mouseover
-
+            for (var x = anchorlist.length - 1; x >= 0; --x) {
+                anchorlist[x].onclick = function() {
+                    updateCurrentPage(this.innerHTML);
+                }
+            }
             //Note: likely you'll want to call updateCurrentPage towards the end
-            updateCurrentPage;
         }, 100);
     </script>
     <style>
