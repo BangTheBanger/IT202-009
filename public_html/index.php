@@ -12,8 +12,8 @@
     <ul>
         <li><a href="CSS_&_Java_Challenge/Challenge.html">HW3 - JS & CSS Challenge</a></li>
     </ul>
-    <li><h3>Homework X - Problems X-X</h3>
+    <li><h3>Project - </h3>
     <ul>
-        <li>Future Link Here</li>
+        <li><a href="Project\sql\init_db.php">Project</a></li>
     </ul>
 </ul>
