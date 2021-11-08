@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . "/../../partials/nav.php");
+require_once(__DIR__ . "/../partials/nav.php");
 if (!is_logged_in()) {
     die(header("Location: login.php"));
 }
@@ -86,15 +86,13 @@ if (isset($_POST["save"])) {
 $email = get_user_email();
 $username = get_username();
 ?>
+<div class="display-info">
+<p>Email: <?php se($email); ?></p>
+</div>
+<div class="display-info">
+<p>Username: <?php se($username); ?> </p>
+</div>
 <form method="POST" onsubmit="return validate(this);">
-    <div class="mb-3">
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" value="<?php se($email); ?>" />
-    </div>
-    <div class="mb-3">
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username" value="<?php se($username); ?>" />
-    </div>
     <!-- DO NOT PRELOAD PASSWORD -->
     <div>Password Reset</div>
     <div class="mb-3">
@@ -143,5 +141,5 @@ $username = get_username();
     }
 </script>
 <?php
-require_once(__DIR__ . "/../../partials/flash.php");
+require_once(__DIR__ . "/../partials/flash.php");
 ?>

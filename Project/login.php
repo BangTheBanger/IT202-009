@@ -1,59 +1,74 @@
-<!DOCTYPE html>
-<html lang="en-US">
-
-<head>
-    <title>Problem 1</title>
-    <meta charset="utf-8" />
-    <style>
-        
-        body {
-            background-color: rgb(9, 10, 15);
-            color: rgb(136, 136, 136);
-        }
-
-        .form-center {
-        	display:flex;
-         	justify-content: center;
-        }
-    </style>
-</head>
-
-<body>
-    <header>
-        <h2>Login Page</h2>
-    </header>
-    
-    <div class="form-center">
-        <form method="post" autocomplete="on">
-            <label for="uname">Username:</label><br>
-            <input type="text" id="uname" name="uname"><br>
-            <label for="pass">Password:</label><br>
-            <input type="password" id="pass" name="pass"><br>
-            <input type="submit" value="Submit" name="submit">
-        </form>
+<?php
+require(__DIR__ . "/../partials/nav.php");
+?>
+<form method="POST">
+    <div>
+        <label for="email">Email</label>
+        <input type="email" name="email" required />
     </div>
+    <div>
+        <label for="pw">Password</label>
+        <input type="password" id="pw" name="password" required minlength="8" />
+    </div>
+    <input type="submit" value="Login" />
+</form>
+<script>
+</script>
+<?php
+//TODO 2: add PHP Code
+if (isset($_POST["email"]) && isset($_POST["password"])) {
+    $email = se($_POST, "email", "", false);
+    $password = se($_POST, "password", "", false);
 
-    <?php
-        if (isset($_POST["submit"])) {
-            login_procedure();
-        };
-
-
-        function random_str($value){
-            return substr(str_shuffle(str_repeat('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',36)), 0, $value);
-        }
-        
-        function login_procedure() {
-            $account = ["id" => -1, "username", "password_hash"];
-            $query = "SELECT id, uname, password FROM Users WHERE uname = :username AND password = password_hash LIMIT 1";
-            $db = getDB();
-            $stmt = $db->prepare($query);
-            try {
-                
-
+    //TODO 3
+    $hasError = false;
+    if (empty($email)) {
+        flash("Email must not be empty", "danger");
+        $hasError = true;
+    }
+    //sanitize
+    $email = sanitize_email($email);
+    //validate
+    if (!is_valid_email($email)) {
+        flash("Invalid email address", "danger");
+        $hasError = true;
+    }
+    if (empty($password)) {
+        flash("password must not be empty", "danger");
+        $hasError = true;
+    }
+    if (strlen($password) < 8) {
+        flash("Password too short", "danger");
+        $hasError = true;
+    }
+    if (!$hasError) {
+        //TODO 4
+        $db = getDB();
+        $stmt = $db->prepare("SELECT id, email, username, password from users where email = :email OR username = :email");
+        try {
+            $r = $stmt->execute([":email" => $email]);
+            if ($r) {
+                $user = $stmt->fetch(PDO::FETCH_ASSOC);
+                if ($user) {
+                    $hash = $user["password"];
+                    unset($user["password"]);
+                    if (password_verify($password, $hash)) {
+                        flash("Welcome $email");
+                        $_SESSION["user"] = $user;
+                        die(header("Location: home.php"));
+                    } else {
+                        flash("Invalid password", "danger");
+                    }
+                } else {
+                    flash("Email not found", "danger");
+                }
             }
-            catch (PDOException $e) {
-                echo $e->getMessage;
-            }
+        } catch (Exception $e) {
+            flash("<pre>" . var_export($e, true) . "</pre>");
         }
-    ?>
+    }
+}
+?>
+<?php
+require(__DIR__ . "/../partials/flash.php");
+?>

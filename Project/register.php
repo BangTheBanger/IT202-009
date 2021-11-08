@@ -1,5 +1,6 @@
 <?php
 require(__DIR__ . "/../partials/nav.php");
+reset_session();
 ?>
 <form onsubmit="return validate(this)" method="POST">
     <div>
@@ -79,17 +80,16 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
         //TODO 4
         $hash = password_hash($password, PASSWORD_BCRYPT);
         $db = getDB();
-        $stmt = $db->prepare("INSERT INTO Users (email, password, username) VALUES(:email, :password, :username)");
+        $stmt = $db->prepare("INSERT INTO users (email, password, username) VALUES(:email, :password, :username)");
         try {
             $stmt->execute([":email" => $email, ":password" => $hash, ":username" => $username]);
             flash("Successfully registered!");
         } catch (Exception $e) {
-            flash("There was a problem registering", "danger");
-            flash("<pre>" . var_export($e, true) . "</pre>", "danger");
+            users_check_duplicate($e->errorInfo);
         }
     }
 }
 ?>
 <?php
-require(__DIR__ . "/../../partials/flash.php");
+require(__DIR__ . "/../partials/flash.php");
 ?>
