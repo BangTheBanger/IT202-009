@@ -1,0 +1,1 @@
+INSERT INTO roles(id, name, is_active) VALUES(1, 'admin', 1);
