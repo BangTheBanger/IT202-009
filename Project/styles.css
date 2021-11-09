@@ -1,0 +1,47 @@
+.alert-success {
+    background-color: rgb(0, 80, 0);
+    color: rgb(0, 0, 0);
+}
+
+.alert-warning {
+    background-color: yellow;
+    color: rgb(0, 0, 0);
+}
+
+.alert-danger {
+    background-color: red;
+    color: rgb(0, 0, 0);
+}
+
+.alert-info {
+    background-color: rgb(39, 0, 0);
+    color: rgb(0, 0, 0);
+}
+
+nav div {
+    background-color: rgb(39, 0, 0);
+    height: 3.5%;
+    width: 100%;
+    text-align: center;
+}
+
+nav li {
+    display: inline;
+}
+
+nav li a {
+    color: rgb(218, 0, 36);
+}
+
+form {
+    text-align: center;
+}
+
+input {
+    border-radius: 20%;
+}
+
+body {
+    background-color: rgb(9, 10, 15);
+    color: rgb(136, 136, 136);
+}
