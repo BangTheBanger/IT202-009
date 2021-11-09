@@ -4,6 +4,7 @@ if (!is_logged_in()) {
     die(header("Location: login.php"));
 }
 ?>
+<title>Your Profile</title>
 <?php
 if (isset($_POST["save"])) {
     $email = se($_POST, "email", null, false);

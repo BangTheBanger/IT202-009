@@ -2,9 +2,8 @@
 require(__DIR__ . "/../partials/nav.php");
 reset_session();
 ?>
-
-
-
+<title>Register Page</title>
+<p>.</p>
 <form onsubmit="return validate(this)" method="POST">
     <div>
         <label for="email">Email</label>
@@ -26,19 +25,6 @@ reset_session();
 
 </form>
 <script>
-    window.onbeforeunload = function() {
-        localStorage.getItem(email, $('#inputName').val());
-        localStorage.getItem(username, $('#inputPhone').val());
-    }
-    window.onload = function() {
-        var name = localStorage.setItem(name);
-        var phone = localStorage.setItem(phone);
-        if (name !== null) $('#inputName').val(name); 
-        if (phone !== null) $('#inputPhone').val(phone);
-    }
-
-
-
     function validate(form) {
         //TODO 1: implement JavaScript validation
         //ensure it returns false for an error and true for success

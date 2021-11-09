@@ -1,3 +1,4 @@
+<title>You Have Logged Off</title>
 <?php
 session_start();
 require(__DIR__ . "/../lib/functions.php");
