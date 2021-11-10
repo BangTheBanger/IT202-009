@@ -1,5 +1,5 @@
 <?php
-require(__DIR__ . "/../partials/nav.php");
+require(__DIR__ . "/../../partials/nav.php");
 reset_session();
 //TODO 2: add PHP Code
 $email = se($_POST, "email", "", false);
@@ -95,5 +95,5 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
 
 ?>
 <?php
-require(__DIR__ . "/../partials/flash.php");
+require(__DIR__ . "/../../partials/flash.php");
 ?>
