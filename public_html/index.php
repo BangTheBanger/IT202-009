@@ -12,8 +12,8 @@
     <ul>
         <li><a href="public_html/CSS_&_Java_Challenge/Challenge.html">HW3 - JS & CSS Challenge</a></li>
     </ul>
-    <li><h3>Project - </h3>
+    <li><h3>Project - Arcade</h3>
     <ul>
-        <li><a href="public_html/Project\sql\init_db.php">Project</a></li>
+        <li><a href="../Project/login.php">Project</a></li>
     </ul>
 </ul>
