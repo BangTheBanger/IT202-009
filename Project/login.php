@@ -1,31 +1,8 @@
 <?php
 require(__DIR__ . "/../partials/nav.php");
-?>
-<title>Login Page</title>
-<p>.</p>
-<form onsubmit="return validate(this)" method="POST">
-    <div>
-        <label for="email">Email</label>
-        <input type="text" name="email" required />
-    </div>
-    <div>
-        <label for="pw">Password</label>
-        <input type="password" id="pw" name="password" required minlength="8" />
-    </div>
-    <input type="submit" value="Login" />
-</form>
-<script>
-        function validate(form) {
-        //TOD0 1: implement JavaScript validation
-        //ensure it returns false for an error and true for success
 
-        return true;
-    }
-</script>
-<?php
-
+$email = se($_POST, "email", "", false);
 if (isset($_POST["email"]) && isset($_POST["password"])) {
-    $email = se($_POST, "email", "", false);
     $password = se($_POST, "password", "", false);
 
 
@@ -92,4 +69,30 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
         }
     }
 }
+?>
+<title>Login Page</title>
+<p class="spacer">.</p>
+<form onsubmit="return validate(this)" method="POST">
+    <div>
+        <label for="email">Email</label>
+        <input type="text" name="email" required value="<?php se($email); ?>" />
+        
+    </div>
+    <div>
+        <label for="pw">Password</label>
+        <input type="password" id="pw" name="password" required minlength="8" />
+    </div>
+    <input type="submit" value="Login" />
+</form>
+<script>
+        function validate(form) {
+        //TOD0 1: implement JavaScript validation
+        //ensure it returns false for an error and true for success
+
+        return true;
+    }
+</script>
+
+<?php 
+require(__DIR__ . "/../partials/flash.php");
 ?>
