@@ -1,5 +1,5 @@
 <?php
-require(__DIR__ . "/../partials/nav.php");
+require(__DIR__ . "/../../partials/nav.php");
 
 $email = se($_POST, "email", "", false);
 if (isset($_POST["email"]) && isset($_POST["password"])) {
@@ -94,5 +94,5 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
 </script>
 
 <?php 
-require(__DIR__ . "/../partials/flash.php");
+require(__DIR__ . "/../../partials/flash.php");
 ?>
