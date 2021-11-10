@@ -14,6 +14,6 @@
     </ul>
     <li><h3>Project - Arcade</h3>
     <ul>
-        <li><a href="../Project/login.php">Project</a></li>
+        <li><a href="/../Project/login.php">Project</a></li>
     </ul>
 </ul>
