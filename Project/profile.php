@@ -12,13 +12,13 @@ if (isset($_POST["save"])) {
 
     $params = [":email" => $email, ":username" => $username, ":id" => get_user_id()];
     $db = getDB();
-    $stmt = $db->prepare("UPDATE Users set email = :email, username = :username where id = :id");
+    $stmt = $db->prepare("UPDATE users set email = :email, username = :username where id = :id");
     try {
         $stmt->execute($params);
     } catch (Exception $e) {
         if ($e->errorInfo[1] === 1062) {
             //https://www.php.net/manual/en/function.preg-match.php
-            preg_match("/Users.(\w+)/", $e->errorInfo[2], $matches);
+            preg_match("/users.(\w+)/", $e->errorInfo[2], $matches);
             if (isset($matches[1])) {
                 flash("The chosen " . $matches[1] . " is not available.", "warning");
             } else {
@@ -31,7 +31,7 @@ if (isset($_POST["save"])) {
         }
     }
     //select fresh data from table
-    $stmt = $db->prepare("SELECT id, email, username from Users where id = :id LIMIT 1");
+    $stmt = $db->prepare("SELECT id, email, username from users where id = :id LIMIT 1");
     try {
         $stmt->execute([":id" => get_user_id()]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -52,33 +52,37 @@ if (isset($_POST["save"])) {
     $current_password = se($_POST, "currentPassword", null, false);
     $new_password = se($_POST, "newPassword", null, false);
     $confirm_password = se($_POST, "confirmPassword", null, false);
-    if (!empty($current_password) && !empty($new_password) && !empty($confirm_password)) {
-        if ($new_password === $confirm_password) {
-            //TODO validate current
-            $stmt = $db->prepare("SELECT password from Users where id = :id");
-            try {
-                $stmt->execute([":id" => get_user_id()]);
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                if (isset($result["password"])) {
-                    if (password_verify($current_password, $result["password"])) {
-                        $query = "UPDATE Users set password = :password where id = :id";
-                        $stmt = $db->prepare($query);
-                        $stmt->execute([
-                            ":id" => get_user_id(),
-                            ":password" => password_hash($new_password, PASSWORD_BCRYPT)
-                        ]);
+    if (!empty($current_password)) {
+        if (!empty($new_password) && !empty($confirm_password)) {
+            if ($new_password === $confirm_password) {
+                //TODO validate current
+                $stmt = $db->prepare("SELECT password from users where id = :id");
+                try {
+                    $stmt->execute([":id" => get_user_id()]);
+                    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                    if (isset($result["password"])) {
+                        if (password_verify($current_password, $result["password"])) {
+                            $query = "UPDATE users set password = :password where id = :id";
+                            $stmt = $db->prepare($query);
+                            $stmt->execute([
+                                ":id" => get_user_id(),
+                                ":password" => password_hash($new_password, PASSWORD_BCRYPT)
+                            ]);
 
-                        flash("Password reset", "success");
-                    } else {
-                        flash("Current password is invalid", "warning");
+                            flash("Password reset", "success");
+                        } else {
+                            flash("Current password is invalid", "warning");
+                        }
                     }
+                } catch (Exception $e) {
+                    echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
                 }
-            } catch (Exception $e) {
-                echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
+            } else {
+                flash("New passwords don't match", "warning");
             }
-        } else {
-            flash("New passwords don't match", "warning");
         }
+    } else {
+        flash("Please type your current password", "warning");
     }
 }
 ?>
@@ -87,13 +91,16 @@ if (isset($_POST["save"])) {
 $email = get_user_email();
 $username = get_username();
 ?>
-<div class="display-info">
-<p>Email: <?php se($email); ?></p>
-</div>
-<div class="display-info">
-<p>Username: <?php se($username); ?> </p>
-</div>
+
 <form method="POST" onsubmit="return validate(this);">
+    <div class="mb-3">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" value="<?php se($email); ?>" />
+    </div>
+    <div class="mb-3">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" value="<?php se($username); ?>" />
+    </div>
     <!-- DO NOT PRELOAD PASSWORD -->
     <div>Password Reset</div>
     <div class="mb-3">
