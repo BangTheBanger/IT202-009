@@ -148,7 +148,19 @@ $username = get_username();
         return isValid;
     }
 </script>
+<?php
+$db = getDB();
+$username = get_username();
+$stmt = $db->prepare("SELECT score, CREATED FROM scores WHERE username = :username ORDER BY CREATED DESC");
+$stmt->execute([":username" => $username]);
+$scorelist = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+/*
+var_dump($scorelist);
+echo "<br>";
+var_dump($scorelist[0]["score"]);
+*/
+?>
 <table style="width:33%">
   <tr>
     <th>Scores</th>
