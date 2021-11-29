@@ -10,8 +10,8 @@ $stmt->execute([":username" => $username, ":score" => $score]);
 */
 $db = getDB();
 $username = get_username();
-$stmt = $db->prepare("SELECT username FROM scores WHERE username IS $username");
-$stmt->execute();
+$stmt = $db->prepare("SELECT score, CREATED FROM scores WHERE username = :username");
+$stmt->execute([":username" => $username]);
 var_dump($stmt);
 $scorelist = [];
 $lastten = [];
