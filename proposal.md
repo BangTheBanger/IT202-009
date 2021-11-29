@@ -50,7 +50,7 @@
 
  [https://fa367-prod.herokuapp.com/Project/login.php](https://fa367-prod.herokuapp.com/Project/login.php)</p></td></tr><tr><td>PRs:<p>
 
- [https://github.com/BangTheBanger/IT202-009/pull/87](https://github.com/BangTheBanger/IT202-009/pull/87)</p></td></tr><tr><td><table><tr><td>F7 - Any technical errors or debug output displayed will result in a loss of points<tr><td>Status: completed</td></tr><tr><td><img width="100%" src=""><p>Because it's hard to create an error with such a simple page, I can't exemplify the error output.</td></tr></td></tr></table></td></tr><table><tr><td>F8 - User will be able to see their profile</td></tr><tr><td>Links:<p>
+ [https://github.com/BangTheBanger/IT202-009/pull/87](https://github.com/BangTheBanger/IT202-009/pull/87)</p></td></tr><tr><td><table><tr><td>F7 - Any technical errors or debug output displayed will result in a loss of points<tr><td>Status: completed</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143800287-82ce7a02-d6d1-449f-a8df-a3fd38a619cb.png"><p>Because it's hard to create an error with such a simple page, I can't exemplify the error output. But it would look similar to this error message.</td></tr></td></tr></table></td></tr><table><tr><td>F8 - User will be able to see their profile</td></tr><tr><td>Links:<p>
 
  [https://fa367-prod.herokuapp.com/Project/login.php](https://fa367-prod.herokuapp.com/Project/login.php)</p></td></tr><tr><td>PRs:<p>
 
