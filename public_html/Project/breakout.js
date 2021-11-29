@@ -177,9 +177,9 @@ function play() {
     level();
 
 
-    //initial ball position
-    ball.x += ball.dx + rng;
-    ball.y += ball.dy + rng;
+    //Ball Collision Speed
+    ball.x += ball.dx;
+    ball.y += ball.dy;
 
     //Reset Score
     if (ball.y + ball.radius > canvas.height) {
@@ -190,6 +190,8 @@ function play() {
         generateBricks();
         ball.dx = speed;
         ball.dy = -speed + 1;
+        ball.x = canvas.width / 2 + rng;
+        ball.y = canvas.height - 50 + rng;
     }
 
     //Ball bounds
