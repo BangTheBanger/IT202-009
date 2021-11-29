@@ -28,7 +28,7 @@ var_dump($scorelist[0]["score"]);
 ?>
 
 <body>
-<table style="width:100%">
+<table style="width:33%">
   <tr>
     <th>Scores</th>
     <th>Time</th>
