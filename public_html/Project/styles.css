@@ -18,6 +18,30 @@
     color: rgb(255, 255, 255);
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#canvas {
+    background: rgb(40, 0, 0);
+    border-radius: 10px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgb(143, 0, 0)
+}
+
+.high-score {
+    position: absolute;
+    top: 1.5rem;
+    width: 80%;
+    left: 10%;
+    text-align: center;
+}
+
 nav div {
     background-color: rgb(39, 0, 0);
     height: 3.5%;
