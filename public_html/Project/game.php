@@ -37,7 +37,12 @@ if (is_logged_in()) {
     <canvas id="canvas"></canvas>
 
     <div>
-
+    <table style="width:33%">
+        <tr>
+            <th>User</th>
+            <th>Scores</th>
+        </tr>
+    </table>
     </div>
     <script src="breakout.js"></script>
 </body>
@@ -45,23 +50,98 @@ if (is_logged_in()) {
 function dailyScores() {
     $db = getDB();
     $username = get_username();
-    $stmt = $db->prepare("SELECT score, CREATED FROM scores WHERE CREATED <= CURRENT_TIMESTAMP AND CREATED > CURRENT_TIMESTAMP - interval 1 DAY ORDER BY score DESC");
+    $stmt = $db->prepare("SELECT score, username FROM scores WHERE CREATED <= CURRENT_TIMESTAMP AND CREATED > CURRENT_TIMESTAMP - interval 1 WEEK ORDER BY score DESC");
     $stmt->execute([":username" => $username]);
     $scorelist = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    if (count($scorelist) <= 0) {
+        echo "<p>There are no weekly scores to show.</p>";
+
+    } else if (count($scorelist) > 10) {
+        for ($i = 0; $i < 10; $i++) {
+            $username = $scorelist[$i]["username"];
+            $score = $scorelist[$i]["score"];
+            
+            echo '<tr>';
+            echo '<td>'. $username .'</td>';
+            echo '<td>'. $score .'</td>';
+            echo '</tr>';
+        }
+    } else {
+        for ($i = 0; $i < 10; $i++) {
+            $username = $scorelist[$i]["username"];
+            $score = $scorelist[$i]["score"];
+            
+            echo '<tr>';
+            echo '<td>'. $username .'</td>';
+            echo '<td>'. $score .'</td>';
+            echo '</tr>';
+        }
+    }
 }
 function monthlyScores() {
     $db = getDB();
     $username = get_username();
-    $stmt = $db->prepare("SELECT score, CREATED FROM scores WHERE CREATED <= CURRENT_TIMESTAMP AND CREATED > CURRENT_TIMESTAMP - interval 1 MONTH ORDER BY score DESC");
+    $stmt = $db->prepare("SELECT score, username FROM scores WHERE CREATED <= CURRENT_TIMESTAMP AND CREATED > CURRENT_TIMESTAMP - interval 1 MONTH ORDER BY score DESC");
     $stmt->execute([":username" => $username]);
     $scorelist = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    if (count($scorelist) <= 0) {
+        echo "<p>There are no monthly scores to show.</p>";
+
+    } else if (count($scorelist) > 10) {
+        for ($i = 0; $i < 10; $i++) {
+            $username = $scorelist[$i]["username"];
+            $score = $scorelist[$i]["score"];
+            
+            echo '<tr>';
+            echo '<td>'. $username .'</td>';
+            echo '<td>'. $score .'</td>';
+            echo '</tr>';
+        }
+    } else {
+        for ($i = 0; $i < 10; $i++) {
+            $username = $scorelist[$i]["username"];
+            $score = $scorelist[$i]["score"];
+            
+            echo '<tr>';
+            echo '<td>'. $username .'</td>';
+            echo '<td>'. $score .'</td>';
+            echo '</tr>';
+        }
+    }
 }
 function allScores() {
     $db = getDB();
     $username = get_username();
-    $stmt = $db->prepare("SELECT score, CREATED FROM scores ORDER BY score DESC");
+    $stmt = $db->prepare("SELECT score, username FROM scores ORDER BY score DESC");
     $stmt->execute([":username" => $username]);
     $scorelist = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (count($scorelist) <= 0) {
+        echo "<p>There are no scores to show.</p>";
+
+    } else if (count($scorelist) > 10) {
+        for ($i = 0; $i < 10; $i++) {
+            $username = $scorelist[$i]["username"];
+            $score = $scorelist[$i]["score"];
+            
+            echo '<tr>';
+            echo '<td>'. $username .'</td>';
+            echo '<td>'. $score .'</td>';
+            echo '</tr>';
+        }
+    } else {
+        for ($i = 0; $i < 10; $i++) {
+            $username = $scorelist[$i]["username"];
+            $score = $scorelist[$i]["score"];
+            
+            echo '<tr>';
+            echo '<td>'. $username .'</td>';
+            echo '<td>'. $score .'</td>';
+            echo '</tr>';
+        }
+    }
 }
 
 
