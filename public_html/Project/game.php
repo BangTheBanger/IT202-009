@@ -3,21 +3,23 @@
 require(__DIR__ . "/../../partials/nav.php");
 
 $score = se($_POST, "data", null, false);
-$username = get_username();
-var_dump ($score);
-var_dump ($username);
-/*
+// var_dump ($score);
+// var_dump ($username);
 if (is_logged_in()) {
     $username = get_username();
     $db = getDB();
     $stmt = $db->prepare("INSERT INTO scores (username, score) VALUES(:username, :score)");
-    $stmt->execute([":username" => $username, ":score" => $score]);
+    if ($score > 0) {
+        $stmt->execute([":username" => $username, ":score" => $score]);
+    }
 } else {
     $username = "Guest";
     $db = getDB();
     $stmt = $db->prepare("INSERT INTO scores (username, score) VALUES(:username, :score)");
-    $stmt->execute([":username" => $username, ":score" => $score]);
-}*/
+    if ($score > 0) {
+        $stmt->execute([":username" => $username, ":score" => $score]);
+    }
+}
 ?>
 
 
