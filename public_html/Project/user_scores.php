@@ -35,16 +35,16 @@ var_dump($scorelist[0]["score"]);
   </tr>
   <?php 
     if(count($scorelist) > 0){
-        try {
-            for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 10; $i++) {
+            try {
                 $score = $scorelist[$i]["score"];
                 $time = $scorelist[$i]["CREATED"];
                 echo '<tr>';
                 echo '<td>'. $score .'</td>';
                 echo '<td>'. $time .'</td>';
                 echo '</tr>';
+            } catch(Exception $e) {
             }
-        } catch(Exception $e) {
         }
     }
   

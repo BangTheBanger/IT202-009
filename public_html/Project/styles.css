@@ -74,6 +74,13 @@ body {
     color: rgb(136, 136, 136);
 }
 
+table,
+th,
+td {
+    border: 1px solid black;
+    text-align: center;
+}
+
 .spacer {
     color: rgb(9, 10, 15);
 }
