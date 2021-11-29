@@ -22,55 +22,43 @@
 --> 
 ### Proposal Checklist and Evidence
 
-- Milestone 1
-    - User will be able to register a new account
-        - Form Fields
-            - Username, email, password, confirm password(other fields optional)
-            - Email is required and must be validated
-            - Username is required
-            - Confirm password’s match
-        - Users Table
-            - Id, username, email, password (60 characters), created, modified
-        - Password must be hashed (plain text passwords will lose points)
-        - Email should be unique
-        - Username should be unique
-        - System should let user know if username or email is taken and allow the user to correct the error without wiping/clearing the form
-            - The only fields that may be cleared are the password fields
-    - User will be able to login to their account (given they enter the correct credentials)
-        - Form
-            - User can login with email or username
-                - This can be done as a single field or as two separate fields
-            - Password is required
-        - User should see friendly error messages when an account either doesn’t exist or if passwords don’t match
-        - Logging in should fetch the user’s details (and roles) and save them into the session.
-        - User will be directed to a landing page upon login
-            - This is a protected page (non-logged in users shouldn’t have access)
-            - This can be home, profile, a dashboard, etc
-    - User will be able to logout
-        - Logging out will redirect to login page
-        - User should see a message that they’ve successfully logged out
-        - Session should be destroyed (so the back button doesn’t allow them access back in)
-    - Basic security rules implemented
-        - Authentication:
-            - Function to check if user is logged in
-            - Function should be called on appropriate pages that only allow logged in users
-        - Roles/Authorization:
-            - Have a roles table (see below)
-    - Basic Roles implemented
-        - Have a Roles table	(id, name, description, is_active, modified, created)
-        - Have a User Roles table (id, user_id, role_id, is_active, created, modified)
-        - Include a function to check if a user has a specific role (we won’t use it for this milestone but it should be usable in the future)
-    - Site should have basic styles/theme applied; everything should be styled
-        - I.e., forms/input, navigation bar, etc
-    - Any output messages/errors should be “user friendly”
-        - Any technical errors or debug output displayed will result in a loss of points
-    - User will be able to see their profile
-        - Email, username, etc
-    - User will be able to edit their profile
-        - Changing username/email should properly check to see if it’s available before allowing the change
-        - Any other fields should be properly validated
-        - Allow password reset (only if the existing correct password is provided)
-            - Hint: logic for the password check would be similar to login
+<table><tr><td>Milestone 1</td></tr><tr><td><table><tr><td>F1 - User will be able to register a new account</td></tr><tr><td>Links:<p>
+
+ [https://fa367-prod.herokuapp.com/Project/login.php](https://fa367-prod.herokuapp.com/Project/login.php)</p></td></tr><tr><td>PRs:<p>
+
+ [https://github.com/BangTheBanger/IT202-009/pull/87](https://github.com/BangTheBanger/IT202-009/pull/87)</p></td></tr><tr><td><table><tr><td>F1 - Form Fields<tr><td>Status: completed</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143796444-68c887b5-8593-4dec-b5df-d31a5508deeb.png"><p>The register page has the Username, email, password, and confirm password fields. Email is required and must be validated. Username is also required. And it confirms the passwords match.</td></tr></td></tr></table></td></tr><tr><td><table><tr><td>F1 - Users Table<tr><td>Status: completed</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143796614-9c4ec25d-ae4b-469e-b328-4a5ba1420f18.png"><p>The table includes: id, username, email, password (60 characters), created, modified.</td></tr></td></tr></table></td></tr><tr><td><table><tr><td>F1 - Password must be hashed (plain text passwords will lose points)<tr><td>Status: completed</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143796614-9c4ec25d-ae4b-469e-b328-4a5ba1420f18.png"><p>The password is hashed</td></tr></td></tr></table></td></tr><tr><td><table><tr><td>F1 - Email should be unique<tr><td>Status: completed</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143796830-1a80e6f0-8b0b-4ca7-8e25-408175958bff.png"><p>The email column is unique.</td></tr></td></tr></table></td></tr><tr><td><table><tr><td>F1 - Username should be unique<tr><td>Status: completed</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143796901-3072d652-0d2f-4fd4-88c1-e4bdbbeb2768.png"><p>The username column is unique.</td></tr></td></tr></table></td></tr><tr><td><table><tr><td>F1 - System should let user know if username or email is taken and allow the user to correct the error without wiping/clearing the form<tr><td>Status: completed</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143796982-6d60e6c4-6589-43f9-88e3-737955444cc7.png"><p>The email is already used, and the server warns the user, without wiping the form, except for passwords.</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143797056-d32eebfd-b9cd-42e3-947c-3420c0807632.png"><p>The username is already used, and the server warns the user, without wiping the form, except for passwords.</td></tr></td></tr></table></td></tr><table><tr><td>F2 - User will be able to login to their account (given they enter the correct credentials)</td></tr><tr><td>Links:<p>
+
+ [https://fa367-prod.herokuapp.com/Project/login.php](https://fa367-prod.herokuapp.com/Project/login.php)</p></td></tr><tr><td>PRs:<p>
+
+ [https://github.com/BangTheBanger/IT202-009/pull/87](https://github.com/BangTheBanger/IT202-009/pull/87)</p></td></tr><tr><td><table><tr><td>F2 - Form<tr><td>Status: completed</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143797426-403ffd6a-9558-4963-88f7-124735e667c1.png"><p>User can login with email or username, despite the field saying "Email" (This will be patched). Password is required.</td></tr></td></tr></table></td></tr><tr><td><table><tr><td>F2 - User should see friendly error messages when an account either doesn’t exist or if passwords don’t match<tr><td>Status: completed</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143797549-b7aca032-883f-4723-89e2-0fbe48d5269c.png"><p>The warning the user receives if he types an account that doesn't exist. This will change from "email" to "account" not found.</td></tr></td></tr></table></td></tr><tr><td><table><tr><td>F2 - Logging in should fetch the user’s details (and roles) and save them into the session.<tr><td>Status: completed</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143797864-ba84010a-e449-4802-9b35-906a98f85831.png"><p>The login will save the role and user's information in the session.</td></tr></td></tr></table></td></tr><tr><td><table><tr><td>F2 - User will be directed to a landing page upon login<tr><td>Status: completed</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143797904-165e87a0-39b6-4a9b-87a2-9385c3f7869b.png"><p>The user is directed towards the Home page when they login. This is a protected page.</td></tr></td></tr></table></td></tr><table><tr><td>F3 - User will be able to logout</td></tr><tr><td>Links:<p>
+
+ [https://fa367-prod.herokuapp.com/Project/login.php](https://fa367-prod.herokuapp.com/Project/login.php)</p></td></tr><tr><td>PRs:<p>
+
+ [https://github.com/BangTheBanger/IT202-009/pull/87](https://github.com/BangTheBanger/IT202-009/pull/87)</p></td></tr><tr><td><table><tr><td>F3 - Logging out will redirect to login page<tr><td>Status: completed</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143797988-61f6025b-c075-4bdb-804b-6bc238358488.png"><p>The user will be redirected to login page post logout.</td></tr></td></tr></table></td></tr><tr><td><table><tr><td>F3 - User should see a message that they’ve successfully logged out<tr><td>Status: completed</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143797988-61f6025b-c075-4bdb-804b-6bc238358488.png"><p>The user sees a message when they logout.</td></tr></td></tr></table></td></tr><tr><td><table><tr><td>F3 - Session should be destroyed (so the back button doesn’t allow them access back in)<tr><td>Status: completed</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143798110-aee33287-6e75-4599-8f31-6cb367bb8b36.png"><p>Page after trying to use the back button after logging out. The website will redirect the user to login if they aren't logged in, in the case they try to access protected pages.</td></tr></td></tr></table></td></tr><table><tr><td>F4 - Basic security rules implemented</td></tr><tr><td>Links:<p>
+
+ [https://fa367-prod.herokuapp.com/Project/login.php](https://fa367-prod.herokuapp.com/Project/login.php)</p></td></tr><tr><td>PRs:<p>
+
+ [https://github.com/BangTheBanger/IT202-009/pull/87](https://github.com/BangTheBanger/IT202-009/pull/87)</p></td></tr><tr><td><table><tr><td>F4 - Authentication<tr><td>Status: completed</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143798213-ff8741e5-7648-4248-817a-669bb493df6a.png"><p>The function that checks if the session is logged into an user. If not they'll redirect to login. And is called only on 'protected' pages, or pages only a logged in user should be able to access.</td></tr></td></tr></table></td></tr><tr><td><table><tr><td>F4 - Roles/Authorization<tr><td>Status: completed</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143798298-53c0dcb9-448e-4d22-8465-557f03342e0a.png"><p>The Roles table is created.</td></tr></td></tr></table></td></tr><table><tr><td>F5 - Basic Roles implemented</td></tr><tr><td>Links:<p>
+
+ [https://fa367-prod.herokuapp.com/Project/login.php](https://fa367-prod.herokuapp.com/Project/login.php)</p></td></tr><tr><td>PRs:<p>
+
+ [https://github.com/BangTheBanger/IT202-009/projects/1](https://github.com/BangTheBanger/IT202-009/projects/1)</p></td></tr><tr><td><table><tr><td>F5 - Have a Roles table (id, name, description, is_active, modified, created)<tr><td>Status: completed</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143798298-53c0dcb9-448e-4d22-8465-557f03342e0a.png"><p>Roles table created with all the requirements.</td></tr></td></tr></table></td></tr><tr><td><table><tr><td>F5 - Have a User Roles table (id, user_id, role_id, is_active, created, modified)<tr><td>Status: completed</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143798414-93765b4e-4514-4596-9fa7-8919e07af6a1.png"><p>The User table is created with all the necessary requirements.</td></tr></td></tr></table></td></tr><tr><td><table><tr><td>F5 - Include a function to check if a user has a specific role (we won’t use it for this milestone but it should be usable in the future)<tr><td>Status: completed</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143798504-0cea5fb7-9132-45b0-9abd-8f8e83decc39.png"><p>Function to check for roles.</td></tr></td></tr></table></td></tr><table><tr><td>F6 - Site should have basic styles/theme applied; everything should be styled</td></tr><tr><td>Links:<p>
+
+ [https://fa367-prod.herokuapp.com/Project/login.php](https://fa367-prod.herokuapp.com/Project/login.php)</p></td></tr><tr><td>PRs:<p>
+
+ [https://github.com/BangTheBanger/IT202-009/pull/87](https://github.com/BangTheBanger/IT202-009/pull/87)</p></td></tr><tr><td><table><tr><td>F6 - I.e., forms/input, navigation bar, etc<tr><td>Status: completed</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143798561-3b57f6dd-1a85-44f5-bf1d-3f638397bd3f.png"><p>The page is styled.</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143798635-918a15ca-3142-4ca9-8e12-b5aba910ff04.png"><p>The code for styles.css.</td></tr></td></tr></table></td></tr><table><tr><td>F7 - Any output messages/errors should be “user friendly”</td></tr><tr><td>Links:<p>
+
+ [https://fa367-prod.herokuapp.com/Project/login.php](https://fa367-prod.herokuapp.com/Project/login.php)</p></td></tr><tr><td>PRs:<p>
+
+ [https://github.com/BangTheBanger/IT202-009/pull/87](https://github.com/BangTheBanger/IT202-009/pull/87)</p></td></tr><tr><td><table><tr><td>F7 - Any technical errors or debug output displayed will result in a loss of points<tr><td>Status: completed</td></tr><tr><td><img width="100%" src=""><p>Because it's hard to create an error with such a simple page, I can't exemplify the error output.</td></tr></td></tr></table></td></tr><table><tr><td>F8 - User will be able to see their profile</td></tr><tr><td>Links:<p>
+
+ [https://fa367-prod.herokuapp.com/Project/login.php](https://fa367-prod.herokuapp.com/Project/login.php)</p></td></tr><tr><td>PRs:<p>
+
+ [https://github.com/BangTheBanger/IT202-009/pull/87](https://github.com/BangTheBanger/IT202-009/pull/87)</p></td></tr><tr><td><table><tr><td>F8 - Email, username, etc<tr><td>Status: completed</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143798974-54d69d14-6190-48ee-a44c-4a0ded0343e2.png"><p>The user is able to see all his information, the password that is filled is because my browser has the log-in information saved. In normal circumstances it would be blank.</td></tr></td></tr></table></td></tr><table><tr><td>F9 - User will be able to edit their profile</td></tr><tr><td>Links:<p>
+
+ [https://fa367-prod.herokuapp.com/Project/login.php](https://fa367-prod.herokuapp.com/Project/login.php)</p></td></tr><tr><td>PRs:<p>
+
+ [https://github.com/BangTheBanger/IT202-009/pull/87](https://github.com/BangTheBanger/IT202-009/pull/87)</p></td></tr><tr><td><table><tr><td>F9 - Changing username/email should properly check to see if it’s available before allowing the change<tr><td>Status: completed</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143799137-dda1f055-cb16-4cc4-86d1-966d38682b6a.png"><p>In this case the user tried to change their emails to an existing account's email.</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143799186-631dd8f5-2ab4-47bc-a737-868fc1ca6d42.png"><p>And in this case the user tried to change their username to "admin" which is already an user.</td></tr></td></tr></table></td></tr><tr><td><table><tr><td>F9 - Any other fields should be properly validated<tr><td>Status: completed</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143799378-3d6c8756-1381-4673-9202-39f40f016b7c.png"><p>When the user tries to change the account's information without typing the current password, nothing will change and the user gets an error message.</td></tr></td></tr></table></td></tr><tr><td><table><tr><td>F9 - Allow password reset (only if the existing correct password is provided)<tr><td>Status: completed</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143799435-968dafb4-6177-4b2e-afe2-234fb4686b14.png"><p>In this case the password was reset because the user input their current password.</td></tr><tr><td><img width="100%" src="https://user-images.githubusercontent.com/29554235/143799378-3d6c8756-1381-4673-9202-39f40f016b7c.png"><p>In this case the user didn't type their current password, and got the error message.</td></tr></td></tr></table></td></tr></td></tr></table>
 
 - Milestone 2
     - Pick a simple game to implement, anything that generates a score that’s more advanced than a simple random number generator (may build off of a sample from the site shared in class)
