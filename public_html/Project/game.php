@@ -4,7 +4,8 @@ require(__DIR__ . "/../../partials/nav.php");
 
 $score = se($_POST, "data", null, false);
 $username = get_username();
-echo $username;
+var_dump ($score);
+var_dump ($username);
 /*
 if (is_logged_in()) {
     $username = get_username();
