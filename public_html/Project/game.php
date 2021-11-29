@@ -13,13 +13,6 @@ if (is_logged_in()) {
     if ($score > 0) {
         $stmt->execute([":username" => $username, ":score" => $score]);
     }
-} else {
-    $username = "Guest";
-    $db = getDB();
-    $stmt = $db->prepare("INSERT INTO scores (username, score) VALUES(:username, :score)");
-    if ($score > 0) {
-        $stmt->execute([":username" => $username, ":score" => $score]);
-    }
 }
 ?>
 

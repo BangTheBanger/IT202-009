@@ -27,8 +27,8 @@ document.addEventListener("keyup", keyUpHandler);
 
 //Ball speed
 let speed = canvas.width / 300;
-//Random number generator to make the ball initial position a little more random.
-let rng = Math.random() * 10;
+//Random number generator to make the ball initial position a little more random
+let rng = Math.random() * 2;
 
 //Defining Ball with ctx
 let ball = {
@@ -179,7 +179,7 @@ function play() {
 
     //initial ball position
     ball.x += ball.dx + rng;
-    ball.y += ball.dy;
+    ball.y += ball.dy + rng;
 
     //Reset Score
     if (ball.y + ball.radius > canvas.height) {
@@ -190,8 +190,6 @@ function play() {
         generateBricks();
         ball.dx = speed;
         ball.dy = -speed + 1;
-        ball.x += ball.dx + rng;
-        ball.y += ball.dy;
     }
 
     //Ball bounds
