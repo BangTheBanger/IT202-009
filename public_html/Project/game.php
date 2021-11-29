@@ -47,7 +47,7 @@ if (is_logged_in()) {
     <script src="breakout.js"></script>
 </body>
 <?php 
-function dailyScores() {
+function weeklyScores() {
     $db = getDB();
     $username = get_username();
     $stmt = $db->prepare("SELECT score, username FROM scores WHERE CREATED <= CURRENT_TIMESTAMP AND CREATED > CURRENT_TIMESTAMP - interval 1 WEEK ORDER BY score DESC");

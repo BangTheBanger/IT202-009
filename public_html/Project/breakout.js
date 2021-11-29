@@ -193,10 +193,10 @@ function play() {
     }
 
     //Ball bounds
-    if (ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0) {
+    if (ball.x + ball.radius >= canvas.width || ball.x - ball.radius <= 0) {
         ball.dx *= -1;
     }
-    if (ball.y + ball.radius > canvas.height || ball.y - ball.radius < 0) {
+    if (ball.y + ball.radius >= canvas.height || ball.y - ball.radius <= 0) {
         ball.dy *= -1;
     }
 
