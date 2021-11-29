@@ -29,25 +29,27 @@ if (is_logged_in()) {
   <input type="submit" name="send" value="submit" id="scoresubmit">
 </form>
 
-<body>
-    <div> <?php //TODO: One of the divs around Canvas are where I will put the scores ?>
-
-    </div>
-    
+<body>    
     <canvas id="canvas"></canvas>
 
     <div>
+
+<comment>
     <table style="width:33%">
         <tr>
             <th>User</th>
             <th>Scores</th>
         </tr>
     </table>
+</comment>
+
+
     </div>
     <script src="breakout.js"></script>
 </body>
 <?php 
-function dailyScores() {
+/*
+function weeklyScores() {
     $db = getDB();
     $username = get_username();
     $stmt = $db->prepare("SELECT score, username FROM scores WHERE CREATED <= CURRENT_TIMESTAMP AND CREATED > CURRENT_TIMESTAMP - interval 1 WEEK ORDER BY score DESC");
@@ -145,5 +147,5 @@ function allScores() {
 }
 
 
-
+*/
 ?>
