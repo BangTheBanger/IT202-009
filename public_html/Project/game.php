@@ -29,20 +29,21 @@ if (is_logged_in()) {
   <input type="submit" name="send" value="submit" id="scoresubmit">
 </form>
 
-<body>
-    <div> <?php //TODO: One of the divs around Canvas are where I will put the scores ?>
-
-    </div>
-    
+<body>    
     <canvas id="canvas"></canvas>
 
     <div>
+
+<comment>
     <table style="width:33%">
         <tr>
             <th>User</th>
             <th>Scores</th>
         </tr>
     </table>
+</comment>
+
+
     </div>
     <script src="breakout.js"></script>
 </body>
