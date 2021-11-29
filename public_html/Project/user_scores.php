@@ -10,7 +10,7 @@ $stmt->execute([":username" => $username, ":score" => $score]);
 */
 $db = getDB();
 $username = get_username();
-$stmt = $db->prepare("SELECT FROM scores (username, score) WHERE username IS $username");
+$stmt = $db->prepare("SELECT username FROM scores WHERE username IS $username");
 $stmt->execute();
 var_dump($stmt);
 $scorelist = [];
