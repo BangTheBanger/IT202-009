@@ -3,6 +3,7 @@
 require(__DIR__ . "/../../partials/nav.php");
 
 $score = se($_POST, "data", null, false);
+echo $score;
 
 if (is_logged_in()) {
     $username = get_username();
