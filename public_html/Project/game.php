@@ -5,6 +5,7 @@ require(__DIR__ . "/../../partials/nav.php");
 $score = se($_POST, "data", null, false);
 // var_dump ($score);
 // var_dump ($username);
+
 if (is_logged_in()) {
     $username = get_username();
     $db = getDB();
@@ -32,7 +33,7 @@ if (is_logged_in()) {
 
 <form method="post" name="scoresubmit" method="post" action="game.php">
   <input type="hidden" name="data" value="">
-  <input type="submit" name="send" value="submit">
+  <input type="submit" name="send" value="submit" id="scoresubmit">
 </form>
 
 <body>
