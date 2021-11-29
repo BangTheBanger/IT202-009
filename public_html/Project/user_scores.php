@@ -1,4 +1,9 @@
-<?php require(__DIR__ . "/../../partials/nav.php");?>
+<?php 
+require(__DIR__ . "/../../partials/nav.php");
+if (!is_logged_in()) {
+    die(header("Location: login.php"));
+}
+?>
 <head>
     <title>Latest Scores</title>
 </head>
