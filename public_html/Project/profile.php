@@ -148,6 +148,41 @@ $username = get_username();
         return isValid;
     }
 </script>
+
+<table style="width:33%">
+  <tr>
+    <th>Scores</th>
+    <th>Time</th>
+  </tr>
+  <?php 
+    if (count($scorelist) > 10) {
+        for ($i = 0; $i < 10; $i++) {
+            $score = $scorelist[$i]["score"];
+            $time = $scorelist[$i]["CREATED"];
+            
+            echo '<tr>';
+            echo '<td>'. $score .'</td>';
+            echo '<td>'. $time .'</td>';
+            echo '</tr>';
+        }
+    }
+    
+    else if (count($scorelist) > 0) {
+        for ($i = 0; $i < count($scorelist); $i++) {
+            $score = $scorelist[$i]["score"];
+            $time = $scorelist[$i]["CREATED"];
+
+            echo '<tr>';
+            echo '<td>'. $score .'</td>';
+            echo '<td>'. $time .'</td>';
+            echo '</tr>';
+        }
+    }
+  
+  ?>
+</table>
+
+
 <?php
 require_once(__DIR__ . "/../../partials/flash.php");
 ?>
