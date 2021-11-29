@@ -47,6 +47,7 @@ if (is_logged_in()) {
     <script src="breakout.js"></script>
 </body>
 <?php 
+/*
 function weeklyScores() {
     $db = getDB();
     $username = get_username();
@@ -145,5 +146,5 @@ function allScores() {
 }
 
 
-
+*/
 ?>
