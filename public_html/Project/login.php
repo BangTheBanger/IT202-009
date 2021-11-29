@@ -61,7 +61,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                         flash("Invalid password", "danger");
                     }
                 } else {
-                    flash("Email not found", "danger");
+                    flash("Account not found", "danger");
                 }
             }
         } catch (Exception $e) {
@@ -74,7 +74,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
 <p class="spacer">.</p>
 <form onsubmit="return validate(this)" method="POST">
     <div>
-        <label for="email">Email</label>
+        <label for="email">Email or Username</label>
         <input type="text" name="email" required value="<?php se($email); ?>" />
         
     </div>
