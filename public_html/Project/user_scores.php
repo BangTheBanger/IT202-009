@@ -11,7 +11,7 @@ $stmt->execute([":username" => $username, ":score" => $score]);
 $db = getDB();
 $username = get_username();
 $stmt = $db->prepare("SELECT score, CREATED FROM scores WHERE username = :username");
-$stmt->execute([":username" => $username]);
+$scorelist = $stmt->execute([":username" => $username]);
 var_dump($stmt);
 $scorelist = [];
 $lastten = [];
