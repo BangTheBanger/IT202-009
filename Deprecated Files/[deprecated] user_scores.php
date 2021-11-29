@@ -1,3 +1,4 @@
+<comment>
 <?php 
 require(__DIR__ . "/../../partials/nav.php");
 if (!is_logged_in()) {
@@ -9,10 +10,6 @@ if (!is_logged_in()) {
 </head>
 
 <?php
-/*
-$stmt = $db->prepare("INSERT INTO scores (username, score) VALUES(:username, :score)");
-$stmt->execute([":username" => $username, ":score" => $score]);
-*/
 $db = getDB();
 $username = get_username();
 $stmt = $db->prepare("SELECT score, CREATED FROM scores WHERE username = :username ORDER BY CREATED DESC");
@@ -60,3 +57,4 @@ var_dump($scorelist[0]["score"]);
   ?>
 </table>
 </body>
+</comment>
