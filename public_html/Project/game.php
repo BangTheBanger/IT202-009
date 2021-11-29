@@ -1,7 +1,7 @@
 
 <?php 
 require(__DIR__ . "/../../partials/nav.php");
-/*
+
 $score = se($_POST, "data", null, false);
 
 if (is_logged_in()) {
@@ -14,7 +14,7 @@ if (is_logged_in()) {
     $db = getDB();
     $stmt = $db->prepare("INSERT INTO scores (username, score) VALUES(:username, :score)");
     $stmt->execute([":username" => $username, ":score" => $score]);
-}*/
+}
 ?>
 
 
