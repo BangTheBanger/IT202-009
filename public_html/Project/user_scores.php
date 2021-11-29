@@ -12,7 +12,7 @@ $db = getDB();
 $username = get_username();
 $stmt = $db->prepare("SELECT score, CREATED FROM scores WHERE username = :username");
 $scorelist = $stmt->execute([":username" => $username]);
-var_dump($stmt);
+var_dump($scorelist);
 $scorelist = [];
 $lastten = [];
 for ($i = 0; $i < 10; $i++) {
