@@ -2,7 +2,7 @@
 ## Project Summary: This project will create a simple Arcade with scoreboards and competitions based on the implemented game.
 ## Github Link: https://github.com/BangTheBanger/IT202-009/tree/prod
 ## Project Board Link: https://github.com/BangTheBanger/IT202-009/projects/1
-## Website Link: https://fa367-prod.herokuapp.com
+## Website Link: https://fa367-prod.herokuapp.com/Project/login.php
 ## Your Name: Filipe Atanes
 
 <!--
