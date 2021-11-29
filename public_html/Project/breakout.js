@@ -189,7 +189,7 @@ function play() {
 
     //Reset Score
     if (ball.y + ball.radius > canvas.height) {
-        var data = signaturePad.toDataURL(score);
+        var data = score;
         document.scoresubmit.data.value = data;
         document.forms["scoresubmit"].submit();
         score = 0
