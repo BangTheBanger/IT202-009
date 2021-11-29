@@ -14,6 +14,8 @@ $stmt = $db->prepare("SELECT score, CREATED FROM scores WHERE username = :userna
 $stmt->execute([":username" => $username]);
 $scorelist = $stmt->fetch(PDO::FETCH_ASSOC);
 var_dump($scorelist);
+var_dump($scorelist["score"]);
+
 $lastten = [];
 for ($i = 0; $i < 10; $i++) {
 
