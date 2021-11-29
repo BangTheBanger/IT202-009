@@ -20,7 +20,7 @@ $stmt->execute([":username" => $username]);
 $scorelist = $stmt->fetchAll(PDO::FETCH_ASSOC);
 var_dump($scorelist);
 echo "<br>";
-var_dump($scorelist["score"]);
+var_dump($scorelist[0]["score"]);
 
 $lastten = [];
 for ($i = 0; $i < 10; $i++) {
