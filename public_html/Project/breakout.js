@@ -190,8 +190,6 @@ function play() {
         generateBricks();
         ball.dx = speed;
         ball.dy = -speed + 1;
-        ball.x = canvas.width / 2 + rng;
-        ball.y = canvas.height - 50 + rng;
     }
 
     //Ball bounds
