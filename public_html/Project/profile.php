@@ -22,11 +22,11 @@ if (isset($_POST["save"])) {
             if (isset($matches[1])) {
                 flash("The chosen " . $matches[1] . " is not available.", "warning");
             } else {
-                //TODO come up with a nice error message
+                //TOD0 come up with a nice error message
                 echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
             }
         } else {
-            //TODO come up with a nice error message
+            //TOD0 come up with a nice error message
             echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
         }
     }
@@ -55,7 +55,7 @@ if (isset($_POST["save"])) {
     if (!empty($current_password)) {
         if (!empty($new_password) && !empty($confirm_password)) {
             if ($new_password === $confirm_password) {
-                //TODO validate current
+                //TOD0 validate current
                 $stmt = $db->prepare("SELECT password from users where id = :id");
                 try {
                     $stmt->execute([":id" => get_user_id()]);
@@ -123,7 +123,7 @@ $username = get_username();
         let pw = form.newPassword.value;
         let con = form.confirmPassword.value;
         let isValid = true;
-        //TODO add other client side validation....
+        //TOD0 add other client side validation....
 
         //example of using flash via javascript
         //find the flash container, create a new element, appendChild

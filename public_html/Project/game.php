@@ -30,13 +30,39 @@ if (is_logged_in()) {
 </form>
 
 <body>
+    <div> <?php //TODO: One of the divs around Canvas are where I will put the scores ?>
+
+    </div>
     
     <canvas id="canvas"></canvas>
-    <div class="high-score"></div>
+
+    <div>
+
+    </div>
     <script src="breakout.js"></script>
 </body>
 <?php 
-
+function dailyScores() {
+    $db = getDB();
+    $username = get_username();
+    $stmt = $db->prepare("SELECT score, CREATED FROM scores WHERE CREATED <= CURRENT_TIMESTAMP AND CREATED > CURRENT_TIMESTAMP - interval 1 DAY ORDER BY score DESC");
+    $stmt->execute([":username" => $username]);
+    $scorelist = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+function monthlyScores() {
+    $db = getDB();
+    $username = get_username();
+    $stmt = $db->prepare("SELECT score, CREATED FROM scores WHERE CREATED <= CURRENT_TIMESTAMP AND CREATED > CURRENT_TIMESTAMP - interval 1 MONTH ORDER BY score DESC");
+    $stmt->execute([":username" => $username]);
+    $scorelist = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+function allScores() {
+    $db = getDB();
+    $username = get_username();
+    $stmt = $db->prepare("SELECT score, CREATED FROM scores ORDER BY score DESC");
+    $stmt->execute([":username" => $username]);
+    $scorelist = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
 
 
