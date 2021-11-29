@@ -48,8 +48,8 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                         $_SESSION["user"] = $user;
                         //lookup potential roles
                         try {
-                            $stmt = $db->prepare("SELECT Roles.name FROM Roles JOIN UserRoles on Roles.id = UserRoles.role_id
-                            where UserRoles.user_id = :user_id and Roles.is_active = 1 and UserRoles.is_active = 1");
+                            $stmt = $db->prepare("SELECT roles.name FROM roles JOIN user_roles on roles.id = user_roles.role_id
+                            where user_roles.user_id = :user_id and roles.is_active = 1 and user_roles.is_active = 1");
                             $stmt->execute([":user_id" => $user["id"]]);
                             $roles = $stmt->fetchAll(PDO::FETCH_ASSOC); //fetch all since we'll want multiple
                             //save roles or empty array

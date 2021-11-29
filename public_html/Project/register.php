@@ -1,7 +1,7 @@
 <?php
 require(__DIR__ . "/../../partials/nav.php");
 reset_session();
-//TODO 2: add PHP Code
+//TOD0 2: add PHP Code
 $email = se($_POST, "email", "", false);
 $username = se($_POST, "username", "", false);
 if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm"])) {
@@ -12,7 +12,7 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
         "",
         false
     );
-    //TODO 3
+    //TOD0 3
     $hasError = false;
     if (empty($email)) {
         flash("Email must not be empty", "danger");
@@ -48,7 +48,7 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
         $hasError = true;
     }
     if (!$hasError) {
-        //TODO 4
+        //TOD0 4
         $hash = password_hash($password, PASSWORD_BCRYPT);
         $db = getDB();
         $stmt = $db->prepare("INSERT INTO users (email, password, username) VALUES(:email, :password, :username)");
@@ -85,7 +85,7 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
 </form>
 <script>
     function validate(form) {
-        //TODO 1: implement JavaScript validation
+        //TOD0 1: implement JavaScript validation
         //ensure it returns false for an error and true for success
 
         return true;

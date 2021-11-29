@@ -24,6 +24,10 @@
     box-sizing: border-box;
 }
 
+#scoresubmit {
+    visibility: hidden;
+}
+
 #canvas {
     background: rgb(40, 0, 0);
     border-radius: 10px;
@@ -68,6 +72,15 @@ input {
 body {
     background-color: rgb(9, 10, 15);
     color: rgb(136, 136, 136);
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .spacer {
