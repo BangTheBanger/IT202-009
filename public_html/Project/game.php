@@ -10,8 +10,10 @@ if (is_logged_in()) {
     $username = get_username();
     $db = getDB();
     $stmt = $db->prepare("INSERT INTO scores (username, score) VALUES(:username, :score)");
+    $update = $db->prepare("UPDATE users SET points = SUM(scores(score)) WHERE username = :username");
     if ($score > 0) {
         $stmt->execute([":username" => $username, ":score" => $score]);
+        $update->execute([":username" => $username]);
     }
 }
 ?>
