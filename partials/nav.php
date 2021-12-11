@@ -34,20 +34,6 @@ require_once(__DIR__ . "/../lib/functions.php");
             <li><a href="<?php echo get_url('profile.php'); ?>">Profile</a></li>
             <li><a href="<?php echo get_url('game.php'); ?>">Breakout</a></li>
             <li><a href="<?php echo get_url('comp.php'); ?>">Competition</a></li>
-
-            <li>
-                <?php //Total score display in Navigation bar
-                $username = get_user_id();
-                $db = getDB();
-                $update = $db->prepare("UPDATE users set points = (SELECT IFNULL(SUM(pointchange), 0) FROM pointhistory WHERE user_id = :uid) WHERE id = :uid");
-                $update->execute([":uid" => $username]);
-                $stmt = $db->prepare("SELECT points FROM users WHERE id = :uid");
-                $stmt->execute([":uid" => $username]);
-                $pointtotal = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                echo "Your Total Score: ", $pointtotal[0]['points'];
-                ?>
-            </li>
-
         <?php endif; ?>
         <?php if (!is_logged_in()) : ?>
             <li><a href="<?php echo get_url('login.php'); ?>">Login</a></li>
