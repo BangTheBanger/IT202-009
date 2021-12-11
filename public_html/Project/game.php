@@ -3,13 +3,16 @@
 require(__DIR__ . "/../../partials/nav.php");
 
 $score = se($_POST, "data", 0, false);
+$points = $score / 5;
 
 if (is_logged_in()) {
     $username = get_user_id();
     $db = getDB();
     $stmt = $db->prepare("INSERT INTO scores (user_id, score) VALUES(:username, :score)");
+    $pointstmt = $db->prepare("UPDATE pointhistory SET change = :points WHERE id=:uid");
     if ($score > 0) {
         $stmt->execute([":username" => $username, ":score" => $score]);
+        $stmt->execute([":points" => $points, ":uid" => $username]);
     }
 }
 // var_dump ($score);
