@@ -3,16 +3,14 @@
 require(__DIR__ . "/../../partials/nav.php");
 
 $score = se($_POST, "data", 0, false);
-//$points = (int)($score / 5);
+$points = (int)($score / 5);
 
 if (is_logged_in()) {
     $username = get_user_id();
     $db = getDB();
-    $stmt = $db->prepare("INSERT INTO scores (user_id, score) VALUES(:username, :score)");
-    //$pointstmt = $db->prepare("INSERT INTO pointhistory(user_id, change) VALUES(:uid, :points)");
+    $stmt = $db->prepare("INSERT INTO scores (user_id, score) VALUES(:username, :score); INSERT INTO pointhistory(user_id, change) VALUES(:username, :points)");
     if ($score > 0) {
-        $stmt->execute([":username" => $username, ":score" => $score]);
-        //$pointstmt->execute([":points" => $points, ":uid" => $username]);
+        $stmt->execute([":username" => $username, ":score" => $score, ":points" => $points]);
     }
 }
 // var_dump ($score);
