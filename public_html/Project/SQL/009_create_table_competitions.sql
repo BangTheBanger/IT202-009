@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS competitions (
+    id INT UNIQUE AUTO_INCREMENT,
+    `name` INT NOT NULL,
+    CREATED TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    duration INT NOT NULL DEFAULT 1,
+    expiration TIMESTAMP NOT NULL,
+    current_reward INT DEFAULT 0,
+    starting_reward INT DEFAULT 0,
+    join_fee INT DEFAULT 0,
+    current_participants INT,
+    min_participants INT,
+    paid_out BOOLEAN,
+    min_score INT DEFAULT 0,
+    first_place_per FLOAT DEFAULT 0,
+    second_place_per FLOAT DEFAULT 0,
+    third_place_per FLOAT DEFAULT 0,
+    cost_to_create INT,
+    MODIFIED TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+)
