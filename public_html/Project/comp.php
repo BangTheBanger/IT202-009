@@ -11,7 +11,18 @@ if (!is_logged_in()) {
 <head>
     <style>
         * {
-        box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        .column {
+            float: left;
+            width: 50%;
+            padding: 10px;
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
         }
     </style>
 </head>
