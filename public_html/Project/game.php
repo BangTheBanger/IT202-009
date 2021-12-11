@@ -2,7 +2,7 @@
 <?php 
 require(__DIR__ . "/../../partials/nav.php");
 
-$score = se($_POST, "data", null, false);
+$score = se($_POST, "data", 0, false);
 
 if (is_logged_in()) {
     $username = get_user_id();
