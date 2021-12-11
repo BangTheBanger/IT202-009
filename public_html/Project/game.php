@@ -7,13 +7,13 @@ $score = se($_POST, "data", null, false);
 // var_dump ($username);
 
 if (is_logged_in()) {
-    $username = get_username();
+    $username = get_user_id();
     $db = getDB();
-    $stmt = $db->prepare("INSERT INTO scores (username, score) VALUES(:username, :score)");
-    $update = $db->prepare("UPDATE users SET points = SUM(scores(score)) WHERE users(:username) = scores(:username)");
+    $stmt = $db->prepare("INSERT INTO scores (user_id, score) VALUES(:username, :score)");
+    $update = $db->prepare("UPDATE users set points = (SELECT IFNULL(SUM(change), 0) FROM pointhistory WHERE user_id = :uid) WHERE id = :uid");
     if ($score > 0) {
         $stmt->execute([":username" => $username, ":score" => $score]);
-        $update->execute([":username" => $username]);
+        $update->execute([":uid" => $username]);
     }
 }
 ?>

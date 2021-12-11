@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS pointhistory (
+    id INT NOT NULL AUTO_INCREMENT,
+    user_id VARCHAR(30) NOT NULL,
+    change INT NOT NULL,
+    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+)
