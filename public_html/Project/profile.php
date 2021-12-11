@@ -153,10 +153,6 @@ $db = getDB();
 $username = get_user_id();
 $stmt = $db->prepare("SELECT score, CREATED FROM scores WHERE user_id = :username ORDER BY CREATED DESC");
 $stmt->execute([":username" => $username]);
-
-$update = $db->prepare("UPDATE users set points = (SELECT IFNULL(SUM(pointchange), 0) FROM pointhistory WHERE user_id = :uid) WHERE id = :uid");
-$update->execute([":uid" => $username]);
-
 $scorelist = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 /*

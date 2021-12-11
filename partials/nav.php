@@ -38,6 +38,8 @@ require_once(__DIR__ . "/../lib/functions.php");
                 <?php //Total score display in Navigation bar
                 $username = get_user_id();
                 $db = getDB();
+                $update = $db->prepare("UPDATE users set points = (SELECT IFNULL(SUM(pointchange), 0) FROM pointhistory WHERE user_id = :uid) WHERE id = :uid");
+                $update->execute([":uid" => $username]);
                 $stmt = $db->prepare("SELECT points FROM users WHERE id = :uid");
                 $stmt->execute([":uid" => $username]);
                 $pointtotal = $stmt->fetchAll(PDO::FETCH_ASSOC);
