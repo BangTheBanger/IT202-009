@@ -12,7 +12,7 @@ if (is_logged_in()) {
     $pointstmt = $db->prepare("UPDATE pointhistory SET change = :points WHERE user_id=:uid");
     if ($score > 0) {
         $stmt->execute([":username" => $username, ":score" => $score]);
-        $stmt->execute([":points" => $points, ":uid" => $username]);
+        $pointstmt->execute([":points" => $points, ":uid" => $username]);
     }
 }
 // var_dump ($score);
