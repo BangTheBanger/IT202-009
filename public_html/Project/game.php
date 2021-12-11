@@ -2,6 +2,7 @@
 <?php 
 require(__DIR__ . "/../../partials/nav.php");
 
+/*
 $score = se($_POST, "data", 0, false);
 $points = (int)($score / 5);
 
@@ -15,6 +16,7 @@ if (is_logged_in()) {
         $pointstmt->execute([":points" => $points, ":uid" => $username]);
     }
 }
+*/
 // var_dump ($score);
 // var_dump ($username);
 ?>
