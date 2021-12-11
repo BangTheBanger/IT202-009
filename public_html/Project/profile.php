@@ -150,8 +150,8 @@ $username = get_username();
 </script>
 <?php
 $db = getDB();
-$username = get_username();
-$stmt = $db->prepare("SELECT score, CREATED FROM scores WHERE username = :username ORDER BY CREATED DESC");
+$username = get_user_id();
+$stmt = $db->prepare("SELECT score, CREATED FROM scores WHERE user_id = :username ORDER BY CREATED DESC");
 $stmt->execute([":username" => $username]);
 $scorelist = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
