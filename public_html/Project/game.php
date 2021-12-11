@@ -3,19 +3,17 @@
 require(__DIR__ . "/../../partials/nav.php");
 
 $score = se($_POST, "data", null, false);
-// var_dump ($score);
-// var_dump ($username);
 
 if (is_logged_in()) {
     $username = get_user_id();
     $db = getDB();
     $stmt = $db->prepare("INSERT INTO scores (user_id, score) VALUES(:username, :score)");
-    $update = $db->prepare("UPDATE users set points = (SELECT IFNULL(SUM(pointchange), 0) FROM pointhistory WHERE user_id = :uid) WHERE id = :uid");
     if ($score > 0) {
         $stmt->execute([":username" => $username, ":score" => $score]);
-        $update->execute([":uid" => $username]);
     }
 }
+// var_dump ($score);
+// var_dump ($username);
 ?>
 
 
@@ -36,14 +34,16 @@ if (is_logged_in()) {
 
     <div>
 
-<comment>
+<?php
+/*                                Setup for highscores
     <table style="width:33%">
         <tr>
             <th>User</th>
             <th>Scores</th>
         </tr>
     </table>
-</comment>
+*/
+?>
 
 
     </div>
