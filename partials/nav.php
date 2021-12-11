@@ -33,7 +33,16 @@ require_once(__DIR__ . "/../lib/functions.php");
             <li><a href="<?php echo get_url('home.php'); ?>">Home</a></li>
             <li><a href="<?php echo get_url('profile.php'); ?>">Profile</a></li>
             <li><a href="<?php echo get_url('game.php'); ?>">Breakout</a></li>
-            <li id="TotalScore"><?php echo "a" ?></li>
+            <li id="TotalScore">
+                <?php 
+                $username = get_user_id();
+                $db = getDB();
+                $stmt = $db->prepare("SELECT points FROM users WHERE id = :uid");
+                $stmt->execute([":uid" => $username]);
+                $pointtotal = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                echo "Your Total Score: ", $pointtotal; 
+                ?>
+            </li>
         <?php endif; ?>
         <?php if (!is_logged_in()) : ?>
             <li><a href="<?php echo get_url('login.php'); ?>">Login</a></li>
