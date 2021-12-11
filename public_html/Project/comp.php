@@ -101,7 +101,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
 <body>
 
     <div class="row">
-    <div class="column" id="existcomp">>
+    <div class="column" id="existcomp">
         <h2>Existing Competitions</h2>
         <p>Comp 1</p>
     </div>
@@ -128,11 +128,12 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
             <div>
                 <label for="checkfree">Check if you wish the tournament to be free to join</label>
                 <input type="checkbox" id="isfree" name="checkfree" onclick="freeclick()"/>
+                <div id="notfreecost">
+                    <label for="compcost">Competition Cost:</label>
+                    <input type="text" name="compcost"/>
+                </div>
             </div>
-            <div id="notfreecost">
-                <label for="compcost">Competition Cost:</label>
-                <input type="checkbox" name="compcost" onclick="freeclick()"/>
-            </div>
+            
 
 
             <input type="submit" value="Create" />
