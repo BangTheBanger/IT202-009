@@ -8,7 +8,13 @@ $points = (int)($score / 5);
 if (is_logged_in()) {
     $username = get_user_id();
     $db = getDB();
-    $stmt = $db->prepare("INSERT INTO scores (user_id, score) VALUES(:username, :score); INSERT INTO pointhistory(user_id, change) VALUES(:username, :points)");
+    $stmt = $db->prepare("INSERT INTO scores (user_id, score) VALUES(:username, :score); 
+                          INSERT INTO pointhistory SET pointchange = :points , user_id = ( SELECT id FROM users WHERE id = :username )");
+/*
+    INSERT INTO tab_student 
+        SET name_student = 'Bobby Tables', id_teacher_fk = ( SELECT id_teacher FROM tab_teacher WHERE name_teacher = 'Dr. Smith')
+*/
+
     if ($score > 0) {
         $stmt->execute([":username" => $username, ":score" => $score, ":points" => $points]);
     }
