@@ -40,7 +40,7 @@ require_once(__DIR__ . "/../lib/functions.php");
                 $stmt = $db->prepare("SELECT points FROM users WHERE id = :uid");
                 $stmt->execute([":uid" => $username]);
                 $pointtotal = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                echo "Your Total Score: ", $pointtotal[0][0];
+                echo "Your Total Score: ", var_export($pointtotal);
                 ?>
             </li>
         <?php endif; ?>
