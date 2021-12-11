@@ -3,7 +3,7 @@
 require(__DIR__ . "/../../partials/nav.php");
 
 $score = se($_POST, "data", 0, false);
-$points = $score / 5;
+$points = (int)($score / 5);
 
 if (is_logged_in()) {
     $username = get_user_id();
