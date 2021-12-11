@@ -127,7 +127,11 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
             </div>
             <div>
                 <label for="checkfree">Check if you wish the tournament to be free to join</label>
-                <input type="checkbox" id="isfree" name="checkfree"/>
+                <input type="checkbox" id="isfree" name="checkfree" onclick="freeclick()"/>
+            </div>
+            <div id="notfreecost">
+                <label for="compcost">Competition Cost:</label>
+                <input type="checkbox" name="compcost" onclick="freeclick()"/>
             </div>
 
 
@@ -136,6 +140,15 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
         <script>
             function validate(form) {
                 return true;
+            }
+            function freeclick() {
+                var chkbox = document.getElementById("isfree")
+                var costdiv = document.getElementById("notfreecost")
+                if (chkbox.checked==true){
+                    text.style.display="none";
+                } else {
+                    text.style.display="block";
+                }
             }
         </script>
 
