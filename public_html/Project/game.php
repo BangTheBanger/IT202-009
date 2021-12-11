@@ -9,7 +9,7 @@ if (is_logged_in()) {
     $username = get_user_id();
     $db = getDB();
     $stmt = $db->prepare("INSERT INTO scores (user_id, score) VALUES(:username, :score)");
-    $pointstmt = $db->prepare("UPDATE pointhistory SET change = :points WHERE id=:uid");
+    $pointstmt = $db->prepare("UPDATE pointhistory SET change = :points WHERE user_id=:uid");
     if ($score > 0) {
         $stmt->execute([":username" => $username, ":score" => $score]);
         $stmt->execute([":points" => $points, ":uid" => $username]);
