@@ -142,17 +142,22 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2rewa
             $compcreationsuccess = false;
         }
         if ($compcreationsuccess) {
-            $findcomp = $db->prepare("SELECT id FROM competitions WHERE name=:name AND duration=:duration AND join_fee=:joinfee AND min_participants=:minplayer AND 
-                                        paid_out=0 AND min_score=:minscore AND first_place_per BETWEEN :reward1m AND :reward1p AND second_place_perBETWEEN :reward2m AND :reward2p");
-            $findcomp->execute([":name" => $compname, ":duration" => $duration, ":joinfee" => $compcost, ":minplayer" => $minplayers,
-                                ":minscore" => $minscore, ":reward1m" => ($reward1-0.000001), ":reward1p" => ($reward1+0.000001), ":reward2m" => ($reward2-0.000001), ":reward2p" => ($reward2+0.000001)]);
-            //
-            $compid = $findcomp->fetchAll(PDO::FETCH_ASSOC);
-            $addusertocomp = $db->prepare("INSERT INTO competitionparticipants (comp_id, user_id) VALUES (:compid, :uid);");
-            $addusertocomp->execute([":compid" => $compid[0]["id"], ":uid" => get_user_id()]);
-
-
+            try {
+                $findcomp = $db->prepare("SELECT id FROM competitions WHERE (name=:name AND duration=:duration AND join_fee=:joinfee AND min_participants=:minplayer AND 
+                                            paid_out=0 AND min_score=:minscore AND first_place_per BETWEEN (:reward1m-0.000001) AND (:reward1p+0.000001) AND second_place_per BETWEEN (:reward2m-0.000001) AND (:reward2p+0.000001));");
+                $findcomp->execute([":name" => $compname, ":duration" => $duration, ":joinfee" => $compcost, ":minplayer" => $minplayers,
+                                    ":minscore" => $minscore, ":reward1m" => ($reward1-0.000001), ":reward1p" => ($reward1+0.000001), ":reward2m" => ($reward2-0.000001), ":reward2p" => ($reward2+0.000001)]);
+                //
+                $compid = $findcomp->fetchAll(PDO::FETCH_ASSOC);
+                $addusertocomp = $db->prepare("INSERT INTO competitionparticipants (comp_id, user_id) VALUES (:compid, :uid);");
+                $addusertocomp->execute([":compid" => $compid[0]["id"], ":uid" => get_user_id()]);
             
+            } catch (Exception $e) {
+                flash( "Error Code: F000 - Unknown Error", "danger");
+                $compcreationsuccess = false;
+            }
+
+
             echo "<script> (function() {var clear = document.getElementsByClassName('tobecleared'); 
                 var test = document.getElementById('TEST'); test.innerHTML = clear; }) </script>";
             $compname = "";
