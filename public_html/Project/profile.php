@@ -148,7 +148,8 @@
         return isValid;
     }
 </script>
-    <?php
+
+<?php
     $db = getDB();
     $username = get_user_id();
     //Score history update >
@@ -171,17 +172,16 @@
     echo "<br>";
     var_dump($scorelist[0]["score"]);
     */
-    ?>
+?>
+
 <style>
     p {
-        display: inline-block;
         text-align: center;
-        align-self: center;
-        align-items: center;
-        align-content: center;
     }
 </style>
+
 <?php echo  "<p>Your Total Score: ", $pointtotal[0]['points'] . "</p>"; ?>
+
 <table style="width:33%">
   <tr>
     <th>Scores</th>
