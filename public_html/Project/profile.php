@@ -180,7 +180,7 @@
     }
 </style>
 
-<?php echo  "<p>Your Total Score: ", $pointtotal[0]['points'] . "</p>"; ?>
+<?php echo  "\n<p>Your Total Points: ", $pointtotal[0]['points'] . "</p>"; ?>
 
 <table style="width:33%">
   <tr>
