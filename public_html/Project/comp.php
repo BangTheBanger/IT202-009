@@ -210,6 +210,7 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2rewa
             <h2>Existing Competitions</h2>
 
             <?php
+                $db = getDB();
                 $stmt = $db->prepare("SELECT id, name, expiration, current_reward, join_fee, current_participants, min_participants, min_score, first_place_per, 
                                     secon_place_per, third_place_per FROM competitions ORDER BY expiration DESC");
                 $stmt->execute();
