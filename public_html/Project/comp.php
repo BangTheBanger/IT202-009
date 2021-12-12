@@ -241,7 +241,7 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2rewa
                             $compminplayers = $complist[$i]["min_participants"];
                             $compminscore = $complist[$i]["min_score"];
                             $comprew1 = $complist[$i]["first_place_per"];
-                            $comprew2 = $complist[$i]["secon_place_per"];
+                            $comprew2 = $complist[$i]["second_place_per"];
                             $comprew3 = $complist[$i]["third_place_per"];
                             
                             echo '<tr>';
@@ -269,7 +269,7 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2rewa
                             $compminplayers = $complist[$i]["min_participants"];
                             $compminscore = $complist[$i]["min_score"];
                             $comprew1 = $complist[$i]["first_place_per"];
-                            $comprew2 = $complist[$i]["secon_place_per"];
+                            $comprew2 = $complist[$i]["second_place_per"];
                             $comprew3 = $complist[$i]["third_place_per"];
                             
                             echo '<tr>';
