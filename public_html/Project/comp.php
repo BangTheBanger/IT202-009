@@ -52,6 +52,30 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"])) {
         $hasError = true;
     }
 
+    echo '<pre>' . var_export($compname) . '</pre>';
+    echo '<pre>' . var_export($reward1) . '</pre>';
+    echo '<pre>' . var_export($reward2) . '</pre>';
+    echo '<pre>' . var_export($reward3) . '</pre>';
+    echo '<pre>' . var_export($compcost) . '</pre>';
+    echo '<pre>' . var_export($duration) . '</pre>';
+    echo '<pre>' . var_export($minscore) . '</pre>';
+    echo '<pre>' . var_export($minplayers) . '</pre>';
+
+/*
+    if (!$hasError) {
+        $db = getDB();
+        $stmt = $db->prepare(
+            "INSERT INTO competitions (name, duration, starting_reward, join_fee, min_participants, min_score, first_place_per, second_place_per, third_place_per, cost_to_create)
+            VALUES (:name, :duration, :startreward, :joinfee, :minplayer, :minscore, :reward1, :reward2, :reward3, :cost);");
+        try {
+            $r = $stmt->execute([]);
+
+
+        } catch (Exception $e) {
+            flash("<pre>" . var_export($e, true) . "</pre>");
+        }
+    }
+*/
 }
 
 ?>
