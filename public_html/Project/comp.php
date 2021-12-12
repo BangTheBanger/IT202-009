@@ -11,6 +11,9 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"])) {
     $reward2 = se($_POST, "2reward", "", false);
     $reward3 = se($_POST, "3reward", "", false);
     $compcost = se($_POST, "compcost", "", false);
+    $duration = se($_POST, "duration", "", false);
+    $minscore = se($_POST, "minscore", "", false);
+    $minplayers = se($_POST, "minplayers", "", false);
 
     $hasError = false;
 
@@ -36,8 +39,16 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"])) {
         $hasError = true;
     }
     */
-    if ($checkfree){
-        flash("","");
+    if (empty($duration)) {
+        flash("The Duration must not be empty", "warning");
+        $hasError = true;
+    }
+    if (empty($minscore)) {
+        flash("The Minimum Score to Qualify must not be empty", "warning");
+        $hasError = true;
+    }
+    if (empty($minplayers)) {
+        flash("The Minimum Amount of Players for Payout must not be empty", "warning");
         $hasError = true;
     }
 
@@ -145,3 +156,7 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"])) {
 
 </body>
 </html>
+
+<?php 
+require(__DIR__ . "/../../partials/flash.php");
+?>
