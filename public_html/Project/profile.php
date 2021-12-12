@@ -173,7 +173,7 @@
     */
     ?>
 <style>
-    ul li {
+    p {
         display: inline-block;
         text-align: center;
         align-self: center;
@@ -181,9 +181,7 @@
         align-content: center;
     }
 </style>
-<ul>
-    <li> <?php echo "Your Total Score: ", $pointtotal[0]['points']; ?> </li>
-</ul>
+<?php echo  "<p>Your Total Score: ", $pointtotal[0]['points'] . "</p>"; ?>
 <table style="width:33%">
   <tr>
     <th>Scores</th>
