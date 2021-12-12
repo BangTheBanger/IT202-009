@@ -439,7 +439,7 @@ if (strlen($a) < 1000) {
         <div class="column" id="existcomp">
             <form onsubmit="return validate(this)" method="POST">
                 <div>
-                    <h3>Join Competition</h3>
+                    <h2>Join Competition</h2>
                     <label for="compjoin">Competition ID:</label>
                     <input type="number" name="compjoin" min="1" required value="<?php if(!(empty($compjoin))) {se($compjoin);} ?>"/>
                 </div>
