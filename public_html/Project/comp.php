@@ -257,7 +257,7 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2rewa
                             echo '<td>'. $compplayers .'</td>';
                             echo '<td>'. $compminplayers .'</td>';
                             echo '<td>'. $compminscore .'</td>';
-                            echo '<td>'. '1st: ', $comprew1 . ', 2nd: ', $comprew2 . ', 3rd: ', $comprew3 . '</td>';
+                            echo '<td>'. '1st: ', $comprew1 . '%, 2nd: ', $comprew2 . '%, 3rd: ', $comprew3 . '%</td>';
                             echo '</tr>';
                         }
                     }
@@ -289,7 +289,7 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2rewa
                             echo '<td>'. $compplayers .'</td>';
                             echo '<td>'. $compminplayers .'</td>';
                             echo '<td>'. $compminscore .'</td>';
-                            echo '<td>'. '1st: ', $comprew1 . ', 2nd: ', $comprew2 . ', 3rd: ', $comprew3 . '</td>';
+                            echo '<td>'. '1st: ', $comprew1 . '%, 2nd: ', $comprew2 . '%, 3rd: ', $comprew3 . '%</td>';
                             echo '</tr>';
                         }
                     }
