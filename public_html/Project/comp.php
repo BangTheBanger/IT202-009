@@ -243,6 +243,10 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2rewa
                             $comprew1 = $complist[$i]["first_place_per"];
                             $comprew2 = $complist[$i]["second_place_per"];
                             $comprew3 = $complist[$i]["third_place_per"];
+
+                            $comprew1 *= 100;
+                            $comprew2 *= 100;
+                            $comprew3 *= 100;
                             
                             echo '<tr>';
                             echo '<td>'. $compid .'</td>';
@@ -271,6 +275,10 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2rewa
                             $comprew1 = $complist[$i]["first_place_per"];
                             $comprew2 = $complist[$i]["second_place_per"];
                             $comprew3 = $complist[$i]["third_place_per"];
+
+                            $comprew1 *= 100;
+                            $comprew2 *= 100;
+                            $comprew3 *= 100;
                             
                             echo '<tr>';
                             echo '<td>'. $compid .'</td>';
