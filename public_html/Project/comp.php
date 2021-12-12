@@ -114,8 +114,10 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2rewa
                 $pointtotal = $fetchuserpoints->fetchAll(PDO::FETCH_ASSOC);
                 if ($pointtotal[0]['points'] > $compcreatecost) {
                     try {
-                        $r = $stmt->execute([":name" => $compname, ":duration" => $duration, ":startreward" => 1, ":joinfee" => $compcost, ":minplayer" => $minplayers,
-                                                ":minscore" => $minscore, ":reward1" => $reward1, ":reward2" => $reward2, ":reward3" => $reward3, ":cost" => $compcreatecost]);
+                        $stmt->execute([":name" => $compname, ":duration" => $duration, ":startreward" => 1, ":joinfee" => $compcost, ":minplayer" => $minplayers,
+                                            ":minscore" => $minscore, ":reward1" => $reward1, ":reward2" => $reward2, ":reward3" => $reward3, ":cost" => $compcreatecost]);
+                        $updatepoints = $db->prepare("INSERT INTO pointhistory (user_id, pointchange) VALUES (:uid, :cost);");
+                        $updatepoints->execute([":uid" => get_user_id(), ":cost" => $compcreatecost]);
                         echo "<script> (function() {var clear = document.getElementsByClassName('tobecleared'); 
                                 var test = document.getElementById('TEST'); test.innerHTML = clear; }) </script>";
                         $compname = "";
