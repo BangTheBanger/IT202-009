@@ -95,9 +95,10 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
             display: table;
             clear: both;
         }
-        form div {
+        form {
             align-self: left;
             align-items: left;
+            align-content: left;
         }
     </style>
 </head>
