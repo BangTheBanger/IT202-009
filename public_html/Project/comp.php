@@ -117,6 +117,7 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2rewa
             $duration = "";
             $minscore = "";
             $minplayers = "";
+            flash("<pre>" . "Competition Created!" . "</pre>", "success");
 
         } catch (Exception $e) {
             flash("<pre>" . "Error Code: F000 - Bad Competition Submit" . "</pre>", "danger");
