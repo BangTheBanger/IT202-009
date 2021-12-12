@@ -173,7 +173,7 @@ var_dump($scorelist[0]["score"]);
 */
 ?>
 <ul style="text-align: center; display: inline-block; margin: 0; padding: 0; *display: inline;">
-    <li style="float: left; padding: 2px 5px;">
+    <li style="float: center;">
         <?php echo "Your Total Score: ", $pointtotal[0]['points']; ?>
     </li>
 </ul>

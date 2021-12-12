@@ -95,6 +95,10 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
             display: table;
             clear: both;
         }
+        form div {
+            align-self: left;
+            align-items: left;
+        }
     </style>
 </head>
 
@@ -114,26 +118,38 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                 <input type="text" name="compname" required minlength="2" />
             </div>
             <div>
-                <label for="1reward">First Place Reward %:</label>
-                <input type="text" name="1reward"/>
+                <label for="1reward">First Place Reward: %</label>
+                <input type="number" name="1reward" min="0" max="100"/>
             </div>
             <div>
-                <label for="2reward">Second Place Reward %:</label>
-                <input type="text" name="2reward"/>
+                <label for="2reward">Second Place Reward: %</label>
+                <input type="number" name="2reward" min="0" max="100"/>
             </div>
             <div>
-                <label for="3reward">Third Place Reward %:</label>
-                <input type="text" name="3reward"/>
+                <label for="3reward">Third Place Reward: %</label>
+                <input type="number" name="3reward" min="0" max="100"/>
             </div>
             <div>
                 <label for="checkfree">Check if you wish the tournament to be free to join</label>
                 <input type="checkbox" id="isfree" name="checkfree" onclick="freeclick()"/>
-                <div id="notfreecost">
-                    <label for="compcost">Competition Cost:</label>
-                    <input type="text" name="compcost"/>
-                </div>
             </div>
-            
+            <div id="notfreecost">
+                <label for="compcost">Competition Cost:</label>
+                <input type="number" name="compcost" min="0"/>
+            </div>
+            <div>
+                <label for="duration">Duration (in days):</label>
+                <input type="number" name="duration" min="1"/>
+            </div>
+            <div>
+                <label for="minscore">Minimum Score to Qualify:</label>
+                <input type="number" name="minscore" min="0"/>
+            </div>
+            <div>
+                <label for="minplayers">Minimum Amount of Players for Payout:</label>
+                <input type="number" name="minplayers" min="3"/>
+            </div>
+            <div><p><?php echo "The cost of creating the competition is: " ?></p></div>
 
 
             <input type="submit" value="Create" />
@@ -146,9 +162,9 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                 var chkbox = document.getElementById("isfree")
                 var costdiv = document.getElementById("notfreecost")
                 if (chkbox.checked==true){
-                    text.style.display="none";
+                    costdiv.style.display="none";
                 } else {
-                    text.style.display="block";
+                    costdiv.style.display="block";
                 }
             }
         </script>
