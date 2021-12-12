@@ -1,8 +1,8 @@
 <?php
 require(__DIR__ . "/../../partials/nav.php");
-/*
+
 if (!is_logged_in()) {die(header("Location: login.php"));}
-*/
+
 
 /*
 if (strlen($a) < 1000) {
@@ -23,6 +23,7 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2rewa
     $duration = se($_POST, "duration", "", false);
     $minscore = se($_POST, "minscore", "", false);
     $minplayers = se($_POST, "minplayers", "", false);
+    $compcreatecost = 2;
     }  catch (Exception $e) {
         flash("<pre>" . "Error Code: F000 - Bad Competition Submit" . "</pre>", "danger");
     }
@@ -96,37 +97,49 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2rewa
         }
     */
 
-    if (!$hasError) { //Submitting to Competitions table
+    if (!$hasError) {                   //Submitting to Competitions table
         $db = getDB();
         $stmt = $db->prepare(
             "INSERT INTO competitions (name, duration, starting_reward, join_fee, min_participants, min_score, first_place_per, second_place_per, third_place_per, cost_to_create,
                                         expiration, current_reward,  current_participants, paid_out)
+
             VALUES (:name, :duration, :startreward, :joinfee, :minplayer, :minscore, :reward1, :reward2, :reward3, :cost, 
-            ((DATE_ADD(CURRENT_TIMESTAMP, INTERVAL :duration DAY))), :startreward, 1, false);
-            ");
+                ((DATE_ADD(CURRENT_TIMESTAMP, INTERVAL :duration DAY))), :startreward, 1, false);
+                ");
+
         try {
-            $r = $stmt->execute([":name" => $compname, ":duration" => $duration, ":startreward" => 1, ":joinfee" => $compcost, ":minplayer" => $minplayers,
-                                ":minscore" => $minscore, ":reward1" => $reward1, ":reward2" => $reward2, ":reward3" => $reward3, ":cost" => 2, ]);
-            echo "<script> (function() {var clear = document.getElementsByClassName('tobecleared'); 
-                    var test = document.getElementById('TEST'); test.innerHTML = clear; }) </script>";
-            $compname = "";
-            $reward1 = "";
-            $reward2 = "";
-            $reward3 = "";
-            $compcost = "";
-            $duration = "";
-            $minscore = "";
-            $minplayers = "";
-            flash("Competition Created!", "success");
+            try {
+                $fetchuserpoints = $db->prepare("SELECT points FROM users WHERE id = :uid");
+                $fetchuserpoints->execute([":uid" => get_user_id()]);
+                $pointtotal = $fetchuserpoints->fetchAll(PDO::FETCH_ASSOC);
+                if ($pointtotal[0]['points'] > $compcreatecost) {
+                    try {
+                        $r = $stmt->execute([":name" => $compname, ":duration" => $duration, ":startreward" => 1, ":joinfee" => $compcost, ":minplayer" => $minplayers,
+                                                ":minscore" => $minscore, ":reward1" => $reward1, ":reward2" => $reward2, ":reward3" => $reward3, ":cost" => $compcreatecost]);
+                        echo "<script> (function() {var clear = document.getElementsByClassName('tobecleared'); 
+                                var test = document.getElementById('TEST'); test.innerHTML = clear; }) </script>";
+                        $compname = "";
+                        $reward1 = "";
+                        $reward2 = "";
+                        $reward3 = "";
+                        $compcost = "";
+                        $duration = "";
+                        $minscore = "";
+                        $minplayers = "";
+                        flash("Competition Created!", "success");
+                    } catch (Exception $e) {
+                        flash( "Error Code: F001 - Bad Competition Submit", "danger");
+                    }
+                }
+            } catch (Exception $e) {
+                flash( "Error Code: F002 - Couldn't retrieve data", "danger");
+            }
+            
 
         } catch (Exception $e) {
-            flash( "Error Code: F000 - Bad Competition Submit", "danger");
+            flash( "Error Code: F000 - Unknown Error", "danger");
         }
     }
-
-
-
-
 }
 ?>
 

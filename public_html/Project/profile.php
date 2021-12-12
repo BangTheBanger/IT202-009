@@ -176,12 +176,12 @@
 
 <style>
     p {
-        margin-top: 10px;
+        margin-top: 20px;
         text-align: center;
     }
 </style>
 
-<?php echo  "\n <p>Your Total Points: ", $pointtotal[0]['points'] . "</p>"; ?>
+<?php echo  "<p>Your Total Points: ", $pointtotal[0]['points'] . "</p>"; ?>
 
 <table style="width:33%">
   <tr>
