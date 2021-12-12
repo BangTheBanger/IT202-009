@@ -11,7 +11,7 @@ if (strlen($a) < 1000) {
 }
 */
 
-
+//Submit competition and join user
 if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2reward"]) && isset($_POST["3reward"]) && 
     isset($_POST["compcost"]) && isset($_POST["duration"]) && isset($_POST["minscore"]) && isset($_POST["minplayers"])) {
     try {
@@ -120,7 +120,7 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2rewa
                         $updatepoints = $db->prepare("INSERT INTO pointhistory (user_id, pointchange) VALUES (:uid, :cost);");
                         $updatepoints->execute([":uid" => get_user_id(), ":cost" => ($compcreatecost*-1)]);
                         $update = $db->prepare("UPDATE users SET points = (SELECT IFNULL(SUM(pointchange), 0) FROM pointhistory WHERE user_id = :uid) WHERE id = :uid");
-                        $update->execute([":uid" => $username]);
+                        $update->execute([":uid" => get_user_id()]);
                         flash("Competition Created!", "success");
                         $compcreationsuccess = true;
                     } catch (Exception $e) {
@@ -153,10 +153,9 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2rewa
                 $addusertocomp->execute([":compid" => $compid[0]["id"], ":uid" => get_user_id()]);
             
             } catch (Exception $e) {
-                flash( "Error Code: F000 - Unknown Error", "danger");
+                flash( "Error Code: F003 - Could Not Join User", "danger");
                 $compcreationsuccess = false;
             }
-
 
             echo "<script> (function() {var clear = document.getElementsByClassName('tobecleared'); 
                 var test = document.getElementById('TEST'); test.innerHTML = clear; }) </script>";
@@ -172,6 +171,9 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2rewa
         }
     }
 }
+
+//Display Existing Comps and Allow User To Join
+
 ?>
 
 <html>
@@ -203,88 +205,169 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2rewa
 <body>
 
     <div class="row">
-    <div class="column" id="existcomp">
-        <h2>Existing Competitions</h2>
-        <p>Comp 1</p>
-    </div>
-    <div class="column" id="newcomp">
-        <h2>Create a Competition</h2>
         
-        <form onsubmit="return validate(this)" method="POST">
-            <div>
-                <label for="compname" class="tobecleared">Competition Name:</label>
-                <input type="text" name="compname" required minlength="2" required value="<?php if(!(empty($compname))) {se($compname);} ?>"/>
-            </div>
-            <div>
-                <label for="1reward" class="tobecleared">First Place Reward: %</label>
-                <input type="number" name="1reward" min="0" max="100" required value="<?php if(!(empty($reward1))) {if($multiplyRewards) {se($reward1*100);} else {se($reward1);}} ?>"/>
-            </div>
-            <div>
-                <label for="2reward" class="tobecleared">Second Place Reward: %</label>
-                <input type="number" name="2reward" min="0" max="100" required value="<?php if(!(empty($reward2))) {if($multiplyRewards) {se($reward2*100);} else {se($reward2);}} ?>"/>
-            </div>
-            <div>
-                <label for="3reward" class="tobecleared">Third Place Reward: %</label>
-                <input type="number" name="3reward" min="0" max="100" required value="<?php if(!(empty($reward3))) {if($multiplyRewards) {se($reward3*100);} else {se($reward3);}} ?>"/>
-            </div>
-            <div>
-                <label for="checkfree">Check if you wish the tournament to be free to join</label>
-                <input type="checkbox" id="isfree" name="checkfree" onclick="freeclick()"/>
-            </div>
-            <div id="notfreecost">
-                <label for="compcost" class="tobecleared">Competition Cost:</label>
-                <input type="number" id="notfreecostinput" name="compcost" min="0" required value="<?php if(!(empty($compcost))) {se($compcost);} ?>"/>
-            </div>
-            <div>
-                <label for="duration" class="tobecleared">Duration (in days):</label>
-                <input type="number" name="duration" min="1" required value="<?php if(!(empty($duration))) {se($duration);} ?>"/>
-            </div>
-            <div>
-                <label for="minscore" class="tobecleared">Minimum Score to Qualify:</label>
-                <input type="number" name="minscore" min="0" required value="<?php if(!(empty($minscore))) {se($minscore);} ?>"/>
-            </div>
-            <div>
-                <label for="minplayers" class="tobecleared">Minimum Amount of Players for Payout:</label>
-                <input type="number" name="minplayers" min="3" required value="<?php if(!(empty($minplayers))) {se($minplayers);} ?>"/>
-            </div>
-            <div><p><?php echo "The cost of creating the competition is: " . 1+1;?></p></div>
+        <div class="column" id="existcomp">
+            <h2>Existing Competitions</h2>
+
+            <?php
+                $stmt = $db->prepare("SELECT id, name, expiration, current_reward, join_fee, current_participants, min_participants, min_score, first_place_per, 
+                                    secon_place_per, third_place_per FROM competitions ORDER BY expiration DESC");
+                $stmt->execute();
+                $complist = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            ?>
+
+            <table style="width:auto">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Expiration</th>
+                    <th>Current Prize</th>
+                    <th>Join Fee</th>
+                    <th>Total Players</th>
+                    <th>Min Players for Payout</th>
+                    <th>Min Score to Qualify</th>
+                    <th>Prize Distribution</th>
+                </tr>
+                <?php 
+                    if (count($complist) > 10) {
+                        for ($i = 0; $i < 10; $i++) {
+                            $compid = $complist[$i]["id"];
+                            $compname = $complist[$i]["name"];
+                            $compexp = $complist[$i]["expiration"];
+                            $compprize = $complist[$i]["current_reward"];
+                            $compfee = $complist[$i]["join_fee"];
+                            $compplayers = $complist[$i]["current_participants"];
+                            $compminplayers = $complist[$i]["min_participants"];
+                            $compminscore = $complist[$i]["min_score"];
+                            $comprew1 = $complist[$i]["first_place_per"];
+                            $comprew2 = $complist[$i]["secon_place_per"];
+                            $comprew3 = $complist[$i]["third_place_per"];
+                            
+                            echo '<tr>';
+                            echo '<td>'. $compid .'</td>';
+                            echo '<td>'. $compname .'</td>';
+                            echo '<td>'. $compexp .'</td>';
+                            echo '<td>'. $compprize .'</td>';
+                            echo '<td>'. $compfee .'</td>';
+                            echo '<td>'. $compplayers .'</td>';
+                            echo '<td>'. $compminplayers .'</td>';
+                            echo '<td>'. $compminscore .'</td>';
+                            echo '<td>'. '1st: ', $comprew1 . ', 2nd: ', $comprew2 . ', 3rd: ', $comprew3 . '</td>';
+                            echo '</tr>';
+                        }
+                    }
+                    
+                    else if (count($complist) > 0) {
+                        for ($i = 0; $i < count($complist); $i++) {
+                            $compid = $complist[$i]["id"];
+                            $compname = $complist[$i]["name"];
+                            $compexp = $complist[$i]["expiration"];
+                            $compprize = $complist[$i]["current_reward"];
+                            $compfee = $complist[$i]["join_fee"];
+                            $compplayers = $complist[$i]["current_participants"];
+                            $compminplayers = $complist[$i]["min_participants"];
+                            $compminscore = $complist[$i]["min_score"];
+                            $comprew1 = $complist[$i]["first_place_per"];
+                            $comprew2 = $complist[$i]["secon_place_per"];
+                            $comprew3 = $complist[$i]["third_place_per"];
+                            
+                            echo '<tr>';
+                            echo '<td>'. $compid .'</td>';
+                            echo '<td>'. $compname .'</td>';
+                            echo '<td>'. $compexp .'</td>';
+                            echo '<td>'. $compprize .'</td>';
+                            echo '<td>'. $compfee .'</td>';
+                            echo '<td>'. $compplayers .'</td>';
+                            echo '<td>'. $compminplayers .'</td>';
+                            echo '<td>'. $compminscore .'</td>';
+                            echo '<td>'. '1st: ', $comprew1 . ', 2nd: ', $comprew2 . ', 3rd: ', $comprew3 . '</td>';
+                            echo '</tr>';
+                        }
+                    }
+                
+                ?>
+            </table>
+        </div>
+
+        <div class="column" id="newcomp">
+            <h2>Create a Competition</h2>
+            
+            <form onsubmit="return validate(this)" method="POST">
+                <div>
+                    <label for="compname" class="tobecleared">Competition Name:</label>
+                    <input type="text" name="compname" required minlength="2" required value="<?php if(!(empty($compname))) {se($compname);} ?>"/>
+                </div>
+                <div>
+                    <label for="1reward" class="tobecleared">First Place Reward: %</label>
+                    <input type="number" name="1reward" min="0" max="100" required value="<?php if(!(empty($reward1))) {if($multiplyRewards) {se($reward1*100);} else {se($reward1);}} ?>"/>
+                </div>
+                <div>
+                    <label for="2reward" class="tobecleared">Second Place Reward: %</label>
+                    <input type="number" name="2reward" min="0" max="100" required value="<?php if(!(empty($reward2))) {if($multiplyRewards) {se($reward2*100);} else {se($reward2);}} ?>"/>
+                </div>
+                <div>
+                    <label for="3reward" class="tobecleared">Third Place Reward: %</label>
+                    <input type="number" name="3reward" min="0" max="100" required value="<?php if(!(empty($reward3))) {if($multiplyRewards) {se($reward3*100);} else {se($reward3);}} ?>"/>
+                </div>
+                <div>
+                    <label for="checkfree">Check if you wish the tournament to be free to join</label>
+                    <input type="checkbox" id="isfree" name="checkfree" onclick="freeclick()"/>
+                </div>
+                <div id="notfreecost">
+                    <label for="compcost" class="tobecleared">Competition Cost:</label>
+                    <input type="number" id="notfreecostinput" name="compcost" min="0" required value="<?php if(!(empty($compcost))) {se($compcost);} ?>"/>
+                </div>
+                <div>
+                    <label for="duration" class="tobecleared">Duration (in days):</label>
+                    <input type="number" name="duration" min="1" required value="<?php if(!(empty($duration))) {se($duration);} ?>"/>
+                </div>
+                <div>
+                    <label for="minscore" class="tobecleared">Minimum Score to Qualify:</label>
+                    <input type="number" name="minscore" min="0" required value="<?php if(!(empty($minscore))) {se($minscore);} ?>"/>
+                </div>
+                <div>
+                    <label for="minplayers" class="tobecleared">Minimum Amount of Players for Payout:</label>
+                    <input type="number" name="minplayers" min="3" required value="<?php if(!(empty($minplayers))) {se($minplayers);} ?>"/>
+                </div>
+                <div><p><?php echo "The cost of creating the competition is: " . 1+1;?></p></div>
 
 
-            <input type="submit" value="Create" />
-        </form>
-        <p id = "TEST"></p>  
-        <script>
-            function validate(form) {
-                return true;
-            }
-            function freeclick() {
-                var chkbox = document.getElementById("isfree")
-                var costdiv = document.getElementById("notfreecost")
-                var costdivin = document.getElementById("notfreecostinput")
-                if (chkbox.checked==true){
-                    costdiv.style.display="none";
-                    costdivin.value = "0";
-                } else {
-                    costdiv.style.display="block";
-                    costdivin.value = "0";
+                <input type="submit" value="Create" />
+            </form>
+            <p id = "TEST"></p>  
+            <script>
+                function validate(form) {
+                    return true;
                 }
-            }
-            /*
-            window.onload = clearForms();
-            function clearForms() {
-                var clear = document.getElementsByClassName("tobecleared");
-                var test = document.getElementById("TEST");
-                test.innerHTML = clear;
-            }
-            */
-            ;(function() {
-                var clear = document.getElementsByClassName('tobecleared'); 
-                var test = document.getElementById('TEST'); 
-                test.innerHTML = clear;
-            })
-        </script>
+                function freeclick() {
+                    var chkbox = document.getElementById("isfree")
+                    var costdiv = document.getElementById("notfreecost")
+                    var costdivin = document.getElementById("notfreecostinput")
+                    if (chkbox.checked==true){
+                        costdiv.style.display="none";
+                        costdivin.value = "0";
+                    } else {
+                        costdiv.style.display="block";
+                        costdivin.value = "0";
+                    }
+                }
+                /*
+                window.onload = clearForms();
+                function clearForms() {
+                    var clear = document.getElementsByClassName("tobecleared");
+                    var test = document.getElementById("TEST");
+                    test.innerHTML = clear;
+                }
+                */
+                ;(function() {
+                    var clear = document.getElementsByClassName('tobecleared'); 
+                    var test = document.getElementById('TEST'); 
+                    test.innerHTML = clear;
+                })
+            </script>
 
-    </div>
+        </div>
+
     </div>
 
 </body>
