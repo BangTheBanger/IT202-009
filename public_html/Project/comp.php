@@ -82,19 +82,19 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2rewa
         $minplayers = (int)$minplayers;
     }
     
-/*
-    // Uncomment for variable checks on the page. 
-    if (true) {
-        echo '<pre>' . "compname = ", var_dump($compname) . '</pre>';
-        echo '<pre>' . "reward1 = ", var_dump($reward1) . '</pre>';
-        echo '<pre>' . "reward2 = ", var_dump($reward2) . '</pre>';
-        echo '<pre>' . "reward3 = ", var_dump($reward3) . '</pre>';
-        echo '<pre>' . "compcost = ", var_dump($compcost) . '</pre>';
-        echo '<pre>' . "duration = ", var_dump($duration) . '</pre>';
-        echo '<pre>' . "minscore = ", var_dump($minscore) . '</pre>';
-        echo '<pre>' . "minplayers = ", var_dump($minplayers) . '</pre>';
-    }
-*/
+    /*
+        // Uncomment for variable checks on the page. 
+        if (true) {
+            echo '<pre>' . "compname = ", var_dump($compname) . '</pre>';
+            echo '<pre>' . "reward1 = ", var_dump($reward1) . '</pre>';
+            echo '<pre>' . "reward2 = ", var_dump($reward2) . '</pre>';
+            echo '<pre>' . "reward3 = ", var_dump($reward3) . '</pre>';
+            echo '<pre>' . "compcost = ", var_dump($compcost) . '</pre>';
+            echo '<pre>' . "duration = ", var_dump($duration) . '</pre>';
+            echo '<pre>' . "minscore = ", var_dump($minscore) . '</pre>';
+            echo '<pre>' . "minplayers = ", var_dump($minplayers) . '</pre>';
+        }
+    */
 
     if (!$hasError) { //Submitting to Competitions table
         $db = getDB();
@@ -148,6 +148,7 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2rewa
             clear: both;
         }
         form {
+            text-align: left;
             align-self: left;
             align-items: left;
             align-content: left;
@@ -202,7 +203,7 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2rewa
                 <label for="minplayers" class="tobecleared">Minimum Amount of Players for Payout:</label>
                 <input type="number" name="minplayers" min="3" required value="<?php if(!(empty($minplayers))) {se($minplayers);} ?>"/>
             </div>
-            <div><p><?php echo "The cost of creating the competition is: " ?></p></div>
+            <div><p><?php echo "The cost of creating the competition is: " . 1+1;?></p></div>
 
 
             <input type="submit" value="Create" />
