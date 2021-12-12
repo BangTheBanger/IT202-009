@@ -132,6 +132,8 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2rewa
                     } catch (Exception $e) {
                         flash( "Error Code: F001 - Bad Competition Submit", "danger");
                     }
+                } else {
+                    flash("You don't have enugh points", "warning");
                 }
             } catch (Exception $e) {
                 flash( "Error Code: F002 - Couldn't retrieve data", "danger");
