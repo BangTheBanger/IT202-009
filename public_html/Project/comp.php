@@ -444,7 +444,7 @@ if (strlen($a) < 1000) {
                     <input type="number" name="compjoin" min="1" required value="<?php if(!(empty($compjoin))) {se($compjoin);} ?>"/>
                 </div>
 
-                <input type="submit" value="Create" />
+                <input type="submit" value="Join" />
             </form>
         </div>
         <div class="column" id="newcomp">
