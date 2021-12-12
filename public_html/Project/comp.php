@@ -112,7 +112,7 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2rewa
                 $fetchuserpoints = $db->prepare("SELECT points FROM users WHERE id = :uid");
                 $fetchuserpoints->execute([":uid" => get_user_id()]);
                 $pointtotal = $fetchuserpoints->fetchAll(PDO::FETCH_ASSOC);
-                if ($pointtotal[0]['points'] > $compcreatecost) {
+                if ($pointtotal[0]['points'] >= $compcreatecost) {
                     try {
                         $stmt->execute([":name" => $compname, ":duration" => $duration, ":startreward" => 1, ":joinfee" => $compcost, ":minplayer" => $minplayers,
                                             ":minscore" => $minscore, ":reward1" => $reward1, ":reward2" => $reward2, ":reward3" => $reward3, ":cost" => $compcreatecost]);
@@ -133,7 +133,7 @@ if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2rewa
                         flash( "Error Code: F001 - Bad Competition Submit", "danger");
                     }
                 } else {
-                    flash("You don't have enugh points", "warning");
+                    flash("You don't have enough points", "warning");
                 }
             } catch (Exception $e) {
                 flash( "Error Code: F002 - Couldn't retrieve data", "danger");
