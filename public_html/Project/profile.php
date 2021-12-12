@@ -174,6 +174,7 @@ var_dump($scorelist[0]["score"]);
 ?>
 <style>
     ul {
+        text-align: center;
         align-self: center;
         align-items: center;
         align-content: center;
@@ -181,6 +182,7 @@ var_dump($scorelist[0]["score"]);
     }
 
     li {
+        text-align: center;
         align-self: center;
         align-items: center;
         align-content: center;
