@@ -2,18 +2,25 @@
 <?php 
 require(__DIR__ . "/../../partials/nav.php");
 
-$score = se($_POST, "data", null, false);
-// var_dump ($score);
-// var_dump ($username);
+$score = se($_POST, "data", 0, false);
+$points = (int)($score / 5);
 
 if (is_logged_in()) {
-    $username = get_username();
+    $username = get_user_id();
     $db = getDB();
-    $stmt = $db->prepare("INSERT INTO scores (username, score) VALUES(:username, :score)");
+    $stmt = $db->prepare("INSERT INTO scores (user_id, score) VALUES(:username, :score); 
+                          INSERT INTO pointhistory SET pointchange = :points , user_id = ( SELECT id FROM users WHERE id = :username )");
+/*
+    INSERT INTO tab_student 
+        SET name_student = 'Bobby Tables', id_teacher_fk = ( SELECT id_teacher FROM tab_teacher WHERE name_teacher = 'Dr. Smith')
+*/
+
     if ($score > 0) {
-        $stmt->execute([":username" => $username, ":score" => $score]);
+        $stmt->execute([":username" => $username, ":score" => $score, ":points" => $points]);
     }
 }
+// var_dump ($score);
+// var_dump ($username);
 ?>
 
 
@@ -34,14 +41,16 @@ if (is_logged_in()) {
 
     <div>
 
-<comment>
+<?php
+/*                                Setup for highscores
     <table style="width:33%">
         <tr>
             <th>User</th>
             <th>Scores</th>
         </tr>
     </table>
-</comment>
+*/
+?>
 
 
     </div>

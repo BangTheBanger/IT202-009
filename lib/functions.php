@@ -26,7 +26,7 @@ function se($v, $k = null, $default = "", $isEcho = true)
         return htmlspecialchars($returnValue, ENT_QUOTES);
     }
 }
-//TODO 2: filter helpers
+//TOD0 2: filter helpers
 function sanitize_email($email = "")
 {
     return filter_var(trim($email), FILTER_SANITIZE_EMAIL);
@@ -35,7 +35,7 @@ function is_valid_email($email = "")
 {
     return filter_var(trim($email), FILTER_VALIDATE_EMAIL);
 }
-//TODO 3: User Helpers
+//TOD0 3: User Helpers
 function is_logged_in($redirect = false, $destination = "login.php")
 {
     $isLoggedIn = isset($_SESSION["user"]);
@@ -77,7 +77,7 @@ function get_user_id()
     }
     return false;
 }
-//TODO 4: Flash Message Helpers
+//TOD0 4: Flash Message Helpers
 function flash($msg = "", $color = "info")
 {
     $message = ["text" => $msg, "color" => $color];
@@ -98,7 +98,7 @@ function getMessages()
     }
     return array();
 }
-//TODO generic helpers
+//TOD0 generic helpers
 function reset_session()
 {
     session_unset();
@@ -112,11 +112,11 @@ function users_check_duplicate($errorInfo)
         if (isset($matches[1])) {
             flash("The chosen " . $matches[1] . " is not available.", "warning");
         } else {
-            //TODO come up with a nice error message
+            //TOD0 come up with a nice error message
             flash("<pre>" . var_export($errorInfo, true) . "</pre>");
         }
     } else {
-        //TODO come up with a nice error message
+        //TOD0 come up with a nice error message
         flash("<pre>" . var_export($errorInfo, true) . "</pre>");
     }
 }
