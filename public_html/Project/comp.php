@@ -11,7 +11,7 @@ if (strlen($a) < 1000) {
 }
 */
 
-//Submit Competition and Join User
+//Submit Competition Create and Join User
     if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2reward"]) && isset($_POST["3reward"]) && 
         isset($_POST["compcost"]) && isset($_POST["duration"]) && isset($_POST["minscore"]) && isset($_POST["minplayers"])) {
         // Variable declaration
@@ -193,15 +193,19 @@ if (strlen($a) < 1000) {
                 //Inserts user into proper tables if they aren't already registered.
                     try{
                         //INSERT INTO competitionparticipants
-                        $stmt = $db->prepare("INSERT INTO competitionparticipants (comp_id, user_id) VALUES (:compid, :uid);");
-                        $stmt->execute([":compid" => $compjoin, ":uid" => get_user_id()]);
+                            $stmt = $db->prepare("INSERT INTO competitionparticipants (comp_id, user_id) VALUES (:compid, :uid);");
+                            $stmt->execute([":compid" => $compjoin, ":uid" => get_user_id()]);
                         //
                         //UPDATE competitions SET current_participants
-                            $stmt = $db->prepare("UPDATE competitions SET current_participants = ( SELECT IFNULL(COUNT(user_id), 0) FROM competitionparticipants WHERE comp_id = :compid);");
+                            $stmt = $db->prepare("UPDATE competitions SET current_participants = ( SELECT IFNULL(COUNT(user_id), 0) 
+                                                FROM competitionparticipants WHERE comp_id = :compid);");
+                            //
                             $stmt->execute([":compid" => $compjoin]);
                         //
                         //UPDATE competitions SET current_reward
-                            $stmt = $db->prepare("UPDATE competitions SET current_reward = ( SELECT IFNULL (CEILING(0.5*(SELECT IFNULL(COUNT(user_id), 0))), 1) FROM competitionparticipants WHERE comp_id = :compid);");
+                            $stmt = $db->prepare("UPDATE competitions SET current_reward = ( SELECT IFNULL (CEILING(0.5*(SELECT IFNULL(COUNT(user_id), 0))), 1) 
+                                                FROM competitionparticipants WHERE comp_id = :compid);");
+                            //
                             $stmt->execute([":compid" => $compjoin]);
                         //
                         flash("Successfully Registered!","success");
@@ -436,7 +440,7 @@ if (strlen($a) < 1000) {
                 ?>
             </table>
         </div>
-        <div class="column" id="existcomp">
+        <div class="column" id="join">
             <form onsubmit="return validate(this)" method="POST">
                 <div>
                     <h2>Join Competition</h2>
