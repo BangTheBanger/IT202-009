@@ -9,7 +9,7 @@ if (is_logged_in()) {
     $username = get_user_id();
     $db = getDB();
     $stmt = $db->prepare("INSERT INTO scores (user_id, score) VALUES(:username, :score); 
-                          INSERT INTO pointhistory SET pointchange = :points , user_id = ( SELECT id FROM users WHERE id = :username )");
+                          INSERT INTO pointhistory SET pointchange = :points , user_id = ( SELECT id FROM users WHERE id = :username ) , reason = 'Competition Rewards'");
 
     if ($score > 0) {
         $stmt->execute([":username" => $username, ":score" => $score, ":points" => $points]);

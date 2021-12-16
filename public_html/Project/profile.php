@@ -3,175 +3,129 @@
     if (!is_logged_in()) {
         die(header("Location: login.php"));
     }
-?>
-<title>Your Profile</title>
-<?php
-    if (isset($_POST["save"])) {
-        $email = se($_POST, "email", null, false);
-        $username = se($_POST, "username", null, false);
+    
 
-        $params = [":email" => $email, ":username" => $username, ":id" => get_user_id()];
+    if($_GET) {
+        $pageuserid = $_GET['id'];
+        $isOwner = false;
+        //Point update >
+            $update = $db->prepare("UPDATE users SET points = (SELECT IFNULL(SUM(pointchange), 0) FROM pointhistory WHERE user_id = :uid) WHERE id = :uid");
+            $update->execute([":uid" => $pageuserid]);
+            $stmt = $db->prepare("SELECT points FROM users WHERE id = :uid");
+            $stmt->execute([":uid" => $pageuserid]);
+            $pointtotal = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        //
+        //Score history update >
+            $stmt = $db->prepare("SELECT score, CREATED FROM scores WHERE user_id = :username ORDER BY CREATED DESC");
+            $stmt->execute([":username" => $pageuserid]);
+            $scorelist = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        //
+    } else {
+        $username = get_user_id();
+        $isOwner = true;
+        $email = get_user_email();
+        $userid = get_user_id();
         $db = getDB();
-        $stmt = $db->prepare("UPDATE users set email = :email, username = :username where id = :id");
-        try {
-            $stmt->execute($params);
-        } catch (Exception $e) {
-            if ($e->errorInfo[1] === 1062) {
-                //https://www.php.net/manual/en/function.preg-match.php
-                preg_match("/users.(\w+)/", $e->errorInfo[2], $matches);
-                if (isset($matches[1])) {
-                    flash("The chosen " . $matches[1] . " is not available.", "warning");
+        if (isset($_POST["save"])) {
+            $email = se($_POST, "email", null, false);
+            $username = se($_POST, "username", null, false);
+    
+            $params = [":email" => $email, ":username" => $username, ":id" => get_user_id()];
+            $db = getDB();
+            $stmt = $db->prepare("UPDATE users set email = :email, username = :username where id = :id");
+            try {
+                $stmt->execute($params);
+            } catch (Exception $e) {
+                if ($e->errorInfo[1] === 1062) {
+                    //https://www.php.net/manual/en/function.preg-match.php
+                    preg_match("/users.(\w+)/", $e->errorInfo[2], $matches);
+                    if (isset($matches[1])) {
+                        flash("The chosen " . $matches[1] . " is not available.", "warning");
+                    } else {
+                        //TOD0 come up with a nice error message
+                        echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
+                    }
                 } else {
                     //TOD0 come up with a nice error message
                     echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
                 }
-            } else {
-                //TOD0 come up with a nice error message
-                echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
             }
-        }
-        //select fresh data from table
-        $stmt = $db->prepare("SELECT id, email, username from users where id = :id LIMIT 1");
-        try {
-            $stmt->execute([":id" => get_user_id()]);
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
-            if ($user) {
-                //$_SESSION["user"] = $user;
-                $_SESSION["user"]["email"] = $user["email"];
-                $_SESSION["user"]["username"] = $user["username"];
-            } else {
-                flash("User doesn't exist", "danger");
-            }
-        } catch (Exception $e) {
-            flash("An unexpected error occurred, please try again", "danger");
-            //echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
-        }
-
-
-        //check/update password
-        $current_password = se($_POST, "currentPassword", null, false);
-        $new_password = se($_POST, "newPassword", null, false);
-        $confirm_password = se($_POST, "confirmPassword", null, false);
-        if (!empty($current_password)) {
-            if (!empty($new_password) && !empty($confirm_password)) {
-                if ($new_password === $confirm_password) {
-                    //TOD0 validate current
-                    $stmt = $db->prepare("SELECT password from users where id = :id");
-                    try {
-                        $stmt->execute([":id" => get_user_id()]);
-                        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                        if (isset($result["password"])) {
-                            if (password_verify($current_password, $result["password"])) {
-                                $query = "UPDATE users set password = :password where id = :id";
-                                $stmt = $db->prepare($query);
-                                $stmt->execute([
-                                    ":id" => get_user_id(),
-                                    ":password" => password_hash($new_password, PASSWORD_BCRYPT)
-                                ]);
-
-                                flash("Password reset", "success");
-                            } else {
-                                flash("Current password is invalid", "warning");
-                            }
-                        }
-                    } catch (Exception $e) {
-                        echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
-                    }
+            //select fresh data from table
+            $stmt = $db->prepare("SELECT id, email, username from users where id = :id LIMIT 1");
+            try {
+                $stmt->execute([":id" => get_user_id()]);
+                $user = $stmt->fetch(PDO::FETCH_ASSOC);
+                if ($user) {
+                    //$_SESSION["user"] = $user;
+                    $_SESSION["user"]["email"] = $user["email"];
+                    $_SESSION["user"]["username"] = $user["username"];
                 } else {
-                    flash("New passwords don't match", "warning");
+                    flash("User doesn't exist", "danger");
                 }
+            } catch (Exception $e) {
+                flash("An unexpected error occurred, please try again", "danger");
+                //echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
             }
-        } else {
-            flash("Please type your current password", "warning");
+    
+    
+            //check/update password
+            $current_password = se($_POST, "currentPassword", null, false);
+            $new_password = se($_POST, "newPassword", null, false);
+            $confirm_password = se($_POST, "confirmPassword", null, false);
+            if (!empty($current_password)) {
+                if (!empty($new_password) && !empty($confirm_password)) {
+                    if ($new_password === $confirm_password) {
+                        //TOD0 validate current
+                        $stmt = $db->prepare("SELECT password from users where id = :id");
+                        try {
+                            $stmt->execute([":id" => get_user_id()]);
+                            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                            if (isset($result["password"])) {
+                                if (password_verify($current_password, $result["password"])) {
+                                    $query = "UPDATE users set password = :password where id = :id";
+                                    $stmt = $db->prepare($query);
+                                    $stmt->execute([
+                                        ":id" => get_user_id(),
+                                        ":password" => password_hash($new_password, PASSWORD_BCRYPT)
+                                    ]);
+    
+                                    flash("Password reset", "success");
+                                } else {
+                                    flash("Current password is invalid", "warning");
+                                }
+                            }
+                        } catch (Exception $e) {
+                            echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
+                        }
+                    } else {
+                        flash("New passwords don't match", "warning");
+                    }
+                }
+            } else {
+                flash("Please type your current password", "warning");
+            }
         }
+        //Point update >
+            $update = $db->prepare("UPDATE users SET points = (SELECT IFNULL(SUM(pointchange), 0) FROM pointhistory WHERE user_id = :uid) WHERE id = :uid");
+            $update->execute([":uid" => $username]);
+            $stmt = $db->prepare("SELECT points FROM users WHERE id = :uid");
+            $stmt->execute([":uid" => $username]);
+            $pointtotal = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        //
+        //Score history update >
+            $stmt = $db->prepare("SELECT score, CREATED FROM scores WHERE user_id = :username ORDER BY CREATED DESC");
+            $stmt->execute([":username" => $username]);
+            $scorelist = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        //
     }
-?>
 
-<?php
-    $email = get_user_email();
-    $username = get_username();
-?>
-
-<form method="POST" onsubmit="return validate(this);">
-    <div class="mb-3">
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" value="<?php se($email); ?>" />
-    </div>
-    <div class="mb-3">
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username" value="<?php se($username); ?>" />
-    </div>
-    <!-- DO NOT PRELOAD PASSWORD -->
-    <div>Password Reset</div>
-    <div class="mb-3">
-        <label for="cp">Current Password</label>
-        <input type="password" name="currentPassword" id="cp" />
-    </div>
-    <div class="mb-3">
-        <label for="np">New Password</label>
-        <input type="password" name="newPassword" id="np" />
-    </div>
-    <div class="mb-3">
-        <label for="conp">Confirm Password</label>
-        <input type="password" name="confirmPassword" id="conp" />
-    </div>
-    <input type="submit" value="Update Profile" name="save" />
-</form>
-
-<script>
-    function validate(form) {
-        let pw = form.newPassword.value;
-        let con = form.confirmPassword.value;
-        let isValid = true;
-        //TOD0 add other client side validation....
-
-        //example of using flash via javascript
-        //find the flash container, create a new element, appendChild
-        if (pw !== con) {
-            //find the container
-            let flash = document.getElementById("flash");
-            //create a div (or whatever wrapper we want)
-            let outerDiv = document.createElement("div");
-            outerDiv.className = "row justify-content-center";
-            let innerDiv = document.createElement("div");
-
-            //apply the CSS (these are bootstrap classes which we'll learn later)
-            innerDiv.className = "alert alert-warning";
-            //set the content
-            innerDiv.innerText = "Password and Confirm password must match";
-
-            outerDiv.appendChild(innerDiv);
-            //add the element to the DOM (if we don't it merely exists in memory)
-            flash.appendChild(outerDiv);
-            isValid = false;
-        }
-        return isValid;
-    }
-</script>
-
-<?php
-    $db = getDB();
-    $username = get_user_id();
-    //Score history update >
-    $stmt = $db->prepare("SELECT score, CREATED FROM scores WHERE user_id = :username ORDER BY CREATED DESC");
-    $stmt->execute([":username" => $username]);
-    $scorelist = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    //Point update >
-    $update = $db->prepare("UPDATE users SET points = (SELECT IFNULL(SUM(pointchange), 0) FROM pointhistory WHERE user_id = :uid) WHERE id = :uid");
-    $update->execute([":uid" => $username]);
-    $stmt = $db->prepare("SELECT points FROM users WHERE id = :uid");
-    $stmt->execute([":uid" => $username]);
-    $pointtotal = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // var dump $scorelist
+        /*
+            var_dump($scorelist);
+            echo "<br>";
+            var_dump($scorelist[0]["score"]);
+        */
     //
-
-
-
-
-    /*
-    var_dump($scorelist);
-    echo "<br>";
-    var_dump($scorelist[0]["score"]);
-    */
 ?>
 
 <style>
@@ -181,41 +135,149 @@
     }
 </style>
 
-<?php echo  "<p>Your Total Points: ", $pointtotal[0]['points'] . "</p>"; ?>
+<?php if ($isOwner) : ?>
+    <title><?php echo $username; ?>'s Profile</title>
+    <form method="POST" onsubmit="return validate(this);">
+        <div class="mb-3">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" value="<?php se($email); ?>" />
+        </div>
+        <div class="mb-3">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" value="<?php se($username); ?>" />
+        </div>
+        <!-- DO NOT PRELOAD PASSWORD -->
+        <div>Password Reset</div>
+        <div class="mb-3">
+            <label for="cp">Current Password</label>
+            <input type="password" name="currentPassword" id="cp" />
+        </div>
+        <div class="mb-3">
+            <label for="np">New Password</label>
+            <input type="password" name="newPassword" id="np" />
+        </div>
+        <div class="mb-3">
+            <label for="conp">Confirm Password</label>
+            <input type="password" name="confirmPassword" id="conp" />
+        </div>
+        <input type="submit" value="Update Profile" name="save" />
+    </form>
+    <form method="POST" onsubmit="return validate(this);">
+        <input type="submit" value="Change Profile Publicity Status" name="publicize" />
+    </form>
+    <script>
+        function validate(form) {
+            let pw = form.newPassword.value;
+            let con = form.confirmPassword.value;
+            let isValid = true;
+            //TOD0 add other client side validation....
 
-<table style="width:33%">
-  <tr>
-    <th>Scores</th>
-    <th>Time</th>
-  </tr>
-  <?php 
-    if (count($scorelist) > 10) {
-        for ($i = 0; $i < 10; $i++) {
-            $score = $scorelist[$i]["score"];
-            $time = $scorelist[$i]["CREATED"];
-            
-            echo '<tr>';
-            echo '<td>'. $score .'</td>';
-            echo '<td>'. $time .'</td>';
-            echo '</tr>';
+            //example of using flash via javascript
+            //find the flash container, create a new element, appendChild
+            if (pw !== con) {
+                //find the container
+                let flash = document.getElementById("flash");
+                //create a div (or whatever wrapper we want)
+                let outerDiv = document.createElement("div");
+                outerDiv.className = "row justify-content-center";
+                let innerDiv = document.createElement("div");
+
+                //apply the CSS (these are bootstrap classes which we'll learn later)
+                innerDiv.className = "alert alert-warning";
+                //set the content
+                innerDiv.innerText = "Password and Confirm password must match";
+
+                outerDiv.appendChild(innerDiv);
+                //add the element to the DOM (if we don't it merely exists in memory)
+                flash.appendChild(outerDiv);
+                isValid = false;
+            }
+            return isValid;
         }
-    }
+    </script>
+    <?php echo  "<p>Your Total Points: ", $pointtotal[0]['points'] . "</p>"; ?>
+
+
+    <table style="width:33%">
+    <tr>
+        <th>Scores</th>
+        <th>Time</th>
+    </tr>
+    <?php 
+        if (count($scorelist) > 10) {
+            for ($i = 0; $i < 10; $i++) {
+                $score = $scorelist[$i]["score"];
+                $time = $scorelist[$i]["CREATED"];
+                
+                echo '<tr>';
+                echo '<td>'. $score .'</td>';
+                echo '<td>'. $time .'</td>';
+                echo '</tr>';
+            }
+        }
+        
+        else if (count($scorelist) > 0) {
+            for ($i = 0; $i < count($scorelist); $i++) {
+                $score = $scorelist[$i]["score"];
+                $time = $scorelist[$i]["CREATED"];
+
+                echo '<tr>';
+                echo '<td>'. $score .'</td>';
+                echo '<td>'. $time .'</td>';
+                echo '</tr>';
+            }
+        }
     
-    else if (count($scorelist) > 0) {
-        for ($i = 0; $i < count($scorelist); $i++) {
-            $score = $scorelist[$i]["score"];
-            $time = $scorelist[$i]["CREATED"];
+    ?>
+    </table>
+<?php endif; ?>
 
-            echo '<tr>';
-            echo '<td>'. $score .'</td>';
-            echo '<td>'. $time .'</td>';
-            echo '</tr>';
-        }
+<?php if ($isOwner) : ?>
+    <?php 
+        $fetchuser = $db->prepare("SELECT username, email, points, public FROM users WHERE id = :uid");
+        $fetchuser->execute([":uid" => $pageuserid]);
+        $userdata = $fetchuser->fetchAll(PDO::FETCH_ASSOC);
+    ?>
+    <?php 
+    if($userdata[0]['public'] == 0) {
+        echo "<h1>This profile is not public.</h1>";
+    } else {
+        echo "<h2>", $userdata[0]['username'], "'s Profile</h2>";
+        echo  "<p>Total Points: ", $pointtotal[0]['points'] . "</p>";
     }
-  
-  ?>
-</table>
+    ?>
+    <table style="width:33%">
+        <tr>
+            <th>Scores</th>
+            <th>Time</th>
+        </tr>
+        <?php 
+            if (count($scorelist) > 10) {
+                for ($i = 0; $i < 10; $i++) {
+                    $score = $scorelist[$i]["score"];
+                    $time = $scorelist[$i]["CREATED"];
+                    
+                    echo '<tr>';
+                    echo '<td>'. $score .'</td>';
+                    echo '<td>'. $time .'</td>';
+                    echo '</tr>';
+                }
+            }
+            
+            else if (count($scorelist) > 0) {
+                for ($i = 0; $i < count($scorelist); $i++) {
+                    $score = $scorelist[$i]["score"];
+                    $time = $scorelist[$i]["CREATED"];
 
+                    echo '<tr>';
+                    echo '<td>'. $score .'</td>';
+                    echo '<td>'. $time .'</td>';
+                    echo '</tr>';
+                }
+            }
+        ?>
+    </table>
+<?php endif; ?>
 
 <?php
     require_once(__DIR__ . "/../../partials/flash.php");

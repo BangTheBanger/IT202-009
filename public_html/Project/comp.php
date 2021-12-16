@@ -355,7 +355,7 @@ if (strlen($a) < 1000) {
             <?php
                 $db = getDB();
                 $stmt = $db->prepare("SELECT id, name, expiration, current_reward, join_fee, current_participants, min_participants, min_score, first_place_per, 
-                                    second_place_per, third_place_per FROM competitions ORDER BY expiration DESC");
+                                    second_place_per, third_place_per FROM competitions WHERE paid_out = 0 ORDER BY expiration ASC");
                 $stmt->execute();
                 $complist = $stmt->fetchAll(PDO::FETCH_ASSOC);
             ?>

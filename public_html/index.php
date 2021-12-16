@@ -1,4 +1,8 @@
-<?php echo "It works!<br>Filipe Atanes' website, for IT202-009";?>
+<?php 
+    echo "It works!<br>Filipe Atanes' website, for IT202-009";
+    die(header("Location: Project/login.php"));
+?>
+
 <title>Homepage</title>
 <ul>
     <li><a href="index.php">Homepage</a></li>
