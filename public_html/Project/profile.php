@@ -4,6 +4,7 @@
         die(header("Location: login.php"));
     }
     
+    $db = getDB();
 
     if($_GET) {
         $pageuserid = $_GET['id'];
@@ -25,7 +26,6 @@
         $isOwner = true;
         $email = get_user_email();
         $userid = get_user_id();
-        $db = getDB();
         if (isset($_POST["save"])) {
             $email = se($_POST, "email", null, false);
             $username = se($_POST, "username", null, false);
