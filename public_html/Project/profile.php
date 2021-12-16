@@ -232,7 +232,7 @@
     </table>
 <?php endif; ?>
 
-<?php if ($isOwner) : ?>
+<?php if (!$isOwner) : ?>
     <?php 
         $fetchuser = $db->prepare("SELECT username, email, points, public FROM users WHERE id = :uid");
         $fetchuser->execute([":uid" => $pageuserid]);
