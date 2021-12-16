@@ -247,133 +247,40 @@
 
     }
     ?>
-    <?php if ($userdata[0]['public'] == 0) : ?>
-    <table style="width:33%">
-        <tr>
-            <th>Scores</th>
-            <th>Time</th>
-        </tr>
-        <?php 
-            if (count($scorelist) > 10) {
-                for ($i = 0; $i < 10; $i++) {
-                    $score = $scorelist[$i]["score"];
-                    $time = $scorelist[$i]["CREATED"];
-                    
-                    echo '<tr>';
-                    echo '<td>'. $score .'</td>';
-                    echo '<td>'. $time .'</td>';
-                    echo '</tr>';
+
+
+    <?php if ($userdata[0]['public'] == 1) : ?>
+        <table style="width:33%">
+            <tr>
+                <th>Scores</th>
+                <th>Time</th>
+            </tr>
+            <?php 
+                if (count($scorelist) > 10) {
+                    for ($i = 0; $i < 10; $i++) {
+                        $score = $scorelist[$i]["score"];
+                        $time = $scorelist[$i]["CREATED"];
+                        
+                        echo '<tr>';
+                        echo '<td>'. $score .'</td>';
+                        echo '<td>'. $time .'</td>';
+                        echo '</tr>';
+                    }
                 }
-            }
-            
-            else if (count($scorelist) > 0) {
-                for ($i = 0; $i < count($scorelist); $i++) {
-                    $score = $scorelist[$i]["score"];
-                    $time = $scorelist[$i]["CREATED"];
-
-                    echo '<tr>';
-                    echo '<td>'. $score .'</td>';
-                    echo '<td>'. $time .'</td>';
-                    echo '</tr>';
-                }
-            }
-        ?>
-    </table>
-    
-    <title><?php echo $username; ?>'s Profile</title>
-    <form method="POST" onsubmit="return validate(this);">
-        <div class="mb-3">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" value="<?php se($email); ?>" />
-        </div>
-        <div class="mb-3">
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username" value="<?php se($username); ?>" />
-        </div>
-        <!-- DO NOT PRELOAD PASSWORD -->
-        <div>Password Reset</div>
-        <div class="mb-3">
-            <label for="cp">Current Password</label>
-            <input type="password" name="currentPassword" id="cp" />
-        </div>
-        <div class="mb-3">
-            <label for="np">New Password</label>
-            <input type="password" name="newPassword" id="np" />
-        </div>
-        <div class="mb-3">
-            <label for="conp">Confirm Password</label>
-            <input type="password" name="confirmPassword" id="conp" />
-        </div>
-        <input type="submit" value="Update Profile" name="save" />
-    </form>
-    <form method="POST" onsubmit="return validate(this);">
-        <input type="submit" value="Change Profile Publicity Status" name="publicize" />
-    </form>
-    <script>
-        function validate(form) {
-            let pw = form.newPassword.value;
-            let con = form.confirmPassword.value;
-            let isValid = true;
-            //TOD0 add other client side validation....
-
-            //example of using flash via javascript
-            //find the flash container, create a new element, appendChild
-            if (pw !== con) {
-                //find the container
-                let flash = document.getElementById("flash");
-                //create a div (or whatever wrapper we want)
-                let outerDiv = document.createElement("div");
-                outerDiv.className = "row justify-content-center";
-                let innerDiv = document.createElement("div");
-
-                //apply the CSS (these are bootstrap classes which we'll learn later)
-                innerDiv.className = "alert alert-warning";
-                //set the content
-                innerDiv.innerText = "Password and Confirm password must match";
-
-                outerDiv.appendChild(innerDiv);
-                //add the element to the DOM (if we don't it merely exists in memory)
-                flash.appendChild(outerDiv);
-                isValid = false;
-            }
-            return isValid;
-        }
-    </script>
-    <?php echo  "<p>Your Total Points: ", $pointtotal[0]['points'] . "</p>"; ?>
-
-
-    <table style="width:33%">
-    <tr>
-        <th>Scores</th>
-        <th>Time</th>
-    </tr>
-    <?php 
-        if (count($scorelist) > 10) {
-            for ($i = 0; $i < 10; $i++) {
-                $score = $scorelist[$i]["score"];
-                $time = $scorelist[$i]["CREATED"];
                 
-                echo '<tr>';
-                echo '<td>'. $score .'</td>';
-                echo '<td>'. $time .'</td>';
-                echo '</tr>';
-            }
-        }
-        
-        else if (count($scorelist) > 0) {
-            for ($i = 0; $i < count($scorelist); $i++) {
-                $score = $scorelist[$i]["score"];
-                $time = $scorelist[$i]["CREATED"];
+                else if (count($scorelist) > 0) {
+                    for ($i = 0; $i < count($scorelist); $i++) {
+                        $score = $scorelist[$i]["score"];
+                        $time = $scorelist[$i]["CREATED"];
 
-                echo '<tr>';
-                echo '<td>'. $score .'</td>';
-                echo '<td>'. $time .'</td>';
-                echo '</tr>';
-            }
-        }
-    
-    ?>
-    </table>
+                        echo '<tr>';
+                        echo '<td>'. $score .'</td>';
+                        echo '<td>'. $time .'</td>';
+                        echo '</tr>';
+                    }
+                }
+            ?>
+        </table>
     <?php endif; ?>
 <?php endif; ?>
 
