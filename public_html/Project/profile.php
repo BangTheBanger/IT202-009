@@ -135,7 +135,7 @@
                     var_dump($test);
                     echo "<br>Test 2";
                     $_POST["publicize"] = NULL;
-                    $test = $_POST["publicize"] == NULL;
+                    $test = !($_POST["publicize"] == NULL);
                     var_dump($test);
                     echo "<br>Post 2";
                     var_dump($_POST["publicize"]);
