@@ -8,7 +8,6 @@
 
 
     //List Pagination
-        $compid = $_POST['compid'];
 
         if (!isset ($_GET['cursor']) ) {
             $cursor = 1;
@@ -16,8 +15,8 @@
             $cursor = $_GET['cursor'];
         }
 
-        $stmt = $db->prepare("SELECT * FROM competitions WHERE id = :compid");
-        $stmt->execute([":compid" => $compid]);
+        $stmt = $db->prepare("SELECT * FROM competitions");
+        $stmt->execute();
         $complist = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $pagetotal = 10;
@@ -28,7 +27,7 @@
     //
     //Has Looked Up an ID
         if(isset($_POST['compid'])) {
-
+            $compid = $_POST['compid'];
         }
     //
     //Hasn't Looked Up an ID
