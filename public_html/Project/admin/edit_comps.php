@@ -204,6 +204,7 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Expiration</th>
+                    <th>Duration</th>
                     <th>Current Prize</th>
                     <th>Join Fee</th>
                     <th>Total Players</th>
@@ -223,8 +224,9 @@
 
                                 for ($listindex = $offset; $listindex <= $offset+$currentpagetotal-1; $listindex++) {
                                     $compid = $complist[$listindex]["id"];
-                                    $compname = $complist[$listindex]["name"];
+                                    $listcompname = $complist[$listindex]["name"];
                                     $compexp = $complist[$listindex]["expiration"];
+                                    $compduration = $complist[$listindex]["duration"];
                                     $compprize = $complist[$listindex]["current_reward"];
                                     $compfee = $complist[$listindex]["join_fee"];
                                     $compplayers = $complist[$listindex]["current_participants"];
@@ -240,8 +242,9 @@
                                     
                                     echo '<tr>';
                                     echo '<td>'. $compid .'</td>';
-                                    echo '<td>'. $compname .'</td>';
+                                    echo '<td>'. $listcompname .'</td>';
                                     echo '<td>'. $compexp .'</td>';
+                                    echo '<td>'. $compduration .'</td>';
                                     echo '<td>'. $compprize .'</td>';
                                     echo '<td>'. $compfee .'</td>';
                                     echo '<td>'. $compplayers .'</td>';
@@ -261,8 +264,9 @@
                     else if (count($complist) > 0) {
                         for ($i = 0; $i < count($complist); $i++) {
                             $compid = $complist[$i]["id"];
-                            $compname = $complist[$i]["name"];
+                            $listcompname = $complist[$i]["name"];
                             $compexp = $complist[$i]["expiration"];
+                            $compduration = $complist[$i]["duration"];
                             $compprize = $complist[$i]["current_reward"];
                             $compfee = $complist[$i]["join_fee"];
                             $compplayers = $complist[$i]["current_participants"];
@@ -278,8 +282,9 @@
                             
                             echo '<tr>';
                             echo '<td>'. $compid .'</td>';
-                            echo '<td>'. $compname .'</td>';
+                            echo '<td>'. $listcompname .'</td>';
                             echo '<td>'. $compexp .'</td>';
+                            echo '<td>'. $compduration .'</td>';
                             echo '<td>'. $compprize .'</td>';
                             echo '<td>'. $compfee .'</td>';
                             echo '<td>'. $compplayers .'</td>';
