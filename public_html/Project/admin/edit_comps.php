@@ -313,6 +313,8 @@
                             echo '<td>'. '1st: ', $comprew1 . '%, 2nd: ', $comprew2 . '%, 3rd: ', $comprew3 . '%</td>';
                             echo '</tr>';
                         }
+                    } else if (count($complist) <= 0) {
+                        echo "No Competitions to Display";
                     }
                 
                 ?>

@@ -2,6 +2,7 @@
     require(__DIR__ . "/../../partials/nav.php");
 
     if (!is_logged_in()) {die(header("Location: login.php"));}
+    $db = getDB();
 
 
     /*
@@ -455,6 +456,8 @@
                             echo '<td>'. '1st: ', $comprew1 . '%, 2nd: ', $comprew2 . '%, 3rd: ', $comprew3 . '%</td>';
                             echo '</tr>';
                         }
+                    } else if (count($complist) <= 0) {
+                        echo "No Competitions to Display";
                     }
                 
                 ?>

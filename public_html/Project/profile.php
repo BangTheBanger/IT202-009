@@ -344,7 +344,7 @@
                             echo '<td>'. $compexpiration .'</td>';
                             echo '</tr>';
                         }
-                    } else if (count($complist)) {
+                    } else if (count($complist) <= 0) {
                         echo "No Competitions to Display";
                     }
                 
