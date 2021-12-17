@@ -118,7 +118,7 @@
         //
         //Switch user public status
             try{
-                if ( !($_POST["publicize"] == NULL) && isset($_POST["publicize"]) ) {
+                if ( isset($_POST["publicize"]) ) {
                     if ($user['public'] == 0) {
                         $publicstatusswitch = $db->prepare("UPDATE users SET public = (true) WHERE id = :uid");
                         $publicstatusswitch->execute([":uid" => get_user_id()]);
