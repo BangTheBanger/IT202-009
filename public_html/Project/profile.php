@@ -117,12 +117,13 @@
             }
         //
         //Switch user public status
+        //("UPDATE users SET points = (SELECT IFNULL(SUM(pointchange), 0) FROM pointhistory WHERE user_id = :uid) WHERE id = :uid");
             if (isset($_POST["publicize"])) {
                 if ($user['public'] == 0) {
-                    $publicstatusswitch = $db->prepare("UPDATE users SET public = 1 WHERE id = :uid");
+                    $publicstatusswitch = $db->prepare("UPDATE users SET public = (true) WHERE id = :uid");
                     $publicstatusswitch->execute([":id" => get_user_id()]);
                 } else {
-                    $publicstatusswitch = $db->prepare("UPDATE users SET public = 0 WHERE id = :uid");
+                    $publicstatusswitch = $db->prepare("UPDATE users SET public = (false) WHERE id = :uid");
                     $publicstatusswitch->execute([":id" => get_user_id()]);
                 }
             }
