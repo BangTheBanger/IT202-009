@@ -1,6 +1,7 @@
 <?php
-    if (!is_logged_in() || !has_role("admin")) {
-        die(header("Location: home.php"));
+    require(__DIR__ . "/../../partials/nav.php");
+    if (!has_role("admin")) {
+        die(header("Location: ./../home.php"));
     }
     $db = getDB();
 ?>
@@ -129,41 +130,43 @@
             
             <div id = "editform">
                 <form onsubmit="return validate(this)" method="POST">
-                    <div>
-                        <label for="compname" class="tobecleared">Competition Name:</label>
-                        <input type="text" name="compname" required minlength="2" required value="<?php if(!(empty($compname))) {se($compname);} ?>"/>
-                    </div>
-                    <div>
-                        <label for="1reward" class="tobecleared">First Place Reward: %</label>
-                        <input type="number" name="1reward" min="0" max="100" required value="<?php if(!(empty($reward1))) {if($multiplyRewards) {se($reward1*100);} else {se($reward1);}} ?>"/>
-                    </div>
-                    <div>
-                        <label for="2reward" class="tobecleared">Second Place Reward: %</label>
-                        <input type="number" name="2reward" min="0" max="100" required value="<?php if(!(empty($reward2))) {if($multiplyRewards) {se($reward2*100);} else {se($reward2);}} ?>"/>
-                    </div>
-                    <div>
-                        <label for="3reward" class="tobecleared">Third Place Reward: %</label>
-                        <input type="number" name="3reward" min="0" max="100" required value="<?php if(!(empty($reward3))) {if($multiplyRewards) {se($reward3*100);} else {se($reward3);}} ?>"/>
-                    </div>
-                    <div id="notfreecost">
-                        <label for="compcost" class="tobecleared">Competition Cost:</label>
-                        <input type="number" id="notfreecostinput" name="compcost" min="0" required value="<?php if(!(empty($compcost))) {se($compcost);} ?>"/>
-                    </div>
-                    <div>
-                        <label for="duration" class="tobecleared">Duration (in days):</label>
-                        <input type="number" name="duration" min="1" required value="<?php if(!(empty($duration))) {se($duration);} ?>"/>
-                    </div>
-                    <div>
-                        <label for="minscore" class="tobecleared">Minimum Score to Qualify:</label>
-                        <input type="number" name="minscore" min="0" required value="<?php if(!(empty($minscore))) {se($minscore);} ?>"/>
-                    </div>
-                    <div>
-                        <label for="minplayers" class="tobecleared">Minimum Amount of Players for Payout:</label>
-                        <input type="number" name="minplayers" min="3" required value="<?php if(!(empty($minplayers))) {se($minplayers);} ?>"/>
-                    </div>
-                    <input type="submit" value="Edit" />
+                <div>
+                    <label for="compname">Competition Name:</label>
+                    <input type="text" name="compname" required minlength="2" autocomplete="off" required value="<?php se($compname) ?>"/>
+                </div>
+                <div>
+                    <label for="1reward">First Place Reward: %</label>
+                    <input type="number" name="1reward" min="0" max="100" required value="<?php if(!(empty($reward1))) {if($multiplyRewards) {se($reward1*100);} else {se($reward1);}} ?>"/>
+                </div>
+                <div>
+                    <label for="2reward">Second Place Reward: %</label>
+                    <input type="number" name="2reward" min="0" max="100" required value="<?php if(!(empty($reward2))) {if($multiplyRewards) {se($reward2*100);} else {se($reward2);}} ?>"/>
+                </div>
+                <div>
+                    <label for="3reward">Third Place Reward: %</label>
+                    <input type="number" name="3reward" min="0" max="100" required value="<?php if(!(empty($reward3))) {if($multiplyRewards) {se($reward3*100);} else {se($reward3);}} ?>"/>
+                </div>
+                <div id="notfreecost">
+                    <label for="compcost">Competition Cost:</label>
+                    <input type="number" id="notfreecostinput" name="compcost" min="0" required value="<?php se($compcost) ?>"/>
+                </div>
+                <div>
+                    <label for="duration">Duration (in days):</label>
+                    <input type="number" name="duration" min="1" required value="<?php se($duration) ?>"/>
+                </div>
+                <div>
+                    <label for="minscore">Minimum Score to Qualify:</label>
+                    <input type="number" name="minscore" min="0" required value="<?php se($minscore) ?>"/>
+                </div>
+                <div>
+                    <label for="minplayers">Minimum Amount of Players for Payout:</label>
+                    <input type="number" name="minplayers" min="3" required value="<?php se($minplayers) ?>"/>
+                </div>
+                <input type="submit" value="Create" />
                 </form>
-                
+            </div>
+            
+            <div id="lookupcomp">
                 <form onsubmit="return validate(this)" method="POST">
                     <div>
                         <label for="compname" class="tobecleared">Competition Name:</label>
