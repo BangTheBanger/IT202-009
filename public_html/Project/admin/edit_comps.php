@@ -5,23 +5,7 @@
         die(header("Location: $BASE_PATH" . "home.php"));
     }
     $db = getDB();
-    //define hideform()
-    /*
-    echo "
-        <script> function hideform() {
-            console.log('Please');
-            var compeditdiv = document.getElementById('editform');
-
-            if ( compeditdiv.className.match(/(?:^|\s)editformhidden(?!\S)/) ) {
-                compeditdiv.className = 'editformshown';
-
-            } else {
-                compeditdiv.className = 'editformhidden';
-            }
-        }
-        </script>";
-    */
-    //
+    
     //List Pagination
         if (!isset ($_GET['cursor']) ) {
             $cursor = 1;
@@ -42,7 +26,6 @@
 
     //Has Looked Up an ID
         if(isset($_POST['selectcompid'])) {
-            echo "<script>hideform()</script>";
             $selectcompid = $_POST['selectcompid'];
             //Variable Declaration
                 try {
@@ -190,12 +173,6 @@
         }
     //
 
-    //Hasn't Looked Up an ID
-        else {
-            echo "<script>hideform()</script>";
-        }
-    //
-
     
 
 
@@ -331,7 +308,7 @@
                 ?>
             </table>
         </div>
-        <div class="column" id="editcomp">
+        <div class="column" id="<?php if(isset($_POST['selectcompid'])) {echo "editformshown";} else {echo "editformhidden";}?>">
             <h2>Edit Competition</h2>
             
             <div class = "editformhidden" id="editform">
@@ -387,17 +364,6 @@
     <script>
         function validate(form) {
             return true;
-        }
-        function hideform() {
-            console.log('Please');
-            var compeditdiv = document.getElementById('editform');
-
-            if ( compeditdiv.className.match(/(?:^|\s)editformhidden(?!\S)/) ) {
-                compeditdiv.className = 'editformshown';
-
-            } else {
-                compeditdiv.className = 'editformhidden';
-            }
         }
     </script>
 </body>
