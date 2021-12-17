@@ -80,7 +80,7 @@
                     $hasError = false;
                     $compcreationsuccess = false;
                 }  catch (Exception $e) {
-                    flash("<pre>" . "Error Code: F000 - Bad Competition Submit" . "</pre>", "danger");
+                    flash("<pre>" . "Error Code: F000 - Bad Competition Submit - Var" . "</pre>", "danger");
                     $hasError = true;
                 }
             //
@@ -163,11 +163,12 @@
                             flash("Competition Successfully Edited!", "success");
                             $compcreationsuccess = true;
                         } catch (Exception $e) {
-                            flash( "Error Code: F000 - Bad Competition Submit", "danger");
+                            flash( "Error Code: F000 - Bad Competition Submit - Q", "danger");
                             $compcreationsuccess = false;
                         }
                     }
                     if ($compcreationsuccess) {
+                        $compid = "";
                         $compname = "";
                         $reward1 = "";
                         $reward2 = "";
