@@ -375,7 +375,8 @@
         }
         function hideform() {
             var compeditdiv = document.getElementById("editform");
-            if (compeditdiv.classList.contains('editformhidden')){
+
+            if ( compeditdiv.className.match(/(?:^|\s)editformhidden(?!\S)/) ) {
                 compeditdiv.classList.add('editformshown');
                 compeditdiv.classList.remove('editformhidden');
             } else {
