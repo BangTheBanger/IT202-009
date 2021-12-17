@@ -177,8 +177,11 @@
             width: 50%;
             padding: 10px;
         }
-        .column div.editform {
+        .column div.editformhidden {
             display: none;
+        }
+        .column div.editformshown {
+            display: block;
         }
         .row:after {
             content: "";
@@ -298,7 +301,7 @@
         <div class="column" id="editcomp">
             <h2>Edit Competition</h2>
             
-            <div class = "editform">
+            <div class = "editformhidden">
                 <form onsubmit="return validate(this)" method="POST">
                     <div id = "compname">
                         <label for="compname">Competition Name:</label>
@@ -353,11 +356,12 @@
             return true;
         }
         function hideform() {
-            var compeditdiv = document.getElementsByClassName("editform")
-            if (compeditdiv.style.display == "none"){
-                compeditdiv.style.display="block";
+            var compeditdiv1 = document.getElementsByClassName("editformhidden")
+            var compeditdiv2 = document.getElementsByClassName("editformshown")
+            if (count(compeditdiv1) > 0){
+                compeditdiv1.class="editformshown";
             } else {
-                compeditdiv.style.display = "none";
+                compeditdiv2.class="editformhidden";
             }
         }
     </script>
