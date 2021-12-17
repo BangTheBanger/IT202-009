@@ -73,17 +73,16 @@
                     $duration = se($_POST, "duration", "", false);
                     $minscore = se($_POST, "minscore", "", false);
                     $minplayers = se($_POST, "minplayers", "", false);
-                    var_dump($selectcompid);
-                    echo" selectcompid after<br>";
                     var_dump($compid);
                     echo" compid after<br>";
                     var_dump($compname);
                     echo" name after<br>";
+                    $hasError = false;
+                    $compcreationsuccess = false;
                 }  catch (Exception $e) {
                     flash("<pre>" . "Error Code: F000 - Bad Competition Submit" . "</pre>", "danger");
+                    $hasError = true;
                 }
-                $hasError = false;
-                $compcreationsuccess = false;
             //
             //Variable check and sanitization
                 if (empty($compname)) {
