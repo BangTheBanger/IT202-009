@@ -121,10 +121,10 @@
             if (isset($_POST["publicize"])) {
                 if ($user['public'] == 0) {
                     $publicstatusswitch = $db->prepare("UPDATE users SET public = (true) WHERE id = :uid");
-                    $publicstatusswitch->execute([":id" => get_user_id()]);
+                    $publicstatusswitch->execute([":uid" => get_user_id()]);
                 } else {
                     $publicstatusswitch = $db->prepare("UPDATE users SET public = (false) WHERE id = :uid");
-                    $publicstatusswitch->execute([":id" => get_user_id()]);
+                    $publicstatusswitch->execute([":uid" => get_user_id()]);
                 }
             }
         //
