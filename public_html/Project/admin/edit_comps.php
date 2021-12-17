@@ -29,27 +29,31 @@
         if(isset($_POST['selectcompid'])) {
             echo "<script>hideform()</script>";
             $selectcompid = $_POST['selectcompid'];
-
-            //Submit Competition Edit
+            //Variable Declaration
+                try {
+                    //Fetch Comp Data
+                        $fetchcomp = $db->prepare("SELECT * FROM competitions WHERE id = :cid LIMIT 1");
+                        $fetchcomp->execute([":cid" => $selectcompid]);
+                        $compdata = $fetchcomp->fetch(PDO::FETCH_ASSOC);
+                    //
+                    //Set Comp Data onto Form
+                        $compname = $compdata['name'];
+                        $reward1 = $compdata['first_place_per'];
+                        $reward2 = $compdata['second_place_per'];
+                        $reward3 = $compdata['third_place_per'];
+                        $compcost = $compdata['join_fee'];
+                        $duration = $compdata['duration'];
+                        $minscore = $compdata['min_score'];
+                        $minplayers = $compdata['min_participants'];
+                    //
+                } catch (Exception $e) {
+                    flash("<pre>" . "Error Code: F000 - Bad Competition Submit - Var" . "</pre>", "danger");
+                }
+            //
+            //Fetch Data and Submit Competition Edit
                 if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2reward"]) && isset($_POST["3reward"]) && 
                 isset($_POST["compcost"]) && isset($_POST["duration"]) && isset($_POST["minscore"]) && isset($_POST["minplayers"])) 
                 {
-
-                    // Variable declaration
-                        try {
-                            $compname = se($_POST, "compname", "", false);
-                            $reward1 = se($_POST, "1reward", "", false);
-                            $reward2 = se($_POST, "2reward", "", false);
-                            $reward3 = se($_POST, "3reward", "", false);
-                            $compcost = se($_POST, "compcost", "", false);
-                            $duration = se($_POST, "duration", "", false);
-                            $minscore = se($_POST, "minscore", "", false);
-                            $minplayers = se($_POST, "minplayers", "", false);
-                            $compcreatecost = 2;
-                        }  catch (Exception $e) {
-                            flash("<pre>" . "Error Code: F000 - Bad Competition Submit" . "</pre>", "danger");
-                        }
-                    //
                     $hasError = false;
                     $compcreationsuccess = false;
                     
@@ -145,7 +149,7 @@
                             $duration = "";
                             $minscore = "";
                             $minplayers = "";
-            
+                            echo "<script>hideform()</script>";
                         }
                     //
                 }
