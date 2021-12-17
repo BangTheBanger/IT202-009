@@ -367,7 +367,6 @@
         
         <div class="column" id="existcomp">
             <h2>Existing Competitions</h2>
-
             <table style="width:auto">
                 <tr>
                     <th>ID</th>
@@ -464,8 +463,8 @@
             </table>
         </div>
         <div class="column" id="join">
+            <h2>Join Competition</h2>
             <form onsubmit="return validate(this)" method="POST">
-                <h2>Join Competition</h2>
                 <div>
                     <label for="compjoin">Competition ID:</label>
                     <input type="number" name="compjoin" min="1" required value="<?php if(!(empty($compjoin))) {se($compjoin);} ?>"/>
@@ -476,7 +475,6 @@
         </div>
         <div class="column" id="newcomp">
             <h2>Create a Competition</h2>
-            
             <form onsubmit="return validate(this)" method="POST">
                 <div>
                     <label for="compname">Competition Name:</label>
