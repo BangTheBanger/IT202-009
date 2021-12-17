@@ -167,7 +167,7 @@
     }
     .tableh:after{
         box-sizing: border-box;
-        float: left;
+        float: center;
     }
     .row:after {
         box-sizing: border-box;
@@ -187,7 +187,7 @@
         </div>
         <div class="mb-3">
             <label for="username">Username</label>
-            <input type="text" name="username" id="username" value="<?php se($username); ?>" />
+            <input type="text" name="username" id="username" value="<?php se(get_username()); ?>" />
         </div>
         <!-- DO NOT PRELOAD PASSWORD -->
         <div>Password Reset</div>
