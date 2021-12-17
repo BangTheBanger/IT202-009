@@ -268,9 +268,9 @@
         <?php 
             if (count($complist) > 10) {
                 for ($i = 0; $i < 10; $i++) {
-                    $compid = $complist[$i]["score"];
-                    $compname = $complist[$i]["CREATED"];
-                    $compexpiration = $complist[$i]["CREATED"];
+                    $compid = $complist[$i]["id"];
+                    $compname = $complist[$i]["name"];
+                    $compexpiration = $complist[$i]["expiration"];
                     
                     echo '<tr>';
                     echo '<td>'. $compid .'</td>';
@@ -282,9 +282,9 @@
             
             else if (count($complist) > 0) {
                 for ($i = 0; $i < count($complist); $i++) {
-                    $compid = $complist[$i]["score"];
-                    $compname = $complist[$i]["CREATED"];
-                    $compexpiration = $complist[$i]["CREATED"];
+                    $compid = $complist[$i]["id"];
+                    $compname = $complist[$i]["name"];
+                    $compexpiration = $complist[$i]["expiration"];
                     
                     echo '<tr>';
                     echo '<td>'. $compid .'</td>';
