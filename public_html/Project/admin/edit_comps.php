@@ -73,10 +73,6 @@
                     $duration = se($_POST, "duration", "", false);
                     $minscore = se($_POST, "minscore", "", false);
                     $minplayers = se($_POST, "minplayers", "", false);
-                    var_dump($compid);
-                    echo" compid after<br>";
-                    var_dump($compname);
-                    echo" name after<br>";
                     $hasError = false;
                     $compcreationsuccess = false;
                 }  catch (Exception $e) {
@@ -139,6 +135,9 @@
                     $minplayers = (int)$minplayers;
                 }
             //
+            
+            var_dump($compid, $compname, $reward1, $reward2, $reward3, $compcost, $duration, $minscore, $minplayers);
+
             //Editing Competitions table
                 try {
                     if (!$hasError) {                   
