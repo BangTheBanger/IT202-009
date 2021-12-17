@@ -292,7 +292,7 @@
         <div class="column" id="editcomp">
             <h2>Edit Competition</h2>
             
-            <div id = "editform">
+            <div id = "editform" style ="display: 'none'">
                 <form onsubmit="return validate(this)" method="POST">
                     <div id = "compname">
                         <label for="compname">Competition Name:</label>
@@ -339,20 +339,19 @@
                     </div>
                 </form>
             </div>
-
-            <script>
-                function validate(form) {
-                    return true;
-                }
-                function hideform() {
-                    var compeditdiv = document.getElementById("editform")
-                    if (compeditdiv.style.display == "none"){
-                        compeditdiv.style.display="block";
-                    } else {
-                        compeditdiv.style.display = "none";
-                    }
-                }
-            </script>
         </div>
     </div>
+    <script>
+        function validate(form) {
+            return true;
+        }
+        function hideform() {
+            var compeditdiv = document.getElementById("editform")
+            if (compeditdiv.style.display == "none"){
+                compeditdiv.style.display="block";
+            } else {
+                compeditdiv.style.display = "none";
+            }
+        }
+    </script>
 </body>
