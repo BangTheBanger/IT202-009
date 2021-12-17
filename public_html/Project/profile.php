@@ -35,7 +35,7 @@
             $stmt->execute([":username" => $username]);
             $scorelist = $stmt->fetchAll(PDO::FETCH_ASSOC);
         //
-        $fetchowner = $db->prepare("SELECT id, email, username, public from users where id = :id LIMIT 1");
+        $fetchowner = $db->prepare("SELECT id, email, username, points, public from users where id = :id LIMIT 1");
         $fetchowner->execute([":id" => get_user_id()]);
         $user = $fetchowner->fetch(PDO::FETCH_ASSOC);
         //Saving form data for user data
