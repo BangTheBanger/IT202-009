@@ -65,9 +65,9 @@
             // Variable declaration
                 try {
                     var_dump($selectcompid);
-                    echo"compid before ^<br>";
-                    var_dump($duration);
-                    echo"duration before ^<br>";
+                    echo" compid before<br>";
+                    var_dump($compname);
+                    echo" name before<br>";
                     $compname = se($_POST, "compname", "", false);
                     $reward1 = se($_POST, "1reward", "", false);
                     $reward2 = se($_POST, "2reward", "", false);
@@ -77,9 +77,9 @@
                     $minscore = se($_POST, "minscore", "", false);
                     $minplayers = se($_POST, "minplayers", "", false);
                     var_dump($selectcompid);
-                    echo"compid before ^<br>";
-                    var_dump($duration);
-                    echo"duration before ^<br>";
+                    echo" compid after<br>";
+                    var_dump($compname);
+                    echo" name after<br>";
                 }  catch (Exception $e) {
                     flash("<pre>" . "Error Code: F000 - Bad Competition Submit" . "</pre>", "danger");
                 }
@@ -323,7 +323,7 @@
                 ?>
             </table>
         </div>
-        <div class="column" id="">
+        <div class="column" id="editcompdiv">
             <h2>Edit Competition</h2>
             
             <div class = "editformhidden" id="editform">
