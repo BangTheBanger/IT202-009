@@ -8,14 +8,13 @@
 
 
     //List Pagination
-
         if (!isset ($_GET['cursor']) ) {
             $cursor = 1;
         } else {
             $cursor = $_GET['cursor'];
         }
 
-        $stmt = $db->prepare("SELECT * FROM competitions");
+        $stmt = $db->prepare("SELECT * FROM competitions WHERE paid_out = 0 ORDER BY expiration ASC");
         $stmt->execute();
         $complist = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -25,12 +24,14 @@
         $totalrows = count($complist);
         $pageamount= ceil($totalrows / $pagetotal);
     //
-    //Has Looked Up an ID
+
+    //TODO: Has Looked Up an ID
         if(isset($_POST['compid'])) {
             $compid = $_POST['compid'];
         }
     //
-    //Hasn't Looked Up an ID
+
+    //TODO: Hasn't Looked Up an ID
         else {
             //make id = compedit not display
         }
@@ -151,7 +152,7 @@
                         }
 
                         for($cursor = 1; $cursor <= $pageamount; $cursor++) {
-                            echo '<a href = "edit_comps.php?cursor=' . $cursor . '">' . $cursor . ' </a>';
+                            echo '<a class="cursoranchor" href = "edit_comps.php?cursor=' . $cursor . '">Page ' . $cursor . ' </a>';
                         }
                     }
                     

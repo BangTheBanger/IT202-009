@@ -87,3 +87,11 @@ td {
 .spacer {
     color: rgb(9, 10, 15);
 }
+
+a.cursoranchor {
+    color: rgb(218, 0, 36);
+}
+
+a:visited {
+    color: rgb(218, 0, 36);
+}

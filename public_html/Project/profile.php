@@ -328,7 +328,7 @@
                         }
                         
                         for($cursor = 1; $cursor <= $pageamount; $cursor++) {
-                            echo '<a href = "profile.php?cursor=' . $cursor . '">' . $cursor . ' </a>';
+                            echo '<a href = "profile.php?cursor=' . $cursor . '">Page ' . $cursor . ' </a>';
                         }
                     }
                     
