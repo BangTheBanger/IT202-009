@@ -130,7 +130,7 @@
                         $publicstatusswitch->execute([":uid" => get_user_id()]);
                     }
                     */
-                    unset($_POST['publicize']);
+                    die(header("Location: profile.php"));
                     #$_POST = array();
                 }
             } catch (Exception $e) {
