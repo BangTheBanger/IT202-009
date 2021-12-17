@@ -26,8 +26,8 @@
     //
 
     //Has Looked Up an ID
-        if(isset($_POST['compid'])) {
-            $compid = $_POST['compid'];
+        if(isset($_POST['selectcompid'])) {
+            $selectcompid = $_POST['selectcompid'];
 
             //Submit Competition Edit
                 if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2reward"]) && isset($_POST["3reward"]) && 
@@ -125,7 +125,7 @@
                                                             ":duration"  => $duration     ,   ":startreward" => 1           ,  ":joinfee"  => $compcost      , 
                                                             ":minplayer" => $minplayers   ,   ":minscore"    => $minscore   ,  ":reward1"  => $reward1       ,
                                                             ":reward2"   => $reward2      ,   ":reward3"     => $reward3    ,  ":cost"     => $compcreatecost,
-                                                            ":cid"       => $compid
+                                                            ":cid"       => $selectcompid
                                 ]);
 
                                 flash("Competition Successfully Edited!", "success");
@@ -336,8 +336,8 @@
             <div id="lookupcomp">
                 <form onsubmit="return validate(this)" method="POST">
                     <div>
-                        <label for="compid" class="tobecleared">Competition ID:</label>
-                        <input type="number" name="compid" required value="<?php if(!(empty($compid))) {se($compid);} ?>"/>
+                        <label for="selectcompid" class="tobecleared">Competition ID:</label>
+                        <input type="number" name="selectcompid" required value="<?php if(!(empty($selectcompid))) {se($selectcompid);} ?>"/>
                     </div>
                 </form>
             </div>
