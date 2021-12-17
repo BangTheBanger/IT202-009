@@ -118,7 +118,8 @@
         //
         //Switch user public status
             try{
-                if ($_POST["publicize"] != NULL && isset($_POST["publicize"])) {
+                if ( !($_POST["publicize"] == NULL) && isset($_POST["publicize"]) ) {
+                    echo "Post 1";
                     var_dump($_POST["publicize"]);
                     /*
                     if ($user['public'] == 0) {
@@ -129,7 +130,14 @@
                         $publicstatusswitch->execute([":uid" => get_user_id()]);
                     }
                     */
+                    echo "<br>Test 1";
+                    $test = $_POST["publicize"] == NULL;
+                    var_dump($test);
+                    echo "<br>Test 2";
                     $_POST["publicize"] = NULL;
+                    $test = $_POST["publicize"] == NULL;
+                    var_dump($test);
+                    echo "<br>Post 2";
                     var_dump($_POST["publicize"]);
                 }
             } catch (Exception $e) {
