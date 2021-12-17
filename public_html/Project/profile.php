@@ -140,28 +140,24 @@
             }
         //
         //Pagination
-            if (!isset ($_GET['page']) ) {
-                $page = 1;
+            if (!isset ($_GET['cursor']) ) {
+                $cursor = 1;
             } else {
-                $page = $_GET['page'];
+                $cursor = $_GET['cursor'];
             }
-            $results_per_page = 10;
-            $page_first_result = ($page-1) * $results_per_page;
+            $pagetotal = 10;
+            $offset = $pagetotal*($cursor-1);
+
             $comppagination = $db->prepare("SELECT * FROM competitions JOIN competitionparticipants ON competitions.id = competitionparticipants.comp_id WHERE user_id = :username");
             $comppagination->execute([":username" => $username]);
-            $number_of_results = mysqli_num_rows($comppagination);
-            $number_of_page = ceil($number_of_result / $results_per_page);
+
+            $totalrows = count($complist);
+            $pageamount= ceil($totalrows / $pagetotal);
+
             $comppages = $db->prepare("SELECT * FROM competitions JOIN competitionparticipants ON competitions.id = competitionparticipants.comp_id 
-                                            WHERE user_id = :username LIMIT " . $page_first_result . ',' . $results_per_page);
+                                        WHERE user_id = :username LIMIT " . $offset . ',' . $pagetotal);
             //
             $comppages->execute([":username" => $username]);
-            
-            while ($row = mysqli_fetch_array($comppages)) {
-                echo $row['id'] . ' ' . $row['name'] . '</br>';
-            } 
-            for($page = 1; $page<= $number_of_page; $page++) {
-                echo '<a href = "index2.php?page=' . $page . '">' . $page . ' </a>';
-            }
         //
     }
 
@@ -201,68 +197,68 @@
 
 <?php if ($isOwner) : ?>
     <title><?php echo $user['username']; ?>'s Profile</title>
-    <h1><?php echo $user['username']; ?>'s Profile</h1>
-    <form method="POST" onsubmit="return validate(this);">
-        <div class="mb-3">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" value="<?php se($email); ?>" />
-        </div>
-        <div class="mb-3">
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username" value="<?php se(get_username()); ?>" />
-        </div>
-        <!-- DO NOT PRELOAD PASSWORD -->
-        <div>Password Reset</div>
-        <div class="mb-3">
-            <label for="cp">Current Password</label>
-            <input type="password" name="currentPassword" id="cp" />
-        </div>
-        <div class="mb-3">
-            <label for="np">New Password</label>
-            <input type="password" name="newPassword" id="np" />
-        </div>
-        <div class="mb-3">
-            <label for="conp">Confirm Password</label>
-            <input type="password" name="confirmPassword" id="conp" />
-        </div>
-        <input type="submit" value="Update Profile" name="save" />
-    </form>
-    <form method="POST" onsubmit="return validate(this);">
-        <p>Your current profile status is: <?php if($user['public'] == 0) {echo "Private";} else {echo "Public";} ?></p>
-        <input type="submit" value="Change Profile Publicity Status" name="publicize" />
-    </form>
-    <?php echo  "<p>Your Total Points: ", $user['points'] . "</p>"; ?>
+        <h1><?php echo $user['username']; ?>'s Profile</h1>
+        <form method="POST" onsubmit="return validate(this);">
+            <div class="mb-3">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" value="<?php se($email); ?>" />
+            </div>
+            <div class="mb-3">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" value="<?php se(get_username()); ?>" />
+            </div>
+            <!-- DO NOT PRELOAD PASSWORD -->
+            <div>Password Reset</div>
+            <div class="mb-3">
+                <label for="cp">Current Password</label>
+                <input type="password" name="currentPassword" id="cp" />
+            </div>
+            <div class="mb-3">
+                <label for="np">New Password</label>
+                <input type="password" name="newPassword" id="np" />
+            </div>
+            <div class="mb-3">
+                <label for="conp">Confirm Password</label>
+                <input type="password" name="confirmPassword" id="conp" />
+            </div>
+            <input type="submit" value="Update Profile" name="save" />
+        </form>
+        <form method="POST" onsubmit="return validate(this);">
+            <p>Your current profile status is: <?php if($user['public'] == 0) {echo "Private";} else {echo "Public";} ?></p>
+            <input type="submit" value="Change Profile Publicity Status" name="publicize" />
+        </form>
+        <?php echo  "<p>Your Total Points: ", $user['points'] . "</p>"; ?>
 
-    <script>
-        function validate(form) {
-            let pw = form.newPassword.value;
-            let con = form.confirmPassword.value;
-            let isValid = true;
-            //TOD0 add other client side validation....
+        <script>
+            function validate(form) {
+                let pw = form.newPassword.value;
+                let con = form.confirmPassword.value;
+                let isValid = true;
+                //TOD0 add other client side validation....
 
-            //example of using flash via javascript
-            //find the flash container, create a new element, appendChild
-            if (pw !== con) {
-                //find the container
-                let flash = document.getElementById("flash");
-                //create a div (or whatever wrapper we want)
-                let outerDiv = document.createElement("div");
-                outerDiv.className = "row justify-content-center";
-                let innerDiv = document.createElement("div");
+                //example of using flash via javascript
+                //find the flash container, create a new element, appendChild
+                if (pw !== con) {
+                    //find the container
+                    let flash = document.getElementById("flash");
+                    //create a div (or whatever wrapper we want)
+                    let outerDiv = document.createElement("div");
+                    outerDiv.className = "row justify-content-center";
+                    let innerDiv = document.createElement("div");
 
-                //apply the CSS (these are bootstrap classes which we'll learn later)
-                innerDiv.className = "alert alert-warning";
-                //set the content
-                innerDiv.innerText = "Password and Confirm password must match";
+                    //apply the CSS (these are bootstrap classes which we'll learn later)
+                    innerDiv.className = "alert alert-warning";
+                    //set the content
+                    innerDiv.innerText = "Password and Confirm password must match";
 
-                outerDiv.appendChild(innerDiv);
-                //add the element to the DOM (if we don't it merely exists in memory)
-                flash.appendChild(outerDiv);
-                isValid = false;
+                    outerDiv.appendChild(innerDiv);
+                    //add the element to the DOM (if we don't it merely exists in memory)
+                    flash.appendChild(outerDiv);
+                    isValid = false;
+                }
+                return isValid;
             }
-            return isValid;
-        }
-    </script>
+        </script>
 
     <div class="row">
         <div class="column" id="scorehist">
@@ -303,6 +299,7 @@
 
         <div class="column" id="comphist">
             <h3>Competition History</h3>
+
             <table style="width:33%">
                 <tr>
                     <th>ID</th>
@@ -311,16 +308,27 @@
                 </tr>
                 <?php 
                     if (count($complist) > 10) {
-                        for ($i = 0; $i < 10; $i++) {
-                            $compid = $complist[$i]["id"];
-                            $compname = $complist[$i]["name"];
-                            $compexpiration = $complist[$i]["expiration"];
-                            
-                            echo '<tr>';
-                            echo '<td>'. $compid .'</td>';
-                            echo '<td>'. $compname .'</td>';
-                            echo '<td>'. $compexpiration .'</td>';
-                            echo '</tr>';
+                        for ($pageindex = 1; $pageindex <= 10; $pageindex++) {
+                            if ($cursor == $pageindex) {
+
+                                $currentpagetotal = count($complist)-($pagetotal*($cursor-1));
+
+                                for ($listindex = $offset; $listindex <= $offset+$currentpagetotal-1; $listindex++) {
+                                    $compid = $complist[$listindex]["id"];
+                                    $compname = $complist[$listindex]["name"];
+                                    $compexpiration = $complist[$listindex]["expiration"];
+                                    
+                                    echo '<tr>';
+                                    echo '<td>'. $compid .'</td>';
+                                    echo '<td>'. $compname .'</td>';
+                                    echo '<td>'. $compexpiration .'</td>';
+                                    echo '</tr>';
+                                }
+                            }
+                        }
+                        
+                        for($cursor = 1; $cursor <= $pageamount; $cursor++) {
+                            echo '<a href = "profile.php?cursor=' . $cursor . '">' . $cursor . ' </a>';
                         }
                     }
                     
@@ -336,6 +344,8 @@
                             echo '<td>'. $compexpiration .'</td>';
                             echo '</tr>';
                         }
+                    } else if (count($complist)) {
+                        echo "No Competitions to Display";
                     }
                 
                 ?>
