@@ -353,7 +353,7 @@
             return true;
         }
         function hideform() {
-            var compeditdiv = document.getElementById("editform")
+            var compeditdiv = document.getElementsByClassName("editform")
             if (compeditdiv.style.display == "none"){
                 compeditdiv.style.display="block";
             } else {
