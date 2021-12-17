@@ -26,6 +26,7 @@
 
     //Has Looked Up an ID
         if(isset($_POST['selectcompid'])) {
+            $divIsHidden = false;
             $selectcompid = $_POST['selectcompid'];
             //Variable Declaration
                 try {
@@ -173,6 +174,12 @@
         }
     //
 
+    //Hasn't Looked Up an ID
+        else {
+            $divIsHidden = true;
+        }
+    //
+
     
 
 
@@ -308,7 +315,7 @@
                 ?>
             </table>
         </div>
-        <div class="column" id="<?php if(isset($_POST['selectcompid'])) {echo "editformshown";} else {echo "editformhidden";}?>">
+        <div class="column" id="">
             <h2>Edit Competition</h2>
             
             <div class = "editformhidden" id="editform">
@@ -365,5 +372,21 @@
         function validate(form) {
             return true;
         }
+        function hideform() {
+            var compeditdiv = document.getElementById('editform');
+            compeditdiv.className = 'editformhidden';
+        }
+        function showform() {
+            var compeditdiv = document.getElementById('editform');
+            compeditdiv.className = 'editformshown';
+        }
     </script>
+    
+    <?php 
+    if ($divIsHidden) {
+        echo "<script>hideform()</script>";
+    } else {
+        echo "<script>showform()</script>";
+    }
+    ?>
 </body>
