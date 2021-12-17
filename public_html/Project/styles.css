@@ -96,3 +96,11 @@ a.cursoranchor {
 a:visited {
     color: rgb(218, 0, 36);
 }
+
+.column div.editformhidden {
+    display: none;
+}
+
+.column div.editformshown {
+    display: block;
+}

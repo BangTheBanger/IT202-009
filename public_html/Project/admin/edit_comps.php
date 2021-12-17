@@ -26,9 +26,11 @@
     //
 
     //Has Looked Up an ID
-        var_dump(($_POST['selectcompid']));
-        echo "<br>";
-        var_dump(isset($_POST['selectcompid']));
+        if(isset(($_POST['selectcompid']))){
+            var_dump(($_POST['selectcompid']));
+            echo "<br>";
+            var_dump(isset($_POST['selectcompid']));
+        }
         if(isset($_POST['selectcompid'])) {
             echo "<script>hideform()</script>";
             $selectcompid = $_POST['selectcompid'];
@@ -176,12 +178,6 @@
             float: left;
             width: 50%;
             padding: 10px;
-        }
-        .column div.editformhidden {
-            display: none;
-        }
-        .column div.editformshown {
-            display: block;
         }
         .row:after {
             content: "";
