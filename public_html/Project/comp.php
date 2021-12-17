@@ -465,8 +465,8 @@
         </div>
         <div class="column" id="join">
             <form onsubmit="return validate(this)" method="POST">
+                <h2>Join Competition</h2>
                 <div>
-                    <h2>Join Competition</h2>
                     <label for="compjoin">Competition ID:</label>
                     <input type="number" name="compjoin" min="1" required value="<?php if(!(empty($compjoin))) {se($compjoin);} ?>"/>
                 </div>
