@@ -328,6 +328,10 @@
             
             <div class = "editformhidden" id="editform">
                 <form onsubmit="return validate(this)" method="POST">
+                    <div id = "selectcompid">
+                        <label for="selectcompid" class="tobecleared">Competition ID:</label>
+                        <input type="number" name="selectcompid" required value="<?php if(!(empty($selectcompid))) {se($selectcompid);} ?>"/>
+                    </div>
                     <div id = "compname">
                         <label for="compname">Competition Name:</label>
                         <input type="text" name="compname" required minlength="2" autocomplete="off" required value="<?php if(!(empty($showcompname))) {se($showcompname);} ?>"/>
@@ -383,11 +387,15 @@
         }
         function hideform() {
             var compeditdiv = document.getElementById('editform');
+            var complookdiv = document.getElementById('lookupcomp');
             compeditdiv.className = 'editformhidden';
+            complookdiv.className = 'editformshown';
         }
         function showform() {
             var compeditdiv = document.getElementById('editform');
+            var complookdiv = document.getElementById('lookupcomp');
             compeditdiv.className = 'editformshown';
+            complookdiv.className = 'editformhidden';
         }
     </script>
     
