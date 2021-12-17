@@ -241,7 +241,7 @@
 
     <div class="row">
         <div class="column" id="scorehist">
-            <h3>Score History</h3>
+            <h3 style="box-sizing: border-box; float: left;">Score History</h3>
             <table style="width:33%">
                 <tr>
                     <th>Scores</th>
@@ -277,7 +277,7 @@
         </div>
 
         <div class="column" id="comphist">
-            <h3>Competition History</h3>
+            <h3 style="box-sizing: border-box; float: left;">Competition History</h3>
             <table style="width:33%">
                 <tr>
                     <th>ID</th>
