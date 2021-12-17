@@ -136,7 +136,7 @@
                 }
             //
             
-            var_dump($compid, $compname, $reward1, $reward2, $reward3, $compcost, $duration, $minscore, $minplayers);
+            var_dump($compid, "", $compname, "", $reward1, "", $reward2, "", $reward3, "", $compcost, "", $duration, "", $minscore, "", $minplayers);
 
             //Editing Competitions table
                 try {
