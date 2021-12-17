@@ -159,18 +159,15 @@
         margin-top: 20px;
         text-align: center;
     }
-    .column {
+    * {
         box-sizing: border-box;
+    }
+    .column {
         float: left;
         width: 50%;
         padding: 10px;
     }
-    .tableh:after{
-        box-sizing: border-box;
-        float: center;
-    }
     .row:after {
-        box-sizing: border-box;
         content: "";
         display: table;
         clear: both;
