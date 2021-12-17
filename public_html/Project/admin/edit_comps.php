@@ -26,6 +26,7 @@
     //
 
     //Has Looked Up an ID
+        echo "<script>hideform()</script>";
         if(isset($_POST['selectcompid'])) {
             $selectcompid = $_POST['selectcompid'];
 
