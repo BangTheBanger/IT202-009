@@ -6,6 +6,7 @@
     }
     $db = getDB();
     //define hideform()
+    /*
     echo "
         <script> function hideform() {
             console.log('Please');
@@ -19,6 +20,7 @@
             }
         }
         </script>";
+    */
     //
     //List Pagination
         if (!isset ($_GET['cursor']) ) {
