@@ -158,8 +158,6 @@ if (strlen($a) < 1000) {
                     $compcreationsuccess = false;
                 }
 
-                echo "<script> (function() {var clear = document.getElementsByClassName('tobecleared'); 
-                    var test = document.getElementById('TEST'); test.innerHTML = clear; }) </script>";
                 $compname = "";
                 $reward1 = "";
                 $reward2 = "";
@@ -456,19 +454,19 @@ if (strlen($a) < 1000) {
             
             <form onsubmit="return validate(this)" method="POST">
                 <div>
-                    <label for="compname" class="tobecleared">Competition Name:</label>
+                    <label for="compname">Competition Name:</label>
                     <input type="text" name="compname" required minlength="2" required value="<?php if(!(empty($compname))) {se($compname);} ?>"/>
                 </div>
                 <div>
-                    <label for="1reward" class="tobecleared">First Place Reward: %</label>
+                    <label for="1reward">First Place Reward: %</label>
                     <input type="number" name="1reward" min="0" max="100" required value="<?php if(!(empty($reward1))) {if($multiplyRewards) {se($reward1*100);} else {se($reward1);}} ?>"/>
                 </div>
                 <div>
-                    <label for="2reward" class="tobecleared">Second Place Reward: %</label>
+                    <label for="2reward">Second Place Reward: %</label>
                     <input type="number" name="2reward" min="0" max="100" required value="<?php if(!(empty($reward2))) {if($multiplyRewards) {se($reward2*100);} else {se($reward2);}} ?>"/>
                 </div>
                 <div>
-                    <label for="3reward" class="tobecleared">Third Place Reward: %</label>
+                    <label for="3reward">Third Place Reward: %</label>
                     <input type="number" name="3reward" min="0" max="100" required value="<?php if(!(empty($reward3))) {if($multiplyRewards) {se($reward3*100);} else {se($reward3);}} ?>"/>
                 </div>
                 <div>
@@ -476,19 +474,19 @@ if (strlen($a) < 1000) {
                     <input type="checkbox" id="isfree" name="checkfree" onclick="freeclick()"/>
                 </div>
                 <div id="notfreecost">
-                    <label for="compcost" class="tobecleared">Competition Cost:</label>
+                    <label for="compcost">Competition Cost:</label>
                     <input type="number" id="notfreecostinput" name="compcost" min="0" required value="<?php if(!(empty($compcost))) {se($compcost);} ?>"/>
                 </div>
                 <div>
-                    <label for="duration" class="tobecleared">Duration (in days):</label>
+                    <label for="duration">Duration (in days):</label>
                     <input type="number" name="duration" min="1" required value="<?php if(!(empty($duration))) {se($duration);} ?>"/>
                 </div>
                 <div>
-                    <label for="minscore" class="tobecleared">Minimum Score to Qualify:</label>
+                    <label for="minscore">Minimum Score to Qualify:</label>
                     <input type="number" name="minscore" min="0" required value="<?php if(!(empty($minscore))) {se($minscore);} ?>"/>
                 </div>
                 <div>
-                    <label for="minplayers" class="tobecleared">Minimum Amount of Players for Payout:</label>
+                    <label for="minplayers">Minimum Amount of Players for Payout:</label>
                     <input type="number" name="minplayers" min="3" required value="<?php if(!(empty($minplayers))) {se($minplayers);} ?>"/>
                 </div>
                 <div><p><?php echo "The cost of creating the competition is: " . 1+1;?></p></div>
@@ -496,7 +494,6 @@ if (strlen($a) < 1000) {
 
                 <input type="submit" value="Create" />
             </form>
-            <p id = "TEST"></p>  
             <script>
                 function validate(form) {
                     return true;
@@ -513,19 +510,6 @@ if (strlen($a) < 1000) {
                         costdivin.value = "0";
                     }
                 }
-                /*
-                window.onload = clearForms();
-                function clearForms() {
-                    var clear = document.getElementsByClassName("tobecleared");
-                    var test = document.getElementById("TEST");
-                    test.innerHTML = clear;
-                }
-                */
-                ;(function() {
-                    var clear = document.getElementsByClassName('tobecleared'); 
-                    var test = document.getElementById('TEST'); 
-                    test.innerHTML = clear;
-                })
             </script>
 
         </div>
