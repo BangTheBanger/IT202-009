@@ -455,7 +455,7 @@ if (strlen($a) < 1000) {
             <form onsubmit="return validate(this)" method="POST">
                 <div>
                     <label for="compname">Competition Name:</label>
-                    <input type="text" name="compname" required minlength="2" autocomplete="off" required value="<?php if(!(empty($compname))) {se($compname);}?>"/>
+                    <input type="text" name="compname" required minlength="2" autocomplete="off" required value="<?php se($compname) ?>"/>
                 </div>
                 <div>
                     <label for="1reward">First Place Reward: %</label>
@@ -475,19 +475,19 @@ if (strlen($a) < 1000) {
                 </div>
                 <div id="notfreecost">
                     <label for="compcost">Competition Cost:</label>
-                    <input type="number" id="notfreecostinput" name="compcost" min="0" required value="<?php if(!(empty($compcost))) {se($compcost);} ?>"/>
+                    <input type="number" id="notfreecostinput" name="compcost" min="0" required value="<?php se($compcost) ?>"/>
                 </div>
                 <div>
                     <label for="duration">Duration (in days):</label>
-                    <input type="number" name="duration" min="1" required value="<?php if(!(empty($duration))) {se($duration);} ?>"/>
+                    <input type="number" name="duration" min="1" required value="<?php se($duration) ?>"/>
                 </div>
                 <div>
                     <label for="minscore">Minimum Score to Qualify:</label>
-                    <input type="number" name="minscore" min="0" required value="<?php if(!(empty($minscore))) {se($minscore);} ?>"/>
+                    <input type="number" name="minscore" min="0" required value="<?php se($minscore) ?>"/>
                 </div>
                 <div>
                     <label for="minplayers">Minimum Amount of Players for Payout:</label>
-                    <input type="number" name="minplayers" min="3" required value="<?php if(!(empty($minplayers))) {se($minplayers);} ?>"/>
+                    <input type="number" name="minplayers" min="3" required value="<?php se($minplayers) ?>"/>
                 </div>
                 <div><p><?php echo "The cost of creating the competition is: " . 1+1;?></p></div>
 
