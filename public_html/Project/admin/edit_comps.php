@@ -320,6 +320,7 @@
         </div>
         <div class="column" id="editcompdiv">
             <h2>Edit Competition</h2>
+            <p>Refresh Page After Edit For Results</p>
             
             <div class = "editformhidden" id="editform">
                 <form onsubmit="return validate(this)" method="POST">
