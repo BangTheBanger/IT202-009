@@ -26,85 +26,100 @@
         $isOwner = true;
         $email = get_user_email();
         $userid = get_user_id();
-        if (isset($_POST["save"])) {
-            $email = se($_POST, "email", null, false);
-            $username = se($_POST, "username", null, false);
-    
-            $params = [":email" => $email, ":username" => $username, ":id" => get_user_id()];
-            $db = getDB();
-            $stmt = $db->prepare("UPDATE users set email = :email, username = :username where id = :id");
-            try {
-                $stmt->execute($params);
-            } catch (Exception $e) {
-                if ($e->errorInfo[1] === 1062) {
-                    //https://www.php.net/manual/en/function.preg-match.php
-                    preg_match("/users.(\w+)/", $e->errorInfo[2], $matches);
-                    if (isset($matches[1])) {
-                        flash("The chosen " . $matches[1] . " is not available.", "warning");
+        $fetchowner = $db->prepare("SELECT id, email, username, public from users where id = :id LIMIT 1");
+        //Saving form data for user data
+            if (isset($_POST["save"])) {
+                $email = se($_POST, "email", null, false);
+                $username = se($_POST, "username", null, false);
+        
+                $params = [":email" => $email, ":username" => $username, ":id" => get_user_id()];
+                $db = getDB();
+                $stmt = $db->prepare("UPDATE users set email = :email, username = :username where id = :id");
+                try {
+                    $stmt->execute($params);
+                } catch (Exception $e) {
+                    if ($e->errorInfo[1] === 1062) {
+                        //https://www.php.net/manual/en/function.preg-match.php
+                        preg_match("/users.(\w+)/", $e->errorInfo[2], $matches);
+                        if (isset($matches[1])) {
+                            flash("The chosen " . $matches[1] . " is not available.", "warning");
+                        } else {
+                            //TOD0 come up with a nice error message
+                            echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
+                        }
                     } else {
                         //TOD0 come up with a nice error message
                         echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
                     }
-                } else {
-                    //TOD0 come up with a nice error message
-                    echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
                 }
-            }
-            //select fresh data from table
-            $stmt = $db->prepare("SELECT id, email, username from users where id = :id LIMIT 1");
-            try {
-                $stmt->execute([":id" => get_user_id()]);
-                $user = $stmt->fetch(PDO::FETCH_ASSOC);
-                if ($user) {
-                    //$_SESSION["user"] = $user;
-                    $_SESSION["user"]["email"] = $user["email"];
-                    $_SESSION["user"]["username"] = $user["username"];
-                } else {
-                    flash("User doesn't exist", "danger");
-                }
-            } catch (Exception $e) {
-                flash("An unexpected error occurred, please try again", "danger");
-                //echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
-            }
-    
-    
-            //check/update password
-            $current_password = se($_POST, "currentPassword", null, false);
-            $new_password = se($_POST, "newPassword", null, false);
-            $confirm_password = se($_POST, "confirmPassword", null, false);
-            if (!empty($current_password)) {
-                if (!empty($new_password) && !empty($confirm_password)) {
-                    if ($new_password === $confirm_password) {
-                        //TOD0 validate current
-                        $stmt = $db->prepare("SELECT password from users where id = :id");
-                        try {
-                            $stmt->execute([":id" => get_user_id()]);
-                            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                            if (isset($result["password"])) {
-                                if (password_verify($current_password, $result["password"])) {
-                                    $query = "UPDATE users set password = :password where id = :id";
-                                    $stmt = $db->prepare($query);
-                                    $stmt->execute([
-                                        ":id" => get_user_id(),
-                                        ":password" => password_hash($new_password, PASSWORD_BCRYPT)
-                                    ]);
-    
-                                    flash("Password reset", "success");
-                                } else {
-                                    flash("Current password is invalid", "warning");
-                                }
-                            }
-                        } catch (Exception $e) {
-                            echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
-                        }
+                //select fresh data from table
+                try {
+                    $fetchowner->execute([":id" => get_user_id()]);
+                    $user = $fetchowner->fetch(PDO::FETCH_ASSOC);
+                    if ($user) {
+                        //$_SESSION["user"] = $user;
+                        $_SESSION["user"]["email"] = $user["email"];
+                        $_SESSION["user"]["username"] = $user["username"];
                     } else {
-                        flash("New passwords don't match", "warning");
+                        flash("User doesn't exist", "danger");
                     }
+                } catch (Exception $e) {
+                    flash("An unexpected error occurred, please try again", "danger");
+                    //echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
                 }
-            } else {
-                flash("Please type your current password", "warning");
+        
+        
+                //check/update password
+                $current_password = se($_POST, "currentPassword", null, false);
+                $new_password = se($_POST, "newPassword", null, false);
+                $confirm_password = se($_POST, "confirmPassword", null, false);
+                if (!empty($current_password)) {
+                    if (!empty($new_password) && !empty($confirm_password)) {
+                        if ($new_password === $confirm_password) {
+                            //TOD0 validate current
+                            $stmt = $db->prepare("SELECT password from users where id = :id");
+                            try {
+                                $stmt->execute([":id" => get_user_id()]);
+                                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                                if (isset($result["password"])) {
+                                    if (password_verify($current_password, $result["password"])) {
+                                        $query = "UPDATE users set password = :password where id = :id";
+                                        $stmt = $db->prepare($query);
+                                        $stmt->execute([
+                                            ":id" => get_user_id(),
+                                            ":password" => password_hash($new_password, PASSWORD_BCRYPT)
+                                        ]);
+        
+                                        flash("Password reset", "success");
+                                    } else {
+                                        flash("Current password is invalid", "warning");
+                                    }
+                                }
+                            } catch (Exception $e) {
+                                echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
+                            }
+                        } else {
+                            flash("New passwords don't match", "warning");
+                        }
+                    }
+                } else {
+                    flash("Please type your current password", "warning");
+                }
             }
-        }
+        //
+        //Switch user public status
+            if (isset($_POST["publicize"])) {
+                $fetchowner->execute([":id" => get_user_id()]);
+                $user = $fetchowner->fetch(PDO::FETCH_ASSOC);
+                if ($user['public'] == 0) {
+                    $publicstatusswitch = $db->prepare("UPDATE users SET public = 1 WHERE id = :uid");
+                    $publicstatusswitch->execute([":id" => get_user_id()]);
+                } else {
+                    $publicstatusswitch = $db->prepare("UPDATE users SET public = 0 WHERE id = :uid");
+                    $publicstatusswitch->execute([":id" => get_user_id()]);
+                }
+            }
+        //
         //Point update >
             $update = $db->prepare("UPDATE users SET points = (SELECT IFNULL(SUM(pointchange), 0) FROM pointhistory WHERE user_id = :uid) WHERE id = :uid");
             $update->execute([":uid" => $username]);
@@ -163,6 +178,7 @@
         <input type="submit" value="Update Profile" name="save" />
     </form>
     <form method="POST" onsubmit="return validate(this);">
+        <p>Your current profile status is: <?php if($user['public'] == 0) {echo "Private";} else {echo "Public";} ?></p>
         <input type="submit" value="Change Profile Publicity Status" name="publicize" />
     </form>
     <script>
