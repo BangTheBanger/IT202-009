@@ -347,7 +347,7 @@
             text-align: center;
         }
         .column.right {
-            text-align: center;
+            text-align: left;
         }
         .row:after {
             content: "";
