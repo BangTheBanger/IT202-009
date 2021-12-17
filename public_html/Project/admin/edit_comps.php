@@ -64,12 +64,6 @@
         {
             // Variable declaration
                 try {
-                    var_dump($selectcompid);
-                    echo" selectcompid before<br>";
-                    var_dump($compid);
-                    echo" compid before<br>";
-                    var_dump($compname);
-                    echo" name before<br>";
                     $compid = se($_POST, "compid", "", false);
                     $compname = se($_POST, "compname", "", false);
                     $reward1 = se($_POST, "1reward", "", false);
