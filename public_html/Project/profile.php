@@ -163,9 +163,10 @@
         box-sizing: border-box;
     }
     .column {
-        float: center;
-        width: 50%;
+        float: left;
+        width: 40%;
         padding: 10px;
+        text-align: center;
     }
     .row:after {
         content: "";
