@@ -6,7 +6,7 @@
     
     $db = getDB();
 
-    if($_GET) {
+    if(isset($_GET['id'])) {
         $pageuserid = $_GET['id'];
         $isOwner = false;
         //Point update >
