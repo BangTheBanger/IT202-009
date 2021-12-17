@@ -130,7 +130,7 @@
                         $publicstatusswitch->execute([":uid" => get_user_id()]);
                     }
                     */
-                    $_POST["publicize"] = NULL;
+                    $_POST = array();
                     echo "<br>Post 2<br>";
                     var_dump($_POST["publicize"]);
                     echo "<br>";
