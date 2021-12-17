@@ -139,6 +139,30 @@
                 
             }
         //
+        //Pagination
+            if (!isset ($_GET['page']) ) {
+                $page = 1;
+            } else {
+                $page = $_GET['page'];
+            }
+            $results_per_page = 10;
+            $page_first_result = ($page-1) * $results_per_page;
+            $comppagination = $db->prepare("SELECT * FROM competitions JOIN competitionparticipants ON competitions.id = competitionparticipants.comp_id WHERE user_id = :username");
+            $comppagination->execute([":username" => $username]);
+            $number_of_results = mysqli_num_rows($comppagination);
+            $number_of_page = ceil($number_of_result / $results_per_page);
+            $comppages = $db->prepare("SELECT * FROM competitions JOIN competitionparticipants ON competitions.id = competitionparticipants.comp_id 
+                                            WHERE user_id = :username LIMIT " . $page_first_result . ',' . $results_per_page);
+            //
+            $comppages->execute([":username" => $username]);
+            
+            while ($row = mysqli_fetch_array($comppages)) {
+                echo $row['id'] . ' ' . $row['name'] . '</br>';
+            } 
+            for($page = 1; $page<= $number_of_page; $page++) {
+                echo '<a href = "index2.php?page=' . $page . '">' . $page . ' </a>';
+            }
+        //
     }
 
     // var dump $scorelist
