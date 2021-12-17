@@ -305,7 +305,7 @@
                 <form onsubmit="return validate(this)" method="POST">
                     <div id = "compname">
                         <label for="compname">Competition Name:</label>
-                        <input type="text" name="compname" required minlength="2" autocomplete="off" required value="<?php se($compname) ?>"/>
+                        <input type="text" name="compname" required minlength="2" autocomplete="off" required value="<?php if(!(empty($compname))) {se($compname);} ?>"/>
                     </div>
                     <div id = "1reward">
                         <label for="1reward">First Place Reward: %</label>
