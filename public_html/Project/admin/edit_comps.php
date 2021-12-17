@@ -81,6 +81,12 @@
                 }
             //
             //Variable check and sanitization
+                if (empty($compid)) {
+                    flash("Competition ID must not be empty", "warning");
+                    $hasError = true;
+                } else {
+                    $compid = (int)$compid;
+                }
                 if (empty($compname)) {
                     flash("Competition Name must not be empty", "warning");
                     $hasError = true;
@@ -135,30 +141,21 @@
                     $minplayers = (int)$minplayers;
                 }
             //
-            
-            var_dump($compid, "", $compname, "", $reward1, "", $reward2, "", $reward3, "", $compcost, "", $duration, "", $minscore, "", $minplayers);
 
             //Editing Competitions table
                 try {
                     if (!$hasError) {                   
-                        $stmt = $db->prepare("UPDATE competitions SET
-                                                        name              =  :name
-                                                    , duration          =  :duration ,    join_fee         =  :joinfee ,   min_participants  =  :minplayer
-                                                    , min_score         =  :minscore ,    first_place_per  =  :reward1 ,   second_place_per  =  :reward2
-                                                    , third_place_per   =  :reward3
-                                                    , expiration        =  ((DATE_ADD(CREATED, INTERVAL duration DAY))))
+                        $stmt = $db->prepare("UPDATE competitions SET name = :name, duration = :duration, join_fee = :joinfee, min_participants = :minplayer
+                                                    , min_score = :minscore, first_place_per = :reward1, second_place_per = :reward2, third_place_per = :reward3
+                                                    , expiration = (DATE_ADD(CREATED, INTERVAL duration DAY))
                                             WHERE id = :cid
                         ");
                         
                         try {
-                            $stmt->execute([
-                                                        ":name"      => $compname     , 
-                                                        ":duration"  => $duration     ,   ":joinfee"  => $compcost   ,  ":minplayer" => $minplayers   ,
-                                                        ":minscore"  => $minscore     ,   ":reward1"  => $reward1    ,  ":reward2"   => $reward2      ,
-                                                        ":reward3"   => $reward3      ,   ":cid"      => $compid
-                                                        
-                            ]);
-
+                            $stmt->execute([":name" => $compname, ":duration" => $duration, ":joinfee" => $compcost, ":minplayer" => $minplayers,
+                                                    ":minscore" => $minscore, ":reward1" => $reward1, ":reward2" => $reward2, ":reward3" => $reward3,
+                                                    ":cid" => $compid]);
+                            //
                             flash("Competition Successfully Edited!", "success");
                             $compcreationsuccess = true;
                         } catch (Exception $e) {
