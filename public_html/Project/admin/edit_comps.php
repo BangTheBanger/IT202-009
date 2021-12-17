@@ -26,11 +26,6 @@
     //
 
     //Has Looked Up an ID
-        if(isset(($_POST['selectcompid']))){
-            var_dump(($_POST['selectcompid']));
-            echo "<br>";
-            var_dump(isset($_POST['selectcompid']));
-        }
         if(isset($_POST['selectcompid'])) {
             echo "<script>hideform()</script>";
             $selectcompid = $_POST['selectcompid'];
@@ -353,10 +348,10 @@
         }
         function hideform() {
             var compeditdiv = document.getElementById("editform")
-            if (compeditdiv.class == "editformhidden"){
-                compeditdiv.class="editformshown";
+            if (compeditdiv.className == "editformhidden"){
+                compeditdiv.className="editformshown";
             } else {
-                compeditdiv.class="editformhidden";
+                compeditdiv.className="editformhidden";
             }
         }
     </script>
