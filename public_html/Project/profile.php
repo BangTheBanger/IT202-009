@@ -313,7 +313,7 @@
 
                                 $currentpagetotal = count($complist)-($pagetotal*($cursor-1));
 
-                                for ($listindex = $offset; $listindex <= $offset+$currentpagetotal-1; $listindex++) {
+                                for ($listindex = $offset; $listindex < $offset+$currentpagetotal-1; $listindex++) {
                                     $compid = $complist[$listindex]["id"];
                                     $compname = $complist[$listindex]["name"];
                                     $compexpiration = $complist[$listindex]["expiration"];
