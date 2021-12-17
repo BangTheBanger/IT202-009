@@ -455,7 +455,7 @@ if (strlen($a) < 1000) {
             <form onsubmit="return validate(this)" method="POST">
                 <div>
                     <label for="compname">Competition Name:</label>
-                    <input type="text" name="compname" required minlength="2" required value="<?php if(!(empty($compname))) {se($compname);} ?>"/>
+                    <input type="text" name="compname" required minlength="2" required value="<?php if(!(empty($compname))) {se($compname);} else {"";} ?>"/>
                 </div>
                 <div>
                     <label for="1reward">First Place Reward: %</label>
