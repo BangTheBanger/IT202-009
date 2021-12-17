@@ -339,6 +339,7 @@
                         <label for="selectcompid" class="tobecleared">Competition ID:</label>
                         <input type="number" name="selectcompid" required value="<?php if(!(empty($selectcompid))) {se($selectcompid);} ?>"/>
                     </div>
+                    <input type="submit" value="Select" />
                 </form>
             </div>
         </div>
