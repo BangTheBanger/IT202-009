@@ -39,15 +39,13 @@
                     //Set Comp Data onto Form
                         $compname = $compdata['name'];
                         $reward1 = $compdata['first_place_per'];
-                        $reward1 *= 100;
                         $reward2 = $compdata['second_place_per'];
-                        $reward2 *= 100;
                         $reward3 = $compdata['third_place_per'];
-                        $reward3 *= 100;
                         $compcost = $compdata['join_fee'];
                         $duration = $compdata['duration'];
                         $minscore = $compdata['min_score'];
                         $minplayers = $compdata['min_participants'];
+                        $multiplyRewards = true;
                     //
                 } catch (Exception $e) {
                     flash("<pre>" . "Error Code: F000 - Bad Competition Submit - Var" . "</pre>", "danger");
