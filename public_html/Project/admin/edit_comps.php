@@ -152,7 +152,7 @@
                         }
 
                         for($cursor = 1; $cursor <= $pageamount; $cursor++) {
-                            echo '<a class="cursoranchor" href = "edit_comps.php?cursor=' . $cursor . '">Page ' . $cursor . ' </a>';
+                            echo '<a class="cursoranchor" href = "edit_comps.php?cursor=' . $cursor . '">Page ' . $cursor . '    </a>';
                         }
                     }
                     
