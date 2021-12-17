@@ -38,9 +38,12 @@
                     //
                     //Set Comp Data onto Form
                         $compname = $compdata['name'];
-                        $reward1 = $compdata['first_place_per']; var_dump($reward1);
+                        $reward1 = $compdata['first_place_per'];
+                        $reward1 *= 100;
                         $reward2 = $compdata['second_place_per'];
+                        $reward2 *= 100;
                         $reward3 = $compdata['third_place_per'];
+                        $reward3 *= 100;
                         $compcost = $compdata['join_fee'];
                         $duration = $compdata['duration'];
                         $minscore = $compdata['min_score'];
