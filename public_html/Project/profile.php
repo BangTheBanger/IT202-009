@@ -310,7 +310,11 @@
                     if (count($complist) > 10) {
                         for ($pageindex = 1; $pageindex <= 10; $pageindex++) {
                             if ($cursor == $pageindex) {
-                                $currentpagetotal = count($complist)-($pagetotal*($cursor-1));
+                                if(($pagetotal*($cursor-1)) == 0) {
+                                    $currentpagetotal = 10;
+                                } else {
+                                    $currentpagetotal = count($complist)-($pagetotal*($cursor-1));
+                                }
 
                                 for ($listindex = $offset; $listindex <= $offset+$currentpagetotal-1; $listindex++) {
                                     $compid = $complist[$listindex]["id"];
