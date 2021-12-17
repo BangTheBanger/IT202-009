@@ -5,8 +5,21 @@
         die(header("Location: $BASE_PATH" . "home.php"));
     }
     $db = getDB();
+    //define hideform()
+    echo "
+        <script> function hideform() {
+            console.log('Please');
+            var compeditdiv = document.getElementById('editform');
 
+            if ( compeditdiv.className.match(/(?:^|\s)editformhidden(?!\S)/) ) {
+                compeditdiv.className = 'editformshown';
 
+            } else {
+                compeditdiv.className = 'editformhidden';
+            }
+        }
+        </script>";
+    //
     //List Pagination
         if (!isset ($_GET['cursor']) ) {
             $cursor = 1;
@@ -372,18 +385,6 @@
     <script>
         function validate(form) {
             return true;
-        }
-        function hideform() {
-            console.log("Please");
-            var compeditdiv = document.getElementById("editform");
-
-            if ( compeditdiv.className.match(/(?:^|\s)editformhidden(?!\S)/) ) {
-                compeditdiv.classList.add('editformshown');
-                compeditdiv.classList.remove('editformhidden');
-            } else {
-                compeditdiv.classList.add('editformhidden');
-                compeditdiv.classList.remove('editformshown');
-            }
         }
     </script>
 </body>
