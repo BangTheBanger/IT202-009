@@ -149,6 +149,10 @@
                                 }
                             }
                         }
+
+                        for($cursor = 1; $cursor <= $pageamount; $cursor++) {
+                            echo '<a href = "edit_comps.php?cursor=' . $cursor . '">' . $cursor . ' </a>';
+                        }
                     }
                     
                     else if (count($complist) > 0) {
