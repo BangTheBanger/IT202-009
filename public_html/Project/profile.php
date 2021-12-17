@@ -117,15 +117,19 @@
             }
         //
         //Switch user public status
-            if ($_POST["publicize"] != NULL && isset($_POST["publicize"])) {
-                if ($user['public'] == 0) {
-                    $publicstatusswitch = $db->prepare("UPDATE users SET public = (true) WHERE id = :uid");
-                    $publicstatusswitch->execute([":uid" => get_user_id()]);
-                } else {
-                    $publicstatusswitch = $db->prepare("UPDATE users SET public = (false) WHERE id = :uid");
-                    $publicstatusswitch->execute([":uid" => get_user_id()]);
+            try{
+                if ($_POST["publicize"] != NULL && isset($_POST["publicize"])) {
+                    if ($user['public'] == 0) {
+                        $publicstatusswitch = $db->prepare("UPDATE users SET public = (true) WHERE id = :uid");
+                        $publicstatusswitch->execute([":uid" => get_user_id()]);
+                    } else {
+                        $publicstatusswitch = $db->prepare("UPDATE users SET public = (false) WHERE id = :uid");
+                        $publicstatusswitch->execute([":uid" => get_user_id()]);
+                    }
+                    $_POST["publicize"] = NULL;
                 }
-                $_POST["publicize"] = NULL;
+            } catch (Exception $e) {
+                
             }
         //
     }
