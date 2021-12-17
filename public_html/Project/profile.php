@@ -149,19 +149,12 @@
                 } else {
                     $cursor = $_GET['cursor'];
                 }
+
                 $pagetotal = 10;
                 $offset = $pagetotal*($cursor-1);
 
-                $comppagination = $db->prepare("SELECT * FROM competitions JOIN competitionparticipants ON competitions.id = competitionparticipants.comp_id WHERE user_id = :username");
-                $comppagination->execute([":username" => $username]);
-
                 $totalrows = count($complist);
                 $pageamount= ceil($totalrows / $pagetotal);
-
-                $comppages = $db->prepare("SELECT * FROM competitions JOIN competitionparticipants ON competitions.id = competitionparticipants.comp_id 
-                                            WHERE user_id = :username LIMIT " . $offset . ',' . $pagetotal);
-                //
-                $comppages->execute([":username" => $username]);
             //
         }
     //
