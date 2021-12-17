@@ -59,7 +59,7 @@
     //
 
     //Fetch Data and Submit Competition Edit
-        if ( ($_POST['selectcompid']) && isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2reward"]) && isset($_POST["3reward"]) && 
+        if ( isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2reward"]) && isset($_POST["3reward"]) && 
         isset($_POST["compcost"]) && isset($_POST["duration"]) && isset($_POST["minscore"]) && isset($_POST["minplayers"]) ) 
         {
             // Variable declaration
