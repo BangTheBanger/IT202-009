@@ -297,7 +297,7 @@
         <div class="column" id="editcomp">
             <h2>Edit Competition</h2>
             
-            <div class = "editformhidden">
+            <div class = "editformhidden" id="editform">
                 <form onsubmit="return validate(this)" method="POST">
                     <div id = "compname">
                         <label for="compname">Competition Name:</label>
@@ -352,12 +352,11 @@
             return true;
         }
         function hideform() {
-            var compeditdiv1 = document.getElementsByClassName("editformhidden")
-            var compeditdiv2 = document.getElementsByClassName("editformshown")
-            if (count(compeditdiv1) > 0){
-                compeditdiv1.class="editformshown";
+            var compeditdiv = document.getElementById("editform")
+            if (compeditdiv.class == "editformhidden"){
+                compeditdiv.class="editformshown";
             } else {
-                compeditdiv2.class="editformhidden";
+                compeditdiv.class="editformhidden";
             }
         }
     </script>
