@@ -36,147 +36,147 @@
                         $compdata = $fetchcomp->fetch(PDO::FETCH_ASSOC);
                     //
                     //Set Comp Data onto Form
-                        $compname = $compdata['name'];
-                        $reward1 = $compdata['first_place_per'];
-                        $reward2 = $compdata['second_place_per'];
-                        $reward3 = $compdata['third_place_per'];
-                        $compcost = $compdata['join_fee'];
-                        $duration = $compdata['duration'];
-                        $minscore = $compdata['min_score'];
-                        $minplayers = $compdata['min_participants'];
-                        $multiplyRewards = true;
+                        $showcompname = $compdata['name'];
+                        $showreward1 = $compdata['first_place_per'];
+                        $showreward2 = $compdata['second_place_per'];
+                        $showreward3 = $compdata['third_place_per'];
+                        $showcompcost = $compdata['join_fee'];
+                        $showduration = $compdata['duration'];
+                        $showminscore = $compdata['min_score'];
+                        $showminplayers = $compdata['min_participants'];
+                        $showmultiplyRewards = true;
                     //
                 } catch (Exception $e) {
-                    flash("<pre>" . "Error Code: F000 - Bad Competition Submit - Var" . "</pre>", "danger");
-                }
-            //
-            //Fetch Data and Submit Competition Edit
-                if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2reward"]) && isset($_POST["3reward"]) && 
-                isset($_POST["compcost"]) && isset($_POST["duration"]) && isset($_POST["minscore"]) && isset($_POST["minplayers"]) && isset($_POST["Edit"])) 
-                {
-                    // Variable declaration
-                        try {
-                            $compname = se($_POST, "compname", "", false);
-                            $reward1 = se($_POST, "1reward", "", false);
-                            $reward2 = se($_POST, "2reward", "", false);
-                            $reward3 = se($_POST, "3reward", "", false);
-                            $compcost = se($_POST, "compcost", "", false);
-                            $duration = se($_POST, "duration", "", false);
-                            $minscore = se($_POST, "minscore", "", false);
-                            $minplayers = se($_POST, "minplayers", "", false);
-                        }  catch (Exception $e) {
-                            flash("<pre>" . "Error Code: F000 - Bad Competition Submit" . "</pre>", "danger");
-                        }
-                        $hasError = false;
-                        $compcreationsuccess = false;
-                    //
-                    //Variable check and sanitization
-                        if (empty($compname)) {
-                            flash("Competition Name must not be empty", "warning");
-                            $hasError = true;
-                        }
-                        if (empty($reward1)) {
-                            flash("The First Place Reward must not be empty", "warning");
-                            $hasError = true;
-                        }
-                        if (empty($reward2)) {
-                            flash("The Second Place Reward must not be empty", "warning");
-                            $hasError = true;
-                        }
-                        if (empty($reward3)) {
-                            flash("The Third Place Reward must not be empty", "warning");
-                            $hasError = true;
-                        }
-                        if (($reward1 + $reward2 + $reward3) < 100 || ($reward1 + $reward2 + $reward3) > 100) {
-                            flash ("The rewards must equal a total of 100%", "warning");
-                            $hasError = true;
-                            $multiplyRewards = false;
-                        } else {
-                            $reward1 /= 100;
-                            $reward1 = round($reward1, 2);
-                            $reward2 /= 100;
-                            $reward2 = round($reward2, 2);
-                            $reward3 /= 100;
-                            $reward3 = round($reward3, 2);
-                            $multiplyRewards = true;
-                        }
-                        if (empty($compcost) && $compcost != "0") {
-                            flash("The Competition Cost must not be empty", "warning");
-                            $hasError = true;
-                        } else {
-                            $compcost = (int)$compcost;
-                        }
-                        if (empty($duration)) {
-                            flash("The Duration must not be empty", "warning");
-                            $hasError = true;
-                        } else {
-                            $duration = (int)$duration;
-                        }
-                        if (empty($minscore)) {
-                            flash("The Minimum Score to Qualify must not be empty", "warning");
-                            $hasError = true;
-                        } else {
-                            $minscore = (int)$minscore;
-                        }
-                        if (empty($minplayers)) {
-                            flash("The Minimum Amount of Players for Payout must not be empty", "warning");
-                            $hasError = true;
-                        } else {
-                            $minplayers = (int)$minplayers;
-                        }
-                    //
-                    //Editing Competitions table
-                        try {
-                            if (!$hasError) {                   
-                                $stmt = $db->prepare("UPDATE competitions SET
-                                                                name              =  :name
-                                                                , duration          =  :duration , join_fee         =  :joinfee , min_participants  =  :minplayer
-                                                                , min_score         =  :minscore , first_place_per  =  :reward1 , second_place_per  =  :reward2
-                                                                , third_place_per   =  :reward3
-                                                                , expiration        =  ((DATE_ADD(CREATED, INTERVAL :duration DAY))))
-                                                    WHERE id = :cid
-                                ");
-                                
-                                try {
-                                    $stmt->execute([
-                                                                ":name"      => $compname     , 
-                                                                ":duration"  => $duration     ,   ":joinfee"  => $compcost   ,  ":minplayer" => $minplayers   ,
-                                                                ":minscore"  => $minscore     ,   ":reward1"  => $reward1    ,  ":reward2"   => $reward2      ,
-                                                                ":reward3"   => $reward3      ,   ":cid"      => $selectcompid
-                                                                
-                                    ]);
-
-                                    flash("Competition Successfully Edited!", "success");
-                                    $compcreationsuccess = true;
-                                } catch (Exception $e) {
-                                    flash( "Error Code: F000 - Bad Competition Submit", "danger");
-                                    $compcreationsuccess = false;
-                                }
-                            }
-                            if ($compcreationsuccess) {
-                                $compname = "";
-                                $reward1 = "";
-                                $reward2 = "";
-                                $reward3 = "";
-                                $compcost = "";
-                                $duration = "";
-                                $minscore = "";
-                                $minplayers = "";
-                                echo "<script>hideform()</script>";
-                            }
-                        } catch (Exception $e) {
-                            flash( "Error Code: F999 - Bad Competition Submit", "danger");
-                            $compcreationsuccess = false;
-                        }
-                    //
+                    flash("<pre>" . "Error Code: F000 - Bad Competition Fetch - Var" . "</pre>", "danger");
                 }
             //
         }
     //
-
     //Hasn't Looked Up an ID
         else {
             $divIsHidden = true;
+        }
+    //
+
+    //Fetch Data and Submit Competition Edit
+        if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2reward"]) && isset($_POST["3reward"]) && 
+        isset($_POST["compcost"]) && isset($_POST["duration"]) && isset($_POST["minscore"]) && isset($_POST["minplayers"]) && isset($_POST["Edit"])) 
+        {
+            // Variable declaration
+                try {
+                    $compname = se($_POST, "compname", "", false);
+                    $reward1 = se($_POST, "1reward", "", false);
+                    $reward2 = se($_POST, "2reward", "", false);
+                    $reward3 = se($_POST, "3reward", "", false);
+                    $compcost = se($_POST, "compcost", "", false);
+                    $duration = se($_POST, "duration", "", false);
+                    $minscore = se($_POST, "minscore", "", false);
+                    $minplayers = se($_POST, "minplayers", "", false);
+                }  catch (Exception $e) {
+                    flash("<pre>" . "Error Code: F000 - Bad Competition Submit" . "</pre>", "danger");
+                }
+                $hasError = false;
+                $compcreationsuccess = false;
+            //
+            //Variable check and sanitization
+                if (empty($compname)) {
+                    flash("Competition Name must not be empty", "warning");
+                    $hasError = true;
+                }
+                if (empty($reward1)) {
+                    flash("The First Place Reward must not be empty", "warning");
+                    $hasError = true;
+                }
+                if (empty($reward2)) {
+                    flash("The Second Place Reward must not be empty", "warning");
+                    $hasError = true;
+                }
+                if (empty($reward3)) {
+                    flash("The Third Place Reward must not be empty", "warning");
+                    $hasError = true;
+                }
+                if (($reward1 + $reward2 + $reward3) < 100 || ($reward1 + $reward2 + $reward3) > 100) {
+                    flash ("The rewards must equal a total of 100%", "warning");
+                    $hasError = true;
+                    $multiplyRewards = false;
+                } else {
+                    $reward1 /= 100;
+                    $reward1 = round($reward1, 2);
+                    $reward2 /= 100;
+                    $reward2 = round($reward2, 2);
+                    $reward3 /= 100;
+                    $reward3 = round($reward3, 2);
+                    $multiplyRewards = true;
+                }
+                if (empty($compcost) && $compcost != "0") {
+                    flash("The Competition Cost must not be empty", "warning");
+                    $hasError = true;
+                } else {
+                    $compcost = (int)$compcost;
+                }
+                if (empty($duration)) {
+                    flash("The Duration must not be empty", "warning");
+                    $hasError = true;
+                } else {
+                    $duration = (int)$duration;
+                }
+                if (empty($minscore)) {
+                    flash("The Minimum Score to Qualify must not be empty", "warning");
+                    $hasError = true;
+                } else {
+                    $minscore = (int)$minscore;
+                }
+                if (empty($minplayers)) {
+                    flash("The Minimum Amount of Players for Payout must not be empty", "warning");
+                    $hasError = true;
+                } else {
+                    $minplayers = (int)$minplayers;
+                }
+            //
+            //Editing Competitions table
+                try {
+                    if (!$hasError) {                   
+                        $stmt = $db->prepare("UPDATE competitions SET
+                                                        name              =  :name
+                                                    , duration          =  :duration ,    join_fee         =  :joinfee ,   min_participants  =  :minplayer
+                                                    , min_score         =  :minscore ,    first_place_per  =  :reward1 ,   second_place_per  =  :reward2
+                                                    , third_place_per   =  :reward3
+                                                    , expiration        =  ((DATE_ADD(CREATED, INTERVAL duration DAY))))
+                                            WHERE id = :cid
+                        ");
+                        
+                        try {
+                            $stmt->execute([
+                                                        ":name"      => $compname     , 
+                                                        ":duration"  => $duration     ,   ":joinfee"  => $compcost   ,  ":minplayer" => $minplayers   ,
+                                                        ":minscore"  => $minscore     ,   ":reward1"  => $reward1    ,  ":reward2"   => $reward2      ,
+                                                        ":reward3"   => $reward3      ,   ":cid"      => $selectcompid
+                                                        
+                            ]);
+
+                            flash("Competition Successfully Edited!", "success");
+                            $compcreationsuccess = true;
+                        } catch (Exception $e) {
+                            flash( "Error Code: F000 - Bad Competition Submit", "danger");
+                            $compcreationsuccess = false;
+                        }
+                    }
+                    if ($compcreationsuccess) {
+                        $compname = "";
+                        $reward1 = "";
+                        $reward2 = "";
+                        $reward3 = "";
+                        $compcost = "";
+                        $duration = "";
+                        $minscore = "";
+                        $minplayers = "";
+                        echo "<script>hideform()</script>";
+                    }
+                } catch (Exception $e) {
+                    flash( "Error Code: F999 - Bad Competition Submit", "danger");
+                    $compcreationsuccess = false;
+                }
+            //
         }
     //
 
@@ -322,35 +322,35 @@
                 <form onsubmit="return validate(this)" method="POST">
                     <div id = "compname">
                         <label for="compname">Competition Name:</label>
-                        <input type="text" name="compname" required minlength="2" autocomplete="off" required value="<?php if(!(empty($compname))) {se($compname);} ?>"/>
+                        <input type="text" name="compname" required minlength="2" autocomplete="off" required value="<?php if(!(empty($showcompname))) {se($showcompname);} ?>"/>
                     </div>
                     <div id = "1reward">
                         <label for="1reward">First Place Reward: %</label>
-                        <input type="number" name="1reward" min="0" max="100" required value="<?php if(!(empty($reward1))) {if($multiplyRewards) {se($reward1*100);} else {se($reward1);}} ?>"/>
+                        <input type="number" name="1reward" min="0" max="100" required value="<?php if(!(empty($showreward1))) {if($multiplyRewards) {se($showreward1*100);} else {se($showreward1);}} ?>"/>
                     </div>
                     <div id = "2reward">
                         <label for="2reward">Second Place Reward: %</label>
-                        <input type="number" name="2reward" min="0" max="100" required value="<?php if(!(empty($reward2))) {if($multiplyRewards) {se($reward2*100);} else {se($reward2);}} ?>"/>
+                        <input type="number" name="2reward" min="0" max="100" required value="<?php if(!(empty($showreward2))) {if($multiplyRewards) {se($showreward2*100);} else {se($showreward2);}} ?>"/>
                     </div>
                     <div id = "3reward">
                         <label for="3reward">Third Place Reward: %</label>
-                        <input type="number" name="3reward" min="0" max="100" required value="<?php if(!(empty($reward3))) {if($multiplyRewards) {se($reward3*100);} else {se($reward3);}} ?>"/>
+                        <input type="number" name="3reward" min="0" max="100" required value="<?php if(!(empty($showreward3))) {if($multiplyRewards) {se($showreward3*100);} else {se($showreward3);}} ?>"/>
                     </div>
                     <div id = "notfreecost">
                         <label for="compcost">Competition Cost:</label>
-                        <input type="number" id="notfreecostinput" name="compcost" min="0" required value="<?php se($compcost) ?>"/>
+                        <input type="number" id="notfreecostinput" name="compcost" min="0" required value="<?php se($showcompcost) ?>"/>
                     </div>
                     <div id = "duration">
                         <label for="duration">Duration (in days):</label>
-                        <input type="number" name="duration" min="1" required value="<?php se($duration) ?>"/>
+                        <input type="number" name="duration" min="1" required value="<?php se($showduration) ?>"/>
                     </div>
                     <div id = "minscore">
                         <label for="minscore">Minimum Score to Qualify:</label>
-                        <input type="number" name="minscore" min="0" required value="<?php se($minscore) ?>"/>
+                        <input type="number" name="minscore" min="0" required value="<?php se($showminscore) ?>"/>
                     </div>
                     <div id = "minplayers">
                         <label for="minplayers">Minimum Amount of Players for Payout:</label>
-                        <input type="number" name="minplayers" min="3" required value="<?php se($minplayers) ?>"/>
+                        <input type="number" name="minplayers" min="3" required value="<?php se($showminplayers) ?>"/>
                     </div>
                     <input type="submit" value="Edit" />
                 </form>
@@ -367,6 +367,7 @@
                 </form>
             </div>
         </div>
+
     </div>
     <script>
         function validate(form) {
@@ -383,10 +384,10 @@
     </script>
     
     <?php 
-    if ($divIsHidden) {
-        echo "<script>hideform()</script>";
-    } else {
-        echo "<script>showform()</script>";
-    }
+        if ($divIsHidden) {
+            echo "<script>hideform()</script>";
+        } else {
+            echo "<script>showform()</script>";
+        }
     ?>
 </body>

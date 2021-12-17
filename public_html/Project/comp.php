@@ -106,7 +106,7 @@ if (strlen($a) < 1000) {
                                             expiration, current_reward,  current_participants, paid_out)
 
                 VALUES (:name, :duration, :startreward, :joinfee, :minplayer, :minscore, :reward1, :reward2, :reward3, :cost, 
-                    ((DATE_ADD(CURRENT_TIMESTAMP, INTERVAL :duration DAY))), :startreward, 1, false);
+                    ((DATE_ADD(CREATED, INTERVAL duration DAY))), :startreward, 1, false);
                     ");
 
             try {
@@ -202,7 +202,7 @@ if (strlen($a) < 1000) {
                         //
                         //UPDATE competitions SET current_reward
                             $stmt = $db->prepare("UPDATE competitions SET current_reward = ( SELECT IFNULL (CEILING(0.5*(SELECT IFNULL(COUNT(user_id), 0))), 1) 
-                                                FROM competitionparticipants WHERE comp_id = :compid);");
+                                                FROM competitionparticipants WHERE comp_id = :compid );");
                             //
                             $stmt->execute([":compid" => $compjoin]);
                         //
