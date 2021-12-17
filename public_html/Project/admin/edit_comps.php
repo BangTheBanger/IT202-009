@@ -131,11 +131,11 @@
                         if (!$hasError) {                   
                             $stmt = $db->prepare("UPDATE competitions SET
                                                             name                  =  :name
-                                                            AND duration          =  :duration      AND starting_reward  =  :startreward     AND join_fee        = :joinfee
-                                                            AND min_participants  =  :minplayer     AND min_score        =  :minscore        AND first_place_per = :reward1
-                                                            AND second_place_per  =  :reward2       AND third_place_per  =  :reward3         AND cost_to_create  = :cost
-                                                            AND current_reward    =  :startreward
-                                                            AND expiration        =  ((DATE_ADD(CURRENT_TIMESTAMP, INTERVAL :duration DAY)))),
+                                                            , duration          =  :duration      , starting_reward  =  :startreward     , join_fee        = :joinfee
+                                                            , min_participants  =  :minplayer     , min_score        =  :minscore        , first_place_per = :reward1
+                                                            , second_place_per  =  :reward2       , third_place_per  =  :reward3         , cost_to_create  = :cost
+                                                            , current_reward    =  :startreward
+                                                            , expiration        =  ((DATE_ADD(CURRENT_TIMESTAMP, INTERVAL :duration DAY))))
                                                   WHERE id = :cid
                             ");
                             
