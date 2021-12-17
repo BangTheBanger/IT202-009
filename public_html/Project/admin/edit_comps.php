@@ -65,7 +65,6 @@
                             $duration = se($_POST, "duration", "", false);
                             $minscore = se($_POST, "minscore", "", false);
                             $minplayers = se($_POST, "minplayers", "", false);
-                            $compcreatecost = 2;
                         }  catch (Exception $e) {
                             flash("<pre>" . "Error Code: F000 - Bad Competition Submit" . "</pre>", "danger");
                         }
@@ -128,43 +127,47 @@
                         }
                     //
                     //Editing Competitions table
-                        if (!$hasError) {                   
-                            $stmt = $db->prepare("UPDATE competitions SET
-                                                            name                  =  :name
-                                                            , duration          =  :duration      , starting_reward  =  :startreward     , join_fee        = :joinfee
-                                                            , min_participants  =  :minplayer     , min_score        =  :minscore        , first_place_per = :reward1
-                                                            , second_place_per  =  :reward2       , third_place_per  =  :reward3         , cost_to_create  = :cost
-                                                            , current_reward    =  :startreward
-                                                            , expiration        =  ((DATE_ADD(CURRENT_TIMESTAMP, INTERVAL :duration DAY))))
-                                                  WHERE id = :cid
-                            ");
-                            
-                            try {
-                                $stmt->execute([
-                                                            ":name"      => $compname     , 
-                                                            ":duration"  => $duration     ,   ":startreward" => 1           ,  ":joinfee"  => $compcost      , 
-                                                            ":minplayer" => $minplayers   ,   ":minscore"    => $minscore   ,  ":reward1"  => $reward1       ,
-                                                            ":reward2"   => $reward2      ,   ":reward3"     => $reward3    ,  ":cost"     => $compcreatecost,
-                                                            ":cid"       => $selectcompid
-                                ]);
+                        try {
+                            if (!$hasError) {                   
+                                $stmt = $db->prepare("UPDATE competitions SET
+                                                                name              =  :name
+                                                                , duration          =  :duration , join_fee         =  :joinfee , min_participants  =  :minplayer
+                                                                , min_score         =  :minscore , first_place_per  =  :reward1 , second_place_per  =  :reward2
+                                                                , third_place_per   =  :reward3
+                                                                , expiration        =  ((DATE_ADD(CREATED, INTERVAL :duration DAY))))
+                                                    WHERE id = :cid
+                                ");
+                                
+                                try {
+                                    $stmt->execute([
+                                                                ":name"      => $compname     , 
+                                                                ":duration"  => $duration     ,   ":joinfee"  => $compcost   ,  ":minplayer" => $minplayers   ,
+                                                                ":minscore"  => $minscore     ,   ":reward1"  => $reward1    ,  ":reward2"   => $reward2      ,
+                                                                ":reward3"   => $reward3      ,   ":cid"      => $selectcompid
+                                                                
+                                    ]);
 
-                                flash("Competition Successfully Edited!", "success");
-                                $compcreationsuccess = true;
-                            } catch (Exception $e) {
-                                flash( "Error Code: F000 - Bad Competition Submit", "danger");
-                                $compcreationsuccess = false;
+                                    flash("Competition Successfully Edited!", "success");
+                                    $compcreationsuccess = true;
+                                } catch (Exception $e) {
+                                    flash( "Error Code: F000 - Bad Competition Submit", "danger");
+                                    $compcreationsuccess = false;
+                                }
                             }
-                        }
-                        if ($compcreationsuccess) {
-                            $compname = "";
-                            $reward1 = "";
-                            $reward2 = "";
-                            $reward3 = "";
-                            $compcost = "";
-                            $duration = "";
-                            $minscore = "";
-                            $minplayers = "";
-                            echo "<script>hideform()</script>";
+                            if ($compcreationsuccess) {
+                                $compname = "";
+                                $reward1 = "";
+                                $reward2 = "";
+                                $reward3 = "";
+                                $compcost = "";
+                                $duration = "";
+                                $minscore = "";
+                                $minplayers = "";
+                                echo "<script>hideform()</script>";
+                            }
+                        } catch (Exception $e) {
+                            flash( "Error Code: F999 - Bad Competition Submit", "danger");
+                            $compcreationsuccess = false;
                         }
                     //
                 }
@@ -371,7 +374,7 @@
             return true;
         }
         function hideform() {
-            var compeditdiv = document.getElementById("editform")
+            var compeditdiv = document.getElementById("editform");
             if (compeditdiv.classList.contains('editformhidden')){
                 compeditdiv.classList.add('editformshown');
                 compeditdiv.classList.remove('editformhidden');
