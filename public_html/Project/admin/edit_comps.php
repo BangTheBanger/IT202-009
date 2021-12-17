@@ -173,7 +173,9 @@
             width: 50%;
             padding: 10px;
         }
-
+        .column div {
+            display: none;
+        }
         .row:after {
             content: "";
             display: table;
@@ -292,7 +294,7 @@
         <div class="column" id="editcomp">
             <h2>Edit Competition</h2>
             
-            <div id = "editform" style ="display: 'none'">
+            <div id = "editform">
                 <form onsubmit="return validate(this)" method="POST">
                     <div id = "compname">
                         <label for="compname">Competition Name:</label>
