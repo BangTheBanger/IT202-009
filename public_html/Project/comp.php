@@ -346,7 +346,9 @@
             padding: 10px;
             text-align: center;
         }
-
+        .column.right {
+            text-align: center;
+        }
         .row:after {
             content: "";
             display: table;
@@ -462,7 +464,7 @@
                 ?>
             </table>
         </div>
-        <div class="column" id="join">
+        <div class="column right" id="join">
             <h2>Join Competition</h2>
             <form onsubmit="return validate(this)" method="POST">
                 <div>
@@ -473,7 +475,7 @@
                 <input type="submit" value="Join" />
             </form>
         </div>
-        <div class="column" id="newcomp">
+        <div class="column right" id="newcomp">
             <h2>Create a Competition</h2>
             <form onsubmit="return validate(this)" method="POST">
                 <div>
