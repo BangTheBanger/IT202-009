@@ -119,9 +119,6 @@
         //Switch user public status
             try{
                 if ( !($_POST["publicize"] == NULL) && isset($_POST["publicize"]) ) {
-                    echo "Post 1<br>";
-                    var_dump($_POST["publicize"]);
-                    /*
                     if ($user['public'] == 0) {
                         $publicstatusswitch = $db->prepare("UPDATE users SET public = (true) WHERE id = :uid");
                         $publicstatusswitch->execute([":uid" => get_user_id()]);
@@ -129,9 +126,7 @@
                         $publicstatusswitch = $db->prepare("UPDATE users SET public = (false) WHERE id = :uid");
                         $publicstatusswitch->execute([":uid" => get_user_id()]);
                     }
-                    */
                     die(header("Location: profile.php"));
-                    #$_POST = array();
                 }
             } catch (Exception $e) {
                 
