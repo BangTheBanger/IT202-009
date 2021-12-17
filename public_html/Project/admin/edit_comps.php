@@ -326,15 +326,15 @@
                     </div>
                     <div id = "1reward">
                         <label for="1reward">First Place Reward: %</label>
-                        <input type="number" name="1reward" min="0" max="100" required value="<?php if(!(empty($showreward1))) {if($multiplyRewards) {se($showreward1*100);} else {se($showreward1);}} ?>"/>
+                        <input type="number" name="1reward" min="0" max="100" required value="<?php if(!(empty($showreward1))) {if($showmultiplyRewards) {se($showreward1*100);} else {se($showreward1);}} ?>"/>
                     </div>
                     <div id = "2reward">
                         <label for="2reward">Second Place Reward: %</label>
-                        <input type="number" name="2reward" min="0" max="100" required value="<?php if(!(empty($showreward2))) {if($multiplyRewards) {se($showreward2*100);} else {se($showreward2);}} ?>"/>
+                        <input type="number" name="2reward" min="0" max="100" required value="<?php if(!(empty($showreward2))) {if($showmultiplyRewards) {se($showreward2*100);} else {se($showreward2);}} ?>"/>
                     </div>
                     <div id = "3reward">
                         <label for="3reward">Third Place Reward: %</label>
-                        <input type="number" name="3reward" min="0" max="100" required value="<?php if(!(empty($showreward3))) {if($multiplyRewards) {se($showreward3*100);} else {se($showreward3);}} ?>"/>
+                        <input type="number" name="3reward" min="0" max="100" required value="<?php if(!(empty($showreward3))) {if($showmultiplyRewards) {se($showreward3*100);} else {se($showreward3);}} ?>"/>
                     </div>
                     <div id = "notfreecost">
                         <label for="compcost">Competition Cost:</label>
