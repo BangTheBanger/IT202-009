@@ -130,6 +130,7 @@
                     }
                     */
                     $_POST["publicize"] = NULL;
+                    var_dump($_POST["publicize"]);
                 }
             } catch (Exception $e) {
                 
