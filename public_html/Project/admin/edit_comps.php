@@ -26,11 +26,11 @@
     //
 
     //Has Looked Up an ID
-        echo "<script>hideform()</script>";
         var_dump(($_POST['selectcompid']));
         echo "<br>";
         var_dump(isset($_POST['selectcompid']));
         if(isset($_POST['selectcompid'])) {
+            echo "<script>hideform()</script>";
             $selectcompid = $_POST['selectcompid'];
 
             //Submit Competition Edit
