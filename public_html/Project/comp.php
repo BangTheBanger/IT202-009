@@ -15,21 +15,21 @@ if (strlen($a) < 1000) {
     if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2reward"]) && isset($_POST["3reward"]) && 
         isset($_POST["compcost"]) && isset($_POST["duration"]) && isset($_POST["minscore"]) && isset($_POST["minplayers"])) {
         // Variable declaration
-        try {
-            $compname = se($_POST, "compname", "", false);
-            $reward1 = se($_POST, "1reward", "", false);
-            $reward2 = se($_POST, "2reward", "", false);
-            $reward3 = se($_POST, "3reward", "", false);
-            $compcost = se($_POST, "compcost", "", false);
-            $duration = se($_POST, "duration", "", false);
-            $minscore = se($_POST, "minscore", "", false);
-            $minplayers = se($_POST, "minplayers", "", false);
-            $compcreatecost = 2;
-        }  catch (Exception $e) {
-            flash("<pre>" . "Error Code: F000 - Bad Competition Submit" . "</pre>", "danger");
-        }
-        $hasError = false;
-        $compcreationsuccess = false;
+            try {
+                $compname = se($_POST, "compname", "", false);
+                $reward1 = se($_POST, "1reward", "", false);
+                $reward2 = se($_POST, "2reward", "", false);
+                $reward3 = se($_POST, "3reward", "", false);
+                $compcost = se($_POST, "compcost", "", false);
+                $duration = se($_POST, "duration", "", false);
+                $minscore = se($_POST, "minscore", "", false);
+                $minplayers = se($_POST, "minplayers", "", false);
+                $compcreatecost = 2;
+            }  catch (Exception $e) {
+                flash("<pre>" . "Error Code: F000 - Bad Competition Submit" . "</pre>", "danger");
+            }
+            $hasError = false;
+            $compcreationsuccess = false;
         //
         // Variable check and sanitization
             if (empty($compname)) {
@@ -86,8 +86,7 @@ if (strlen($a) < 1000) {
                 $minplayers = (int)$minplayers;
             }
         //
-        /*
-            // Uncomment for variable checks on the page. 
+        /*  // Uncomment for variable checks on the page.
             if (true) {
                 echo '<pre>' . "compname = ", var_dump($compname) . '</pre>';
                 echo '<pre>' . "reward1 = ", var_dump($reward1) . '</pre>';
@@ -352,7 +351,7 @@ if (strlen($a) < 1000) {
         <div class="column" id="existcomp">
             <h2>Existing Competitions</h2>
 
-            <?php
+            <?php //$complist query
                 $db = getDB();
                 $stmt = $db->prepare("SELECT * FROM competitions WHERE paid_out = 0 ORDER BY expiration ASC");
                 $stmt->execute();
