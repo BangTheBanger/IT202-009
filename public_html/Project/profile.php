@@ -12,21 +12,32 @@
         //Point update >
             $update = $db->prepare("UPDATE users SET points = (SELECT IFNULL(SUM(pointchange), 0) FROM pointhistory WHERE user_id = :uid) WHERE id = :uid");
             $update->execute([":uid" => $pageuserid]);
-            $stmt = $db->prepare("SELECT points FROM users WHERE id = :uid");
-            $stmt->execute([":uid" => $pageuserid]);
-            $pointtotal = $stmt->fetchAll(PDO::FETCH_ASSOC);
         //
         //Score history update >
             $stmt = $db->prepare("SELECT score, CREATED FROM scores WHERE user_id = :username ORDER BY CREATED DESC");
             $stmt->execute([":username" => $pageuserid]);
             $scorelist = $stmt->fetchAll(PDO::FETCH_ASSOC);
         //
+        $fetchuser = $db->prepare("SELECT id, username, email, points, public FROM users WHERE id = :uid LIMIT 1");
+        $fetchuser->execute([":uid" => $pageuserid]);
+        $user = $fetchuser->fetch(PDO::FETCH_ASSOC);
     } else {
         $username = get_user_id();
         $isOwner = true;
         $email = get_user_email();
         $userid = get_user_id();
+        //Point update >
+            $update = $db->prepare("UPDATE users SET points = (SELECT IFNULL(SUM(pointchange), 0) FROM pointhistory WHERE user_id = :uid) WHERE id = :uid");
+            $update->execute([":uid" => $username]);
+        //
+        //Score history update >
+            $stmt = $db->prepare("SELECT score, CREATED FROM scores WHERE user_id = :username ORDER BY CREATED DESC");
+            $stmt->execute([":username" => $username]);
+            $scorelist = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        //
         $fetchowner = $db->prepare("SELECT id, email, username, public from users where id = :id LIMIT 1");
+        $fetchowner->execute([":id" => get_user_id()]);
+        $user = $fetchowner->fetch(PDO::FETCH_ASSOC);
         //Saving form data for user data
             if (isset($_POST["save"])) {
                 $email = se($_POST, "email", null, false);
@@ -54,8 +65,6 @@
                 }
                 //select fresh data from table
                 try {
-                    $fetchowner->execute([":id" => get_user_id()]);
-                    $user = $fetchowner->fetch(PDO::FETCH_ASSOC);
                     if ($user) {
                         //$_SESSION["user"] = $user;
                         $_SESSION["user"]["email"] = $user["email"];
@@ -109,8 +118,6 @@
         //
         //Switch user public status
             if (isset($_POST["publicize"])) {
-                $fetchowner->execute([":id" => get_user_id()]);
-                $user = $fetchowner->fetch(PDO::FETCH_ASSOC);
                 if ($user['public'] == 0) {
                     $publicstatusswitch = $db->prepare("UPDATE users SET public = 1 WHERE id = :uid");
                     $publicstatusswitch->execute([":id" => get_user_id()]);
@@ -119,18 +126,6 @@
                     $publicstatusswitch->execute([":id" => get_user_id()]);
                 }
             }
-        //
-        //Point update >
-            $update = $db->prepare("UPDATE users SET points = (SELECT IFNULL(SUM(pointchange), 0) FROM pointhistory WHERE user_id = :uid) WHERE id = :uid");
-            $update->execute([":uid" => $username]);
-            $stmt = $db->prepare("SELECT points FROM users WHERE id = :uid");
-            $stmt->execute([":uid" => $username]);
-            $pointtotal = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        //
-        //Score history update >
-            $stmt = $db->prepare("SELECT score, CREATED FROM scores WHERE user_id = :username ORDER BY CREATED DESC");
-            $stmt->execute([":username" => $username]);
-            $scorelist = $stmt->fetchAll(PDO::FETCH_ASSOC);
         //
     }
 
@@ -148,10 +143,15 @@
         margin-top: 20px;
         text-align: center;
     }
+    h1 {
+        margin-top: 20px;
+        text-align: center;
+    }
 </style>
 
 <?php if ($isOwner) : ?>
-    <title><?php echo $username; ?>'s Profile</title>
+    <title><?php echo $user['username']; ?>'s Profile</title>
+    <h1><?php echo $user['username']; ?>'s Profile</h1>
     <form method="POST" onsubmit="return validate(this);">
         <div class="mb-3">
             <label for="email">Email</label>
@@ -211,7 +211,7 @@
             return isValid;
         }
     </script>
-    <?php echo  "<p>Your Total Points: ", $pointtotal[0]['points'] . "</p>"; ?>
+    <?php echo  "<p>Your Total Points: ", $user['points'] . "</p>"; ?>
 
 
     <table style="width:33%">
@@ -250,16 +250,13 @@
 
 <?php if (!$isOwner) : ?>
     <?php 
-        $fetchuser = $db->prepare("SELECT username, email, points, public FROM users WHERE id = :uid");
-        $fetchuser->execute([":uid" => $pageuserid]);
-        $userdata = $fetchuser->fetchAll(PDO::FETCH_ASSOC);
     ?>
     <?php 
     if($userdata[0]['public'] == 0) {
         echo "<h1>This profile is not public.</h1>";
     } else {
         echo "<h2>", $userdata[0]['username'], "'s Profile</h2>";
-        echo  "<p>Total Points: ", $pointtotal[0]['points'] . "</p>";
+        echo  "<p>Total Points: ", $user['points'] . "</p>";
 
     }
     ?>
