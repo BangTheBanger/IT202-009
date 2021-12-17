@@ -349,9 +349,11 @@
         function hideform() {
             var compeditdiv = document.getElementById("editform")
             if (compeditdiv.className == "editformhidden"){
-                compeditdiv.className="editformshown";
+                compeditdiv.classList.add('editformshown');
+                compeditdiv.classList.remove('editformhidden');
             } else {
-                compeditdiv.className="editformhidden";
+                compeditdiv.classList.add('editformhidden');
+                compeditdiv.classList.remove('editformshown');
             }
         }
     </script>
