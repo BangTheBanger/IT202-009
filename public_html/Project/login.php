@@ -53,6 +53,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                             $stmt->execute([":uid" => $user["id"]]);
                             $roles = $stmt->fetchAll(PDO::FETCH_ASSOC); //fetch all since we'll want multiple
                             //save roles or empty array
+                            $_SESSION["user"]["roles"] = $roles;
                         } catch (Exception $e) {
 
                         }

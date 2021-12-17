@@ -35,7 +35,7 @@ require_once(__DIR__ . "/../lib/functions.php");
             <li><a href="<?php echo get_url('game.php'); ?>">Breakout</a></li>
             <li><a href="<?php echo get_url('comp.php'); ?>">Competition</a></li>
             <li><a href="<?php echo get_url('logout.php'); ?>">Logout</a></li>
-            <?php echo "<br>"; var_dump($_SESSION["user"]["roles"]); echo "<br>"; ?>
+            <?php echo "<br>"; var_dump($_SESSION["user"]); echo "<br>"; ?>
         <?php endif; ?>
         <?php if (!is_logged_in()) : ?>
             <li><a href="<?php echo get_url('login.php'); ?>">Login</a></li>
