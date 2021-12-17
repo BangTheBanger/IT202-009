@@ -159,6 +159,19 @@
         margin-top: 20px;
         text-align: center;
     }
+    .column {
+        box-sizing: border-box;
+        float: left;
+        width: 50%;
+        padding: 10px;
+    }
+
+    .row:after {
+        box-sizing: border-box;
+        content: "";
+        display: table;
+        clear: both;
+    }
 </style>
 
 <?php if ($isOwner) : ?>
@@ -226,77 +239,85 @@
         }
     </script>
 
-    <table style="width:33%">
-        <tr>
-            <th>Scores</th>
-            <th>Time</th>
-        </tr>
-        <?php 
-            if (count($scorelist) > 10) {
-                for ($i = 0; $i < 10; $i++) {
-                    $score = $scorelist[$i]["score"];
-                    $time = $scorelist[$i]["CREATED"];
+    <div class="row">
+        <div class="column" id="scorehist">
+            <h3>Score History</h3>
+            <table style="width:33%">
+                <tr>
+                    <th>Scores</th>
+                    <th>Time</th>
+                </tr>
+                <?php 
+                    if (count($scorelist) > 10) {
+                        for ($i = 0; $i < 10; $i++) {
+                            $score = $scorelist[$i]["score"];
+                            $time = $scorelist[$i]["CREATED"];
+                            
+                            echo '<tr>';
+                            echo '<td>'. $score .'</td>';
+                            echo '<td>'. $time .'</td>';
+                            echo '</tr>';
+                        }
+                    }
                     
-                    echo '<tr>';
-                    echo '<td>'. $score .'</td>';
-                    echo '<td>'. $time .'</td>';
-                    echo '</tr>';
-                }
-            }
-            
-            else if (count($scorelist) > 0) {
-                for ($i = 0; $i < count($scorelist); $i++) {
-                    $score = $scorelist[$i]["score"];
-                    $time = $scorelist[$i]["CREATED"];
+                    else if (count($scorelist) > 0) {
+                        for ($i = 0; $i < count($scorelist); $i++) {
+                            $score = $scorelist[$i]["score"];
+                            $time = $scorelist[$i]["CREATED"];
 
-                    echo '<tr>';
-                    echo '<td>'. $score .'</td>';
-                    echo '<td>'. $time .'</td>';
-                    echo '</tr>';
-                }
-            }
-        
-        ?>
-    </table>
+                            echo '<tr>';
+                            echo '<td>'. $score .'</td>';
+                            echo '<td>'. $time .'</td>';
+                            echo '</tr>';
+                        }
+                    }
+                
+                ?>
+            </table>
+        </div>
 
-    <table style="width:33%">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Expiration</th>
-        </tr>
-        <?php 
-            if (count($complist) > 10) {
-                for ($i = 0; $i < 10; $i++) {
-                    $compid = $complist[$i]["id"];
-                    $compname = $complist[$i]["name"];
-                    $compexpiration = $complist[$i]["expiration"];
+        <div class="column" id="comphist">
+            <h3>Competition History</h3>
+            <table style="width:33%">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Expiration</th>
+                </tr>
+                <?php 
+                    if (count($complist) > 10) {
+                        for ($i = 0; $i < 10; $i++) {
+                            $compid = $complist[$i]["id"];
+                            $compname = $complist[$i]["name"];
+                            $compexpiration = $complist[$i]["expiration"];
+                            
+                            echo '<tr>';
+                            echo '<td>'. $compid .'</td>';
+                            echo '<td>'. $compname .'</td>';
+                            echo '<td>'. $compexpiration .'</td>';
+                            echo '</tr>';
+                        }
+                    }
                     
-                    echo '<tr>';
-                    echo '<td>'. $compid .'</td>';
-                    echo '<td>'. $compname .'</td>';
-                    echo '<td>'. $compexpiration .'</td>';
-                    echo '</tr>';
-                }
-            }
-            
-            else if (count($complist) > 0) {
-                for ($i = 0; $i < count($complist); $i++) {
-                    $compid = $complist[$i]["id"];
-                    $compname = $complist[$i]["name"];
-                    $compexpiration = $complist[$i]["expiration"];
-                    
-                    echo '<tr>';
-                    echo '<td>'. $compid .'</td>';
-                    echo '<td>'. $compname .'</td>';
-                    echo '<td>'. $compexpiration .'</td>';
-                    echo '</tr>';
-                }
-            }
-        
-        ?>
-    </table>
-    
+                    else if (count($complist) > 0) {
+                        for ($i = 0; $i < count($complist); $i++) {
+                            $compid = $complist[$i]["id"];
+                            $compname = $complist[$i]["name"];
+                            $compexpiration = $complist[$i]["expiration"];
+                            
+                            echo '<tr>';
+                            echo '<td>'. $compid .'</td>';
+                            echo '<td>'. $compname .'</td>';
+                            echo '<td>'. $compexpiration .'</td>';
+                            echo '</tr>';
+                        }
+                    }
+                
+                ?>
+            </table>
+        </div>
+
+    </div>
 <?php endif; ?>
 
 <?php if (!$isOwner) : ?>
