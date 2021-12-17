@@ -386,5 +386,16 @@
         function validate(form) {
             return true;
         }
+        function hideform() {
+            console.log('Please');
+            var compeditdiv = document.getElementById('editform');
+
+            if ( compeditdiv.className.match(/(?:^|\s)editformhidden(?!\S)/) ) {
+                compeditdiv.className = 'editformshown';
+
+            } else {
+                compeditdiv.className = 'editformhidden';
+            }
+        }
     </script>
 </body>
