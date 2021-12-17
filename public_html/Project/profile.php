@@ -164,8 +164,8 @@
     }
     .column {
         float: left;
-        width: 33%;
-        padding: 30%;
+        width: 50%;
+        padding: 10px;
         text-align: center;
     }
     .row:after {
