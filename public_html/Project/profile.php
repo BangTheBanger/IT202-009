@@ -26,14 +26,21 @@
         $isOwner = true;
         $email = get_user_email();
         $userid = get_user_id();
-        //Point update >
+        //Point UPDATE >
             $update = $db->prepare("UPDATE users SET points = (SELECT IFNULL(SUM(pointchange), 0) FROM pointhistory WHERE user_id = :uid) WHERE id = :uid");
             $update->execute([":uid" => $username]);
         //
-        //Score history update >
+        //Score history SELECT >
             $stmt = $db->prepare("SELECT score, CREATED FROM scores WHERE user_id = :username ORDER BY CREATED DESC");
             $stmt->execute([":username" => $username]);
             $scorelist = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        //
+        //Comp history SELECT >
+            $stmt = $db->prepare("SELECT competitions.id, name, expiration FROM competitions JOIN competitionparticipants 
+                                    ON competitions.id = competitionparticipants.comp_id WHERE user_id = :username");
+            //
+            $stmt->execute([":username" => $username]);
+            $complist = $stmt->fetchAll(PDO::FETCH_ASSOC);
         //
         $fetchowner = $db->prepare("SELECT id, email, username, points, public from users where id = :id LIMIT 1");
         $fetchowner->execute([":id" => get_user_id()]);
@@ -251,23 +258,62 @@
         
         ?>
     </table>
+
+    <table style="width:33%">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Expiration</th>
+        </tr>
+        <?php 
+            if (count($complist) > 10) {
+                for ($i = 0; $i < 10; $i++) {
+                    $compid = $complist[$i]["score"];
+                    $compname = $complist[$i]["CREATED"];
+                    $compexpiration = $complist[$i]["CREATED"];
+                    
+                    echo '<tr>';
+                    echo '<td>'. $compid .'</td>';
+                    echo '<td>'. $compname .'</td>';
+                    echo '<td>'. $compexpiration .'</td>';
+                    echo '</tr>';
+                }
+            }
+            
+            else if (count($complist) > 0) {
+                for ($i = 0; $i < count($complist); $i++) {
+                    $compid = $complist[$i]["score"];
+                    $compname = $complist[$i]["CREATED"];
+                    $compexpiration = $complist[$i]["CREATED"];
+                    
+                    echo '<tr>';
+                    echo '<td>'. $compid .'</td>';
+                    echo '<td>'. $compname .'</td>';
+                    echo '<td>'. $compexpiration .'</td>';
+                    echo '</tr>';
+                }
+            }
+        
+        ?>
+    </table>
+    
 <?php endif; ?>
 
 <?php if (!$isOwner) : ?>
     <?php 
     ?>
     <?php 
-    if($userdata[0]['public'] == 0) {
+    if($user['public'] == 0) {
         echo "<h1>This profile is not public.</h1>";
     } else {
-        echo "<h2>", $userdata[0]['username'], "'s Profile</h2>";
+        echo "<h2>", $user['username'], "'s Profile</h2>";
         echo  "<p>Total Points: ", $user['points'] . "</p>";
 
     }
     ?>
 
 
-    <?php if ($userdata[0]['public'] == 1) : ?>
+    <?php if ($user['public'] == 1) : ?>
         <table style="width:33%">
             <tr>
                 <th>Scores</th>
