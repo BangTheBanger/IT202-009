@@ -59,11 +59,15 @@
     //
 
     //Fetch Data and Submit Competition Edit
-        if (isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2reward"]) && isset($_POST["3reward"]) && 
-        isset($_POST["compcost"]) && isset($_POST["duration"]) && isset($_POST["minscore"]) && isset($_POST["minplayers"]) && isset($_POST["Edit"])) 
+        if ( ($_POST['selectcompid']) && isset($_POST["compname"]) && isset($_POST["1reward"]) && isset($_POST["2reward"]) && isset($_POST["3reward"]) && 
+        isset($_POST["compcost"]) && isset($_POST["duration"]) && isset($_POST["minscore"]) && isset($_POST["minplayers"]) ) 
         {
             // Variable declaration
                 try {
+                    var_dump($selectcompid);
+                    echo"compid before ^<br>";
+                    var_dump($duration);
+                    echo"duration before ^<br>";
                     $compname = se($_POST, "compname", "", false);
                     $reward1 = se($_POST, "1reward", "", false);
                     $reward2 = se($_POST, "2reward", "", false);
@@ -72,6 +76,10 @@
                     $duration = se($_POST, "duration", "", false);
                     $minscore = se($_POST, "minscore", "", false);
                     $minplayers = se($_POST, "minplayers", "", false);
+                    var_dump($selectcompid);
+                    echo"compid before ^<br>";
+                    var_dump($duration);
+                    echo"duration before ^<br>";
                 }  catch (Exception $e) {
                     flash("<pre>" . "Error Code: F000 - Bad Competition Submit" . "</pre>", "danger");
                 }
