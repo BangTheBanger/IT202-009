@@ -1,6 +1,6 @@
 <?php
     if (!is_logged_in() || !has_role("admin")) {
-        die(header("Location: login.php"));
+        die(header("Location: home.php"));
     }
     $db = getDB();
 ?>
