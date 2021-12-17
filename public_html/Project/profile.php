@@ -117,8 +117,9 @@
             }
         //
         //Switch user public status
-        //("UPDATE users SET points = (SELECT IFNULL(SUM(pointchange), 0) FROM pointhistory WHERE user_id = :uid) WHERE id = :uid");
             if (isset($_POST["publicize"])) {
+                var_dump($_POST["publicize"]);
+                /*
                 if ($user['public'] == 0) {
                     $publicstatusswitch = $db->prepare("UPDATE users SET public = (true) WHERE id = :uid");
                     $publicstatusswitch->execute([":uid" => get_user_id()]);
@@ -126,6 +127,7 @@
                     $publicstatusswitch = $db->prepare("UPDATE users SET public = (false) WHERE id = :uid");
                     $publicstatusswitch->execute([":uid" => get_user_id()]);
                 }
+                */
             }
         //
     }
@@ -182,6 +184,8 @@
         <p>Your current profile status is: <?php if($user['public'] == 0) {echo "Private";} else {echo "Public";} ?></p>
         <input type="submit" value="Change Profile Publicity Status" name="publicize" />
     </form>
+    <?php echo  "<p>Your Total Points: ", $user['points'] . "</p>"; ?>
+
     <script>
         function validate(form) {
             let pw = form.newPassword.value;
@@ -212,40 +216,38 @@
             return isValid;
         }
     </script>
-    <?php echo  "<p>Your Total Points: ", $user['points'] . "</p>"; ?>
-
 
     <table style="width:33%">
-    <tr>
-        <th>Scores</th>
-        <th>Time</th>
-    </tr>
-    <?php 
-        if (count($scorelist) > 10) {
-            for ($i = 0; $i < 10; $i++) {
-                $score = $scorelist[$i]["score"];
-                $time = $scorelist[$i]["CREATED"];
-                
-                echo '<tr>';
-                echo '<td>'. $score .'</td>';
-                echo '<td>'. $time .'</td>';
-                echo '</tr>';
+        <tr>
+            <th>Scores</th>
+            <th>Time</th>
+        </tr>
+        <?php 
+            if (count($scorelist) > 10) {
+                for ($i = 0; $i < 10; $i++) {
+                    $score = $scorelist[$i]["score"];
+                    $time = $scorelist[$i]["CREATED"];
+                    
+                    echo '<tr>';
+                    echo '<td>'. $score .'</td>';
+                    echo '<td>'. $time .'</td>';
+                    echo '</tr>';
+                }
             }
-        }
-        
-        else if (count($scorelist) > 0) {
-            for ($i = 0; $i < count($scorelist); $i++) {
-                $score = $scorelist[$i]["score"];
-                $time = $scorelist[$i]["CREATED"];
+            
+            else if (count($scorelist) > 0) {
+                for ($i = 0; $i < count($scorelist); $i++) {
+                    $score = $scorelist[$i]["score"];
+                    $time = $scorelist[$i]["CREATED"];
 
-                echo '<tr>';
-                echo '<td>'. $score .'</td>';
-                echo '<td>'. $time .'</td>';
-                echo '</tr>';
+                    echo '<tr>';
+                    echo '<td>'. $score .'</td>';
+                    echo '<td>'. $time .'</td>';
+                    echo '</tr>';
+                }
             }
-        }
-    
-    ?>
+        
+        ?>
     </table>
 <?php endif; ?>
 
