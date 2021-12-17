@@ -360,15 +360,22 @@
                         <label for="minplayers">Minimum Amount of Players for Payout:</label>
                         <input type="number" name="minplayers" min="3" required value="<?php se($showminplayers) ?>"/>
                     </div>
+                    <input type="submit" value="Edit" />
+                </form>
                 <?php echo "<br><br><br>" ?>
             </div>
-            <div>
-                <label for="selectcompid" class="tobecleared">Competition ID:</label>
-                <input type="number" name="selectcompid" required value="<?php if(!(empty($selectcompid))) {se($selectcompid);} ?>"/>
+
+            <div id="lookupcomp">
+                <form onsubmit="return validate(this)" method="POST">
+                    <div>
+                        <label for="selectcompid" class="tobecleared">Competition ID:</label>
+                        <input type="number" name="selectcompid" required value="<?php if(!(empty($selectcompid))) {se($selectcompid);} ?>"/>
+                    </div>
+                    <input type="submit" value="Select" />
+                </form>
             </div>
-            <input type="submit" value="Edit" />
-            </form>
         </div>
+
     </div>
     <script>
         function validate(form) {
