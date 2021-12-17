@@ -98,9 +98,9 @@ a:visited {
 }
 
 .column div.editformhidden {
-    display: none;
+    display: block;
 }
 
 .column div.editformshown {
-    display: block;
+    display: none;
 }
