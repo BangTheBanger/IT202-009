@@ -65,9 +65,12 @@
             // Variable declaration
                 try {
                     var_dump($selectcompid);
+                    echo" selectcompid before<br>";
+                    var_dump($compid);
                     echo" compid before<br>";
                     var_dump($compname);
                     echo" name before<br>";
+                    $compid = se($_POST, "compid", "", false);
                     $compname = se($_POST, "compname", "", false);
                     $reward1 = se($_POST, "1reward", "", false);
                     $reward2 = se($_POST, "2reward", "", false);
@@ -77,6 +80,8 @@
                     $minscore = se($_POST, "minscore", "", false);
                     $minplayers = se($_POST, "minplayers", "", false);
                     var_dump($selectcompid);
+                    echo" selectcompid after<br>";
+                    var_dump($compid);
                     echo" compid after<br>";
                     var_dump($compname);
                     echo" name after<br>";
@@ -158,7 +163,7 @@
                                                         ":name"      => $compname     , 
                                                         ":duration"  => $duration     ,   ":joinfee"  => $compcost   ,  ":minplayer" => $minplayers   ,
                                                         ":minscore"  => $minscore     ,   ":reward1"  => $reward1    ,  ":reward2"   => $reward2      ,
-                                                        ":reward3"   => $reward3      ,   ":cid"      => $selectcompid
+                                                        ":reward3"   => $reward3      ,   ":cid"      => $compid
                                                         
                             ]);
 
@@ -328,9 +333,9 @@
             
             <div class = "editformhidden" id="editform">
                 <form onsubmit="return validate(this)" method="POST">
-                    <div id = "selectcompid">
-                        <label for="selectcompid" class="tobecleared">Competition ID:</label>
-                        <input type="number" name="selectcompid" required value="<?php if(!(empty($selectcompid))) {se($selectcompid);} ?>"/>
+                    <div id = "compid">
+                        <label for="compid" class="tobecleared">Competition ID:</label>
+                        <input type="number" name="compid" required value="<?php if(!(empty($selectcompid))) {se($selectcompid);} else if (!(empty($compid))) {se($compid);} ?>"/>
                     </div>
                     <div id = "compname">
                         <label for="compname">Competition Name:</label>
