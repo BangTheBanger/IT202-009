@@ -159,17 +159,16 @@
         margin-top: 20px;
         text-align: center;
     }
-    h3{
-        box-sizing: border-box;
-        float: left;
-    }
     .column {
         box-sizing: border-box;
         float: left;
         width: 50%;
         padding: 10px;
     }
-
+    .tableh:after{
+        box-sizing: border-box;
+        float: left;
+    }
     .row:after {
         box-sizing: border-box;
         content: "";
@@ -245,8 +244,8 @@
 
     <div class="row">
         <div class="column" id="scorehist">
-            <h3>Score History</h3>
-            <table style="width:15%">
+            <h3 class="tableh">Score History</h3>
+            <table style="width:33%">
                 <tr>
                     <th>Scores</th>
                     <th>Time</th>
@@ -282,7 +281,7 @@
 
         <div class="column" id="comphist">
             <h3>Competition History</h3>
-            <table style="width:15%">
+            <table style="width:33%">
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
