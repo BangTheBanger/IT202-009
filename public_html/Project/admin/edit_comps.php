@@ -389,5 +389,8 @@
         } else {
             echo "<script>showform()</script>";
         }
+
+        
+        require(__DIR__ . "/../../partials/flash.php");
     ?>
 </body>
