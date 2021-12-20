@@ -66,7 +66,7 @@ if (is_logged_in()) {
     <?php elseif (count($scorelist) <= 10) : ?>
         <?php foreach ($scorelist as $user => $data) : ?>
             <tr>
-                <td><?php echo "<a href = 'profile.php?id='". $data['user_id'] . ">". $data['user_id'] . "</a>" ?></td>
+                <td><?php echo "<a href = 'profile.php?id=". $data['user_id'] . "'>". $data['user_id'] . "</a>" ?></td>
                 <td><?php se($data, "username") ?></td>
                 <td><?php se($data, "score") ?></td>
             </tr>
