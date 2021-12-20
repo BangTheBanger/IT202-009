@@ -347,7 +347,7 @@
                                     $compexpiration = $complist[$listindex]["expiration"];
                                     
                                     echo '<tr>';
-                                    echo '<td>'. $compid .'</td>';
+                                    echo '<td><a href="compprofile.php?compid=' . $compid . '">'. $compid .'</a></td>';
                                     echo '<td>'. $compname .'</td>';
                                     echo '<td>'. $compexpiration .'</td>';
                                     echo '</tr>';

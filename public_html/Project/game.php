@@ -46,6 +46,9 @@ if (is_logged_in()) {
         </tr>
     </table>
 */
+if (!is_logged_in()) {
+    echo "<h3>Since you are not logged in, your score will not be recorded.</h3>";
+}
 ?>
 
 
