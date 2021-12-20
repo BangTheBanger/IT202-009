@@ -166,7 +166,7 @@
                 $scorepagetotal = 10;
                 $scoreoffset = $scorepagetotal*($scorecursor-1);
 
-                $scoretotalrows = count($scorecomplist);
+                $scoretotalrows = count($scorelist);
                 $scorepageamount= ceil($scoretotalrows / $scorepagetotal);
             //
         }
