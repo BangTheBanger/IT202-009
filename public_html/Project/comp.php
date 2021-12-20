@@ -144,6 +144,36 @@
                                 $update->execute([":uid" => get_user_id()]);
                                 flash("Competition Created!", "success");
                                 $compcreationsuccess = true;
+                                if ($compcreationsuccess) {
+                                    try {
+                                        $findcomp = $db->prepare("SELECT id FROM competitions WHERE (name=:name AND duration=:duration AND join_fee=:joinfee AND min_participants=:minplayer AND 
+                                                                    paid_out=0 AND min_score=:minscore AND first_place_per BETWEEN (:reward1m-0.000001) AND (:reward1p+0.000001) AND second_place_per BETWEEN (:reward2m-0.000001) AND (:reward2p+0.000001));");
+                                        $findcomp->execute([":name" => $compname, ":duration" => $duration, ":joinfee" => $compcost, ":minplayer" => $minplayers,
+                                                            ":minscore" => $minscore, ":reward1m" => ($reward1-0.000001), ":reward1p" => ($reward1+0.000001), ":reward2m" => ($reward2-0.000001), ":reward2p" => ($reward2+0.000001)]);
+                                        //
+                                        $compid = $findcomp->fetchAll(PDO::FETCH_ASSOC);
+                                        $addusertocomp = $db->prepare("INSERT INTO competitionparticipants (comp_id, user_id) VALUES (:compid, :uid);");
+                                        $addusertocomp->execute([":compid" => $compid[0]["id"], ":uid" => get_user_id()]);
+                                        
+                                    
+                                    } catch (Exception $e) {
+                                        flash( "Error Code: F003 - Could Not Join User", "danger");
+                                        $compcreationsuccess = false;
+                                    }
+                
+                                    $compname = "";
+                                    $reward1 = "";
+                                    $reward2 = "";
+                                    $reward3 = "";
+                                    $compcost = "";
+                                    $duration = "";
+                                    $minscore = "";
+                                    $minplayers = "";
+                
+                                }
+                                if($compcreationsuccess) {
+                                    die(header("Location: comp.php"));
+                                }
                             } catch (Exception $e) {
                                 flash( "Error Code: F001 - Bad Competition Submit", "danger");
                                 $compcreationsuccess = false;
@@ -156,38 +186,11 @@
                         flash( "Error Code: F002 - Couldn't retrieve data", "danger");
                         $compcreationsuccess = false;
                     }
-                    
-
                 } catch (Exception $e) {
                     flash( "Error Code: F000 - Unknown Error", "danger");
                     $compcreationsuccess = false;
                 }
-                if ($compcreationsuccess) {
-                    try {
-                        $findcomp = $db->prepare("SELECT id FROM competitions WHERE (name=:name AND duration=:duration AND join_fee=:joinfee AND min_participants=:minplayer AND 
-                                                    paid_out=0 AND min_score=:minscore AND first_place_per BETWEEN (:reward1m-0.000001) AND (:reward1p+0.000001) AND second_place_per BETWEEN (:reward2m-0.000001) AND (:reward2p+0.000001));");
-                        $findcomp->execute([":name" => $compname, ":duration" => $duration, ":joinfee" => $compcost, ":minplayer" => $minplayers,
-                                            ":minscore" => $minscore, ":reward1m" => ($reward1-0.000001), ":reward1p" => ($reward1+0.000001), ":reward2m" => ($reward2-0.000001), ":reward2p" => ($reward2+0.000001)]);
-                        //
-                        $compid = $findcomp->fetchAll(PDO::FETCH_ASSOC);
-                        $addusertocomp = $db->prepare("INSERT INTO competitionparticipants (comp_id, user_id) VALUES (:compid, :uid);");
-                        $addusertocomp->execute([":compid" => $compid[0]["id"], ":uid" => get_user_id()]);
-                    
-                    } catch (Exception $e) {
-                        flash( "Error Code: F003 - Could Not Join User", "danger");
-                        $compcreationsuccess = false;
-                    }
-
-                    $compname = "";
-                    $reward1 = "";
-                    $reward2 = "";
-                    $reward3 = "";
-                    $compcost = "";
-                    $duration = "";
-                    $minscore = "";
-                    $minplayers = "";
-
-                }
+                
             }
         }
     //
