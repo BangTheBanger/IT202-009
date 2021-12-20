@@ -201,9 +201,9 @@
             try{  //Operation: Join
                 if (empty($compjoin)) {
                     flash("Competition ID must not be empty", "warning");
-                    $hasError = true;
+                    $hasErrorJoin = true;
                 }
-                if (!$hasError) {
+                if (!$hasErrorJoin) {
                     $db = getDB();
                     //Inserts user into proper tables if they aren't already registered.
                         try{
@@ -213,13 +213,13 @@
                             //
                             //UPDATE competitions SET current_participants
                                 $stmt = $db->prepare("UPDATE competitions SET current_participants = ( SELECT IFNULL(COUNT(user_id), 0) 
-                                                    FROM competitionparticipants WHERE comp_id = :compid);");
+                                                    FROM competitionparticipants WHERE comp_id = :compid ) WHERE comp_id = :compid");
                                 //
                                 $stmt->execute([":compid" => $compjoin]);
                             //
                             //UPDATE competitions SET current_reward
                                 $stmt = $db->prepare("UPDATE competitions SET current_reward = ( SELECT IFNULL (CEILING(0.5*(SELECT IFNULL(COUNT(user_id), 0))), 1) 
-                                                    FROM competitionparticipants WHERE comp_id = :compid );");
+                                                    FROM competitionparticipants WHERE comp_id = :compid ) WHERE comp_id = :compid");
                                 //
                                 $stmt->execute([":compid" => $compjoin]);
                             //
