@@ -99,9 +99,11 @@
                                 }
                             ?>
                             <? foreach ($scorelistalltime as $user => $data) : ?>
-                                <td><?php echo "<a href = 'profile.php?id=". $data['user_id'] . "'>". $data['user_id'] . "</a>" ?></td>
-                                <td><?php se($data, "username") ?></td>
-                                <td><?php se($data, "score") ?></td>
+                                <tr <?php if($data['user_id'] == get_user_id()) {echo "class='highlight'";} ?>>
+                                    <td><?php echo "<a href = 'profile.php?id=". $data['user_id'] . "'>". $data['user_id'] . "</a>" ?></td>
+                                    <td><?php se($data, "username") ?></td>
+                                    <td><?php se($data, "score") ?></td>
+                                </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     <?php endfor; ?>
@@ -113,7 +115,7 @@
 
                 <?php elseif (count($scorelistalltime) <= 10) : ?>
                     <?php foreach ($scorelistalltime as $user => $data) : ?>
-                        <tr>
+                        <tr <?php if($data['user_id'] == get_user_id()) {echo "class='highlight'";} ?>>
                             <td><?php echo "<a href = 'profile.php?id=". $data['user_id'] . "'>". $data['user_id'] . "</a>" ?></td>
                             <td><?php se($data, "username") ?></td>
                             <td><?php se($data, "score") ?></td>
@@ -146,9 +148,11 @@
                                 }
                             ?>
                             <? foreach ($scorelistmonthly as $user => $data) : ?>
-                                <td><?php echo "<a href = 'profile.php?id=". $data['user_id'] . "'>". $data['user_id'] . "</a>" ?></td>
-                                <td><?php se($data, "username") ?></td>
-                                <td><?php se($data, "score") ?></td>
+                                <tr <?php if($data['user_id'] == get_user_id()) {echo "class='highlight'";} ?>>
+                                    <td><?php echo "<a href = 'profile.php?id=". $data['user_id'] . "'>". $data['user_id'] . "</a>" ?></td>
+                                    <td><?php se($data, "username") ?></td>
+                                    <td><?php se($data, "score") ?></td>
+                                </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     <?php endfor; ?>
@@ -160,7 +164,7 @@
 
                 <?php elseif (count($scorelistmonthly) <= 10) : ?>
                     <?php foreach ($scorelistmonthly as $user => $data) : ?>
-                        <tr>
+                        <tr <?php if($data['user_id'] == get_user_id()) {echo "class='highlight'";} ?>>
                             <td><?php echo "<a href = 'profile.php?id=". $data['user_id'] . "'>". $data['user_id'] . "</a>" ?></td>
                             <td><?php se($data, "username") ?></td>
                             <td><?php se($data, "score") ?></td>
@@ -193,9 +197,11 @@
                                 }
                             ?>
                             <? foreach ($scorelistweekly as $user => $data) : ?>
-                                <td><?php echo "<a href = 'profile.php?id=". $data['user_id'] . "'>". $data['user_id'] . "</a>" ?></td>
-                                <td><?php se($data, "username") ?></td>
-                                <td><?php se($data, "score") ?></td>
+                                <tr <?php if($data['user_id'] == get_user_id()) {echo "class='highlight'";} ?>>
+                                    <td><?php echo "<a href = 'profile.php?id=". $data['user_id'] . "'>". $data['user_id'] . "</a>" ?></td>
+                                    <td><?php se($data, "username") ?></td>
+                                    <td><?php se($data, "score") ?></td>
+                                </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     <?php endfor; ?>
@@ -207,7 +213,7 @@
 
                 <?php elseif (count($scorelistweekly) <= 10) : ?>
                     <?php foreach ($scorelistweekly as $user => $data) : ?>
-                        <tr>
+                        <tr <?php if($data['user_id'] == get_user_id()) {echo "class='highlight'";} ?>>
                             <td><?php echo "<a href = 'profile.php?id=". $data['user_id'] . "'>". $data['user_id'] . "</a>" ?></td>
                             <td><?php se($data, "username") ?></td>
                             <td><?php se($data, "score") ?></td>

@@ -104,3 +104,7 @@ a:visited {
 .column div.editformshown {
     display: block;
 }
+
+.highlight {
+    background-color: rgb(35, 39, 59);
+}

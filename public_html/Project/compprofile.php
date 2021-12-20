@@ -23,9 +23,6 @@
     h1.title { 
         text-align: center;
     }
-    .highlight{
-        background-color: rgb(35,39,59);
-    }
 </style>
 <body>
     <h1><?php se($comp['name']) ?>'s Stats</h1>
