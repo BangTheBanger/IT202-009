@@ -17,7 +17,11 @@
         die(header("Location: comp.php"));
     }
 ?>
-
+<style>
+    h1 { 
+        text-align: center;
+    }
+</style>
 <body>
     <h1><?php se($comp['name']) ?>'s Stats</h1>
     <h5>Competition was Created at: <?php se($compcreated) ?></h5>
@@ -37,7 +41,7 @@
         <?php $position = 1; foreach($userlist as $user => $data) : ?>
             <tr>
                 <td><?php se($position); $position++;?></td>
-                <td><?php echo "<a href = 'profile.php?id='". $data['user_id'] . ">". $data['user_id'] . "</a>" ?></td>
+                <td><?php echo "<a href = 'profile.php?id=". $data['user_id'] . "'>". $data['user_id'] . "</a>" ?></td>
                 <td><?php se($data, "username") ?></td>
                 <td><?php se($data, "score") ?></td>
             </tr>
