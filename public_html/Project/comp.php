@@ -412,7 +412,7 @@
                                     $comprew3 *= 100;
                                     
                                     echo '<tr>';
-                                    echo '<td>'. $compid .'</td>';
+                                    echo '<td><a href="compprofile.php?compid=' . $compid . '">'. $compid .'</a></td>';
                                     echo '<td>'. $listcompname .'</td>';
                                     echo '<td>'. $compexp .'</td>';
                                     echo '<td>'. $compprize .'</td>';
@@ -449,7 +449,7 @@
                             $comprew3 *= 100;
                             
                             echo '<tr>';
-                            echo '<td>'. $compid .'</td>';
+                            echo '<td><a href="compprofile.php?compid=' . $compid . '">'. $compid .'</a></td>';
                             echo '<td>'. $compname .'</td>';
                             echo '<td>'. $compexp .'</td>';
                             echo '<td>'. $compprize .'</td>';

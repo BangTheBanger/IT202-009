@@ -36,51 +36,53 @@ if (is_logged_in()) {
         text-align: center;
     }
 </style>
-<table style="width:auto">
-    <?php if (count($scorelist) > 0) : ?>
-        <h1 class = "title">High Scores</h1>
-        <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>Total Score</th>
-        </tr>
-    <?php endif; ?>
-    <?php if (count($scorelist) > 10) : ?>
-        <?php for ($pageindex = 1; $pageindex <= 10; $pageindex++) : ?>
-            <?php if ($cursor == $pageindex) : ?>
-                <?php 
-                    if(($pagetotal*($cursor-1)) == 0) {
-                        $currentpagetotal = 10;
-                    } else {
-                        $currentpagetotal = count($complist)-($pagetotal*($cursor-1));
-                    }
-                ?>
-                <? foreach ($complist as $user => $data) : ?>
-                    <td><?php echo "<a href = 'profile.php?id='". $data['user_id'] . ">". $data['user_id'] . "</a>" ?></td>
+
+<body>
+    <table style="width:auto">
+        <?php if (count($scorelist) > 0) : ?>
+            <h1 class = "title">High Scores</h1>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Total Score</th>
+            </tr>
+        <?php endif; ?>
+        <?php if (count($scorelist) > 10) : ?>
+            <?php for ($pageindex = 1; $pageindex <= 10; $pageindex++) : ?>
+                <?php if ($cursor == $pageindex) : ?>
+                    <?php 
+                        if(($pagetotal*($cursor-1)) == 0) {
+                            $currentpagetotal = 10;
+                        } else {
+                            $currentpagetotal = count($scorelist)-($pagetotal*($cursor-1));
+                        }
+                    ?>
+                    <? foreach ($scorelist as $user => $data) : ?>
+                        <td><?php echo "<a href = 'profile.php?id='". $data['user_id'] . ">". $data['user_id'] . "</a>" ?></td>
+                        <td><?php se($data, "username") ?></td>
+                        <td><?php se($data, "score") ?></td>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            <?php endfor; ?>
+            <?php for($cursor = 1; $cursor <= $pageamount; $cursor++) : ?>
+                <a class="cursoranchor" href = <?php echo "home.php?cursor=" . $cursor ?>>Page <?php se($cursor)?></a>
+            <?php endfor; ?>
+
+
+
+        <?php elseif (count($scorelist) <= 10) : ?>
+            <?php foreach ($scorelist as $user => $data) : ?>
+                <tr>
+                    <td><?php echo "<a href = 'profile.php?id=". $data['user_id'] . "'>". $data['user_id'] . "</a>" ?></td>
                     <td><?php se($data, "username") ?></td>
                     <td><?php se($data, "score") ?></td>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        <?php endfor; ?>
-        <?php for($cursor = 1; $cursor <= $pageamount; $cursor++) : ?>
-            <a class="cursoranchor" href = <?php echo "home.php?cursor=" . $cursor ?>>Page <?php se($cursor)?></a>
-        <?php endfor; ?>
-
-
-
-    <?php elseif (count($scorelist) <= 10) : ?>
-        <?php foreach ($scorelist as $user => $data) : ?>
-            <tr>
-                <td><?php echo "<a href = 'profile.php?id=". $data['user_id'] . "'>". $data['user_id'] . "</a>" ?></td>
-                <td><?php se($data, "username") ?></td>
-                <td><?php se($data, "score") ?></td>
-            </tr>
-        <?php endforeach; ?>
-    <?php else : ?>
-        <td>No Results to Show</td>
-    <?php endif; ?>
-</table>
-
+                </tr>
+            <?php endforeach; ?>
+        <?php else : ?>
+            <td>No Results to Show</td>
+        <?php endif; ?>
+    </table>
+</body>
 
 
 
