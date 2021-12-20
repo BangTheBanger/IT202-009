@@ -61,7 +61,7 @@
     }
     .column {
         float: left;
-        width: auto;
+        width: 33%;
         padding: 10px;
         text-align: center;
     }
