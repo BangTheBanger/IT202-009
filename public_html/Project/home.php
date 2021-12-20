@@ -12,17 +12,7 @@ if (is_logged_in()) {
     //echo "<pre>" . var_export($_SESSION, true) . "</pre>";
 }
 
-// Pagination
-    if ( !isset ($_GET['cursor']) ) { $cursor = 1; } 
-    else                            { $cursor = $_GET['cursor']; }
 
-    $itemperpage = 10;
-    $offset      = $itemperpage*($cursor-1);
-
-    $totalrows   = count($complist);
-    $pageamount  = ceil($totalrows / $itemperpage);
-
-//
 
 // Fetching score data
     $stmt = $db->prepare("SELECT user_id, username, SUM(score) AS score FROM scores JOIN users ON scores.user_id = users.id GROUP BY user_id ORDER BY score DESC");
@@ -30,6 +20,15 @@ if (is_logged_in()) {
     $scorelist = $stmt->fetchAll(PDO::FETCH_ASSOC);
     //  $scorelist = [0 => ['user_id' => 36, 'username' => 'admin', 'score' => 101]];
     //  $data['score']
+//
+// Pagination
+    if ( !isset ($_GET['cursor']) ) { $cursor = 1; } 
+    else                            { $cursor = $_GET['cursor']; }
+    $itemperpage = 10;
+    $offset      = $itemperpage*($cursor-1);
+    $totalrows   = count($scorelist);
+    $pageamount  = ceil($totalrows / $itemperpage);
+
 //
 ?>
 <table style="width:auto">
