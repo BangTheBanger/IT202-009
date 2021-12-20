@@ -9,11 +9,7 @@ if (is_logged_in()) {
     $username = get_user_id();
     $db = getDB();
     $stmt = $db->prepare("INSERT INTO scores (user_id, score) VALUES(:username, :score); 
-                          INSERT INTO pointhistory SET pointchange = :points , user_id = ( SELECT id FROM users WHERE id = :username )");
-/*
-    INSERT INTO tab_student 
-        SET name_student = 'Bobby Tables', id_teacher_fk = ( SELECT id_teacher FROM tab_teacher WHERE name_teacher = 'Dr. Smith')
-*/
+                          INSERT INTO pointhistory SET pointchange = :points , user_id = ( SELECT id FROM users WHERE id = :username ) , reason = 'Competition Rewards'");
 
     if ($score > 0) {
         $stmt->execute([":username" => $username, ":score" => $score, ":points" => $points]);
@@ -46,10 +42,13 @@ if (is_logged_in()) {
     <table style="width:33%">
         <tr>
             <th>User</th>
-            <th>Scores</th>
+            <th>Score</th>
         </tr>
     </table>
 */
+if (!is_logged_in()) {
+    echo "<h3>Since you are not logged in, your score will not be recorded.</h3>";
+}
 ?>
 
 

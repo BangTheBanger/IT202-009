@@ -2,7 +2,7 @@
 //note we need to go up 1 more directory
 require(__DIR__ . "/../../../partials/nav.php");
 
-if (!has_role("Admin")) {
+if (!has_role("admin")) {
     flash("You don't have permission to view this page", "warning");
     die(header("Location: " . get_url("home.php")));
 }
@@ -14,7 +14,7 @@ if (isset($_POST["name"]) && isset($_POST["description"])) {
         flash("Name is required", "warning");
     } else {
         $db = getDB();
-        $stmt = $db->prepare("INSERT INTO Roles (name, description, is_active) VALUES(:name, :desc, 1)");
+        $stmt = $db->prepare("INSERT INTO roles (name, description, is_active) VALUES(:name, :desc, 1)");
         try {
             $stmt->execute([":name" => $name, ":desc" => $desc]);
             flash("Successfully created role $name!", "success");

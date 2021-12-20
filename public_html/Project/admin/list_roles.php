@@ -2,7 +2,7 @@
 //note we need to go up 1 more directory
 require(__DIR__ . "/../../../partials/nav.php");
 
-if (!has_role("Admin")) {
+if (!has_role("admin")) {
     flash("You don't have permission to view this page", "warning");
     die(header("Location: $BASE_PATH" . "home.php"));
 }
@@ -11,7 +11,7 @@ if (isset($_POST["role_id"])) {
     $role_id = se($_POST, "role_id", "", false);
     if (!empty($role_id)) {
         $db = getDB();
-        $stmt = $db->prepare("UPDATE Roles SET is_active = !is_active WHERE id = :rid");
+        $stmt = $db->prepare("UPDATE roles SET is_active = !is_active WHERE id = :rid");
         try {
             $stmt->execute([":rid" => $role_id]);
             flash("Updated Role", "success");
@@ -20,7 +20,7 @@ if (isset($_POST["role_id"])) {
         }
     }
 }
-$query = "SELECT id, name, description, is_active from Roles";
+$query = "SELECT id, name, description, is_active from roles";
 $params = null;
 if (isset($_POST["role"])) {
     $search = se($_POST, "role", "", false);

@@ -1,0 +1,1 @@
+ALTER TABLE users ADD COLUMN public BOOLEAN NOT NULL DEFAULT false AFTER points;

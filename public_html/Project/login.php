@@ -35,7 +35,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     }
     if (!$hasError) {
         $db = getDB();
-        $stmt = $db->prepare("SELECT id, email, username, password from users where email = :email OR username = :email");
+        $stmt = $db->prepare("SELECT id, email, username, password FROM users WHERE email = :email OR username = :email");
         try {
             $r = $stmt->execute([":email" => $email]);
             if ($r) {
@@ -48,11 +48,12 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                         $_SESSION["user"] = $user;
                         //lookup potential roles
                         try {
-                            $stmt = $db->prepare("SELECT roles.name FROM roles JOIN user_roles on roles.id = user_roles.role_id
-                            where user_roles.user_id = :user_id and roles.is_active = 1 and user_roles.is_active = 1");
-                            $stmt->execute([":user_id" => $user["id"]]);
+                            $stmt = $db->prepare("SELECT roles.name FROM roles JOIN user_roles ON roles.id = user_roles.role_id
+                            WHERE user_roles.user_id = :uid AND roles.is_active = 1 AND user_roles.is_active = 1");
+                            $stmt->execute([":uid" => $user["id"]]);
                             $roles = $stmt->fetchAll(PDO::FETCH_ASSOC); //fetch all since we'll want multiple
                             //save roles or empty array
+                            $_SESSION["user"]["roles"] = $roles;
                         } catch (Exception $e) {
 
                         }
