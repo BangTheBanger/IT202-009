@@ -226,6 +226,7 @@
                                 $stmt->execute([":compid" => $compjoin]);
                             //
                             flash("Successfully Registered!","success");
+                            die(header("Location: comp.php"));
                         } catch (Exception $e) {
                             flash("You have already registered for this competition.","info");
                         }
