@@ -144,7 +144,7 @@
                     
                 }
             //
-            //Pagination
+            //Comp Pagination
                 if (!isset ($_GET['cursor']) ) {
                     $cursor = 1;
                 } else {
@@ -156,6 +156,18 @@
 
                 $totalrows = count($complist);
                 $pageamount= ceil($totalrows / $pagetotal);
+            //
+            //Scores Pagination
+                if (!isset ($_GET['scorecursor']) ) {
+                    $scorecursor = 1;
+                } else {
+                    $scorecursor = $_GET['scorecursor'];
+                }
+                $scorepagetotal = 10;
+                $scoreoffset = $scorepagetotal*($scorecursor-1);
+
+                $scoretotalrows = count($scorecomplist);
+                $scorepageamount= ceil($scoretotalrows / $scorepagetotal);
             //
         }
     //
@@ -268,14 +280,26 @@
                 </tr>
                 <?php 
                     if (count($scorelist) > 10) {
-                        for ($i = 0; $i < 10; $i++) {
-                            $score = $scorelist[$i]["score"];
-                            $time = $scorelist[$i]["CREATED"];
-                            
-                            echo '<tr>';
-                            echo '<td>'. $score .'</td>';
-                            echo '<td>'. $time .'</td>';
-                            echo '</tr>';
+                        for ($pageindex = 1; $pageindex <= 10; $pageindex++) {
+                            if ($cursor == $pageindex) {
+                                if(($scorepagetotal*($scorecursor-1)) == 0) {
+                                    $scorecurrentpagetotal = 10;
+                                } else {
+                                    $scorecurrentpagetotal = count($scorelist)-($scorepagetotal*($scorecursor-1));
+                                }
+                                for ($scorelistindex = $scoreoffset; $scorelistindex <= $scoreoffset+$scorecurrentpagetotal-1; $scorelistindex++) {
+                                    $score = $scorelist[$scorelistindex]["score"];
+                                    $time = $scorelist[$scorelistindex]["CREATED"];
+                                    
+                                    echo '<tr>';
+                                    echo '<td>'. $score .'</td>';
+                                    echo '<td>'. $time .'</td>';
+                                    echo '</tr>';
+                                }
+                                for($scorecursor = 1; $scorecursor <= 10; $scorecursor++) {
+                                    echo '<a class="cursoranchor" href = "edit_comps.php?cursor=' . $scorecursor . '">Page ' . $scorecursor . '</a>';
+                                }
+                            }
                         }
                     }
                     
