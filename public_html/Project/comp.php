@@ -6,10 +6,10 @@
 
 
     /*
-    if (strlen($a) < 1000) {
-        flash("Message", "warning");
-        $hasError = true;
-    }
+        if (strlen($a) < 1000) {
+            flash("Message", "warning");
+            $hasError = true;
+        }
     */
     //List Pagination
         if (!isset ($_GET['cursor']) ) {
