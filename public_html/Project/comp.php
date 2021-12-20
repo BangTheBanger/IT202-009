@@ -103,7 +103,7 @@
                     $minplayers = (int)$minplayers;
                 }
             //
-              // Uncomment for variable checks on the page.
+            /*  // Uncomment for variable checks on the page.
                 if (true) {
                     echo '<pre>' . "compname = ", var_dump($compname) . '</pre>';
                     echo '<pre>' . "reward1 = ", var_dump($reward1) . '</pre>';
@@ -114,17 +114,16 @@
                     echo '<pre>' . "minscore = ", var_dump($minscore) . '</pre>';
                     echo '<pre>' . "minplayers = ", var_dump($minplayers) . '</pre>';
                 }
-            
+            */
 
             if (!$hasError) {                   //Submitting to Competitions table
                 $db = getDB();
-                $stmt = $db->prepare(
-                    "INSERT INTO competitions (name, duration, starting_reward, join_fee, min_participants, min_score, first_place_per, second_place_per, third_place_per, cost_to_create,
-                                                expiration, current_reward,  current_participants, paid_out)
+                $stmt = $db->prepare("INSERT INTO competitions (name, duration, starting_reward, join_fee, min_participants, min_score, first_place_per,
+                                                                second_place_per, third_place_per, cost_to_create, expiration)
 
-                    VALUES (:name, :duration, :startreward, :joinfee, :minplayer, :minscore, :reward1, :reward2, :reward3, :cost, 
-                        ((DATE_ADD(CREATED, INTERVAL duration DAY))), :startreward, 1, false);
-                        ");
+                                                                VALUES (:name, :duration, :startreward, :joinfee, :minplayer, :minscore, :reward1,
+                                                                        :reward2, :reward3, :cost, ((DATE_ADD(CURRENT_TIMESTAMP, INTERVAL :duration DAY))))
+                ");
 
                 try {
                     try {
@@ -133,9 +132,6 @@
                         $pointtotal = $fetchuserpoints->fetchAll(PDO::FETCH_ASSOC);
                         if ($pointtotal[0]['points'] >= $compcreatecost) {
                             try {
-                                $stmt = $db->prepare("INSERT INTO competitions (name, duration, starting_reward, join_fee, min_participants, min_score, first_place_per, second_place_per,
-                                                            third_place_per, cost_to_create, expiration) VALUES (:name, :duration, :startreward, :joinfee, :minplayer, :minscore,
-                                                            :reward1, :reward2, :reward3, :cost, ((DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 2 DAY))))");
                                 $stmt->execute([":name" => $compname, ":duration" => $duration, ":startreward" => 1, ":joinfee" => $compcost, ":minplayer" => $minplayers,
                                                     ":minscore" => $minscore, ":reward1" => $reward1, ":reward2" => $reward2, ":reward3" => $reward3, ":cost" => $compcreatecost]);
                                 $updatepoints = $db->prepare("INSERT INTO pointhistory (user_id, pointchange) VALUES (:uid, :cost);");
