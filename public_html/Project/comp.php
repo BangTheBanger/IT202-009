@@ -103,7 +103,7 @@
                     $minplayers = (int)$minplayers;
                 }
             //
-            /*  // Uncomment for variable checks on the page.
+              // Uncomment for variable checks on the page.
                 if (true) {
                     echo '<pre>' . "compname = ", var_dump($compname) . '</pre>';
                     echo '<pre>' . "reward1 = ", var_dump($reward1) . '</pre>';
@@ -114,7 +114,7 @@
                     echo '<pre>' . "minscore = ", var_dump($minscore) . '</pre>';
                     echo '<pre>' . "minplayers = ", var_dump($minplayers) . '</pre>';
                 }
-            */
+            
 
             if (!$hasError) {                   //Submitting to Competitions table
                 $db = getDB();
