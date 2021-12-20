@@ -296,8 +296,11 @@
                                     echo '<td>'. $time .'</td>';
                                     echo '</tr>';
                                 }
-                                for($scorecursor = 1; $scorecursor <= 10; $scorecursor++) {
-                                    echo '<a class="cursoranchor" href = "edit_comps.php?cursor=' . $scorecursor . '">Page ' . $scorecursor . '</a>';
+                                if($scorepageamount > 10) {
+                                    $scorepageamount = 10;
+                                }
+                                for($scorecursor = 1; $scorecursor <= $scorepageamount; $scorecursor++) {
+                                    echo '<a class="cursoranchor" href = "profile.php?scorecursor=' . $scorecursor . '">Page ' . $scorecursor . '</a>';
                                 }
                             }
                         }
