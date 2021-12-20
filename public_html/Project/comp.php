@@ -215,13 +215,13 @@
                             //
                             //UPDATE competitions SET current_participants
                                 $stmt = $db->prepare("UPDATE competitions SET current_participants = ( SELECT IFNULL(COUNT(user_id), 0) 
-                                                    FROM competitionparticipants WHERE comp_id = :compid ) WHERE comp_id = :compid");
+                                                    FROM competitionparticipants WHERE comp_id = :compid ) WHERE id = :compid");
                                 //
                                 $stmt->execute([":compid" => $compjoin]);
                             //
                             //UPDATE competitions SET current_reward
                                 $stmt = $db->prepare("UPDATE competitions SET current_reward = ( SELECT IFNULL (CEILING(0.5*(SELECT IFNULL(COUNT(user_id), 0))), 1) 
-                                                    FROM competitionparticipants WHERE comp_id = :compid ) WHERE comp_id = :compid");
+                                                    FROM competitionparticipants WHERE comp_id = :compid ) WHERE id = :compid");
                                 //
                                 $stmt->execute([":compid" => $compjoin]);
                             //
