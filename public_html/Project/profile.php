@@ -5,13 +5,11 @@
     }
     $db = getDB();
 
-    
+    $isOwner = true;
     //If not owner of profile
         if(isset($_GET['id'])) {
             $pageuserid = $_GET['id'];
-            if($pageuserid == get_user_id()){
-                $isOwner = true;
-            } else {
+            if($pageuserid != get_user_id()){
                 $isOwner = false;
                 //Point update >
                     $update = $db->prepare("UPDATE users SET points = (SELECT IFNULL(SUM(pointchange), 0) FROM pointhistory WHERE user_id = :uid) WHERE id = :uid");
@@ -30,7 +28,7 @@
             
     //
     //If owner of profile
-        else {
+        if ($isOwner) {
             $username = get_user_id();
             $isOwner = true;
             $email = get_user_email();
