@@ -595,34 +595,249 @@ The game is considered complete, although maybe needing some debugging that I wo
 </td>
 </tr></td></tr></table>
 
-- Milestone 4
-    - User can set their profile to be public or private (will need another column in Users table)
-        - If public, hide email address from other users
-    - User will be able to see their competition history
-        - Limit to 10 results
-        - Paginate anything after 10
-        - If no results, show the appropriate message
-    - User with the role of “admin” can edit a competition where paid_out = false
-        - They can adjust any of the regular form values
-        - If the competition was expired they can update the duration to include extra time
-    - Add pagination to the Active Competitions view
-        - Show 10 competitions per page
-        - Paginate anything after 10
-        - If no results, show the appropriate message
-    - Anywhere a username is displayed should be a link to that user’s profile
-        -   This includes all scoreboards
-        - If the profile is private you can have the page just display “this profile is private” upon access
-    - Viewing an active or expired competition should show the top 10 scoreboard related to that competition
-    - Game should be fully implemented/complete by this point
-        - Game should tell the player if they’re not logged in that their score will not be recorded.
-    - User’s score history will include pagination
-        - Show latest 10
-        -  Paginate after 10
-        - Show appropriate message for no results
-    - Home page will have a weekly, monthly, and lifetime scoreboard
-        - Will also have a link to the game
-        - Scoreboards will show username and points for the session
-            - (See requirement about username linking to profile)
+
+<table>
+<tr><td>Milestone 4</td></tr><tr><td>
+<table>
+<tr><td>F1 - User can set their profile to be public or private (will need another column in Users table) (2021-12-20)</td></tr>
+<tr><td>Status: complete</td></tr>
+<tr><td>Links:<p>
+
+ [https://fa367-prod.herokuapp.com/Project/profile.php?id=36](https://fa367-prod.herokuapp.com/Project/profile.php?id=36)</p></td></tr>
+<tr><td>PRs:<p>
+
+ [https://github.com/BangTheBanger/IT202-009/pull/110](https://github.com/BangTheBanger/IT202-009/pull/110)</p></td></tr>
+<tr><td>
+<table>
+<tr><td>F1 - If public, hide email address from other users</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/29554235/146759908-e408fc63-5542-4328-8315-a50ec4ecb7a1.png">
+<p>When profile is accessed and not public.</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/29554235/146760371-a9e98e22-4685-4497-b258-866efbaaaa65.png">
+<p>Button for changing profile status</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/29554235/146760494-d3bf6537-913a-4004-8024-b7a6ddb281e9.png">
+<p>How public profile looks for other users.</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<table>
+<tr><td>F2 - User will be able to see their competition history (2021-12-20)</td></tr>
+<tr><td>Status: complete</td></tr>
+<tr><td>Links:<p>
+
+ [https://fa367-prod.herokuapp.com/Project/profile.php](https://fa367-prod.herokuapp.com/Project/profile.php)</p></td></tr>
+<tr><td>PRs:<p>
+
+ [https://github.com/BangTheBanger/IT202-009/pull/110](https://github.com/BangTheBanger/IT202-009/pull/110)</p></td></tr>
+<tr><td>
+<table>
+<tr><td>F2 - Limit to 10 results; Paginate anything after 10; If no results, show the appropriate message</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/29554235/146760609-14db6431-001f-472f-9c80-ebed32651973.png">
+<p>Profile and the competition list.</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<table>
+<tr><td>F3 - User with the role of “admin” can edit a competition where paid_out = false (2021-12-20)</td></tr>
+<tr><td>Status: complete</td></tr>
+<tr><td>Links:<p>
+
+ [https://fa367-dev.herokuapp.com/Project/admin/edit_comps.php](https://fa367-dev.herokuapp.com/Project/admin/edit_comps.php)</p></td></tr>
+<tr><td>PRs:<p>
+
+ [https://github.com/BangTheBanger/IT202-009/pull/110](https://github.com/BangTheBanger/IT202-009/pull/110)</p></td></tr>
+<tr><td>
+<table>
+<tr><td>F3 - They can adjust any of the regular form values; If the competition was expired they can update the duration to include extra time</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/29554235/146760993-30614539-1163-46c8-b5d3-1b935922a401.png">
+<p>Edit Comp page</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<table>
+<tr><td>F4 - Add pagination to the Active Competitions view (2021-12-20)</td></tr>
+<tr><td>Status: complete</td></tr>
+<tr><td>Links:<p>
+
+ [https://fa367-prod.herokuapp.com/Project/comp.php](https://fa367-prod.herokuapp.com/Project/comp.php)</p></td></tr>
+<tr><td>PRs:<p>
+
+ [https://github.com/BangTheBanger/IT202-009/pull/110](https://github.com/BangTheBanger/IT202-009/pull/110)</p></td></tr>
+<tr><td>
+<table>
+<tr><td>F4 - Show 10 competitions per page; Paginate anything after 10; If no results, show the appropriate message</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/29554235/146763402-db8339db-cc02-49a9-af17-b9b00f13a359.png">
+<p>Active Competitions table.</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<table>
+<tr><td>F5 - Anywhere a username is displayed should be a link to that user’s profile (2021-12-20)</td></tr>
+<tr><td>Status: complete</td></tr>
+<tr><td>Links:<p>
+
+ [https://fa367-prod.herokuapp.com/Project/home.php](https://fa367-prod.herokuapp.com/Project/home.php)</p></td></tr>
+<tr><td>PRs:<p>
+
+ [https://github.com/BangTheBanger/IT202-009/pull/110](https://github.com/BangTheBanger/IT202-009/pull/110)</p></td></tr>
+<tr><td>
+<table>
+<tr><td>F5 - This includes all scoreboards; If the profile is private you can have the page just display “this profile is private” upon access</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/29554235/146763636-69233de6-4b9f-4e3e-9583-e44368f10fe6.png">
+<p>Competition description leaderboard table.</p>
+</td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/29554235/146763991-c3b2b317-1bd4-4fb2-94ba-f2039782420e.png">
+<p>Home page with leaderboards.</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<table>
+<tr><td>F6 - Viewing an active or expired competition should show the top 10 scoreboard related to that competition (2021-12-20)</td></tr>
+<tr><td>Status: complete</td></tr>
+<tr><td>Links:<p>
+
+ [https://fa367-prod.herokuapp.com/Project/compprofile.php?compid=1](https://fa367-prod.herokuapp.com/Project/compprofile.php?compid=1)</p></td></tr>
+<tr><td>PRs:<p>
+
+ [https://github.com/BangTheBanger/IT202-009/pull/110](https://github.com/BangTheBanger/IT202-009/pull/110)</p></td></tr>
+<tr><td>
+<table>
+<tr><td>F6 - No Subfeatures</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/29554235/146763636-69233de6-4b9f-4e3e-9583-e44368f10fe6.png">
+<p>Competition description leaderboard table.</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<table>
+<tr><td>F7 - Game should be fully implemented/complete by this point (2021-12-20)</td></tr>
+<tr><td>Status: complete</td></tr>
+<tr><td>Links:<p>
+
+ [https://fa367-prod.herokuapp.com/Project/game.php](https://fa367-prod.herokuapp.com/Project/game.php)</p></td></tr>
+<tr><td>PRs:<p>
+
+ [https://github.com/BangTheBanger/IT202-009/pull/110](https://github.com/BangTheBanger/IT202-009/pull/110)</p></td></tr>
+<tr><td>
+<table>
+<tr><td>F7 - Game should tell the player if they’re not logged in that their score will not be recorded.</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/29554235/146764562-b43eae47-8e99-415c-97cf-e08304d571ae.png">
+<p>Game with a non-logged-on user.</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<table>
+<tr><td>F8 - User’s score history will include pagination (2021-12-20)</td></tr>
+<tr><td>Status: complete</td></tr>
+<tr><td>Links:<p>
+
+ [https://fa367-prod.herokuapp.com/Project/profile.php](https://fa367-prod.herokuapp.com/Project/profile.php)</p></td></tr>
+<tr><td>PRs:<p>
+
+ [https://github.com/BangTheBanger/IT202-009/pull/110](https://github.com/BangTheBanger/IT202-009/pull/110)</p></td></tr>
+<tr><td>
+<table>
+<tr><td>F8 - Show latest 10; Paginate after 10; Show appropriate message for no results</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/29554235/146764686-bbfa7e67-90f0-4653-a450-80f5e7212370.png">
+<p>Profile page.</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<table>
+<tr><td>F9 - Home page will have a weekly, monthly, and lifetime scoreboard (2021-12-20)</td></tr>
+<tr><td>Status: complete</td></tr>
+<tr><td>Links:<p>
+
+ [https://fa367-prod.herokuapp.com/Project/home.php](https://fa367-prod.herokuapp.com/Project/home.php)</p></td></tr>
+<tr><td>PRs:<p>
+
+ [https://github.com/BangTheBanger/IT202-009/pull/110](https://github.com/BangTheBanger/IT202-009/pull/110)</p></td></tr>
+<tr><td>
+<table>
+<tr><td>F9 - Will also have a link to the game; Scoreboards will show username and points for the session (See requirement about username linking to profile)</td></tr>
+<tr><td>Status: 
+<img width="100" height="20" src="https://via.placeholder.com/400x120/009955/fff?text=completed"></td></tr>
+
+<tr><td>
+<img width="768px" src="https://user-images.githubusercontent.com/29554235/146764915-a3925e49-21ca-4de2-8917-e048d7310b2e.png">
+<p>Home Page. It shows the three leaderboards and links to the competition link, the game link is on the Nav bar.</p>
+</td></tr>
+
+</td>
+</tr>
+</table>
+</td>
+</tr></td></tr></table>
 
 ### Intructions
 #### Don't delete this
