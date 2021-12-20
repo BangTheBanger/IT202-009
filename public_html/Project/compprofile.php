@@ -23,6 +23,9 @@
     h1.title { 
         text-align: center;
     }
+    .highlight{
+        background-color: rgb(35,39,59);
+    }
 </style>
 <body>
     <h1><?php se($comp['name']) ?>'s Stats</h1>
@@ -41,7 +44,7 @@
         </tr>
 
         <?php $position = 1; foreach($userlist as $user => $data) : ?>
-            <tr>
+            <tr <?php if($data['user_id'] == get_user_id()) {echo "class='highlight'";} ?>>
                 <td><?php se($position); $position++;?></td>
                 <td><?php echo "<a href = 'profile.php?id=". $data['user_id'] . "'>". $data['user_id'] . "</a>" ?></td>
                 <td><?php se($data, "username") ?></td>
