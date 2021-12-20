@@ -33,6 +33,7 @@ if (is_logged_in()) {
 ?>
 <table style="width:auto">
     <?php if (count($scorelist) > 0) : ?>
+        <h1>High Scores</h1>
         <tr>
             <th>ID</th>
             <th>Username</th>
