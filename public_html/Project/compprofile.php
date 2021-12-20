@@ -20,19 +20,19 @@
     }
 ?>
 <style>
-    h1 { 
+    h1.title { 
         text-align: center;
     }
 </style>
 <body>
     <h1><?php se($comp['name']) ?>'s Stats</h1>
-    <h5>Competition was Created at: <?php se($comp['CREATED']) ?></h5>
-    <h5>Competition <?php if($comp['paid_out'] == 1) {echo "Expired at: ";} else {echo "Expires at: ";} se($comp['expiration']); ?></h5>
-    <h5>The Current Reward Totals at: <?php se($comp['current_reward']); ?></h5>
-    <h5>The Fee to Join is: <?php se($comp['join_fee']); ?></h5>
-    <h5>The Total Amount of Participants is: <?php se($comp['current_participants']); ?></h5>
+    <h3>Competition was Created at: <?php se($comp['CREATED']) ?></h3>
+    <h3>Competition <?php if($comp['paid_out'] == 1) {echo "Expired at: ";} else {echo "Expires at: ";} se($comp['expiration']); ?></h3>
+    <h3>The Current Reward Totals at: <?php se($comp['current_reward']); ?></h3>
+    <h3>The Fee to Join is: <?php se($comp['join_fee']); ?></h3>
+    <h3>The Total Amount of Participants is: <?php se($comp['current_participants']); ?></h3>
     <table style="width:auto">
-        <h1>The Top 10 Leaderboard</h1>
+        <h1 class="title">The Top 10 Leaderboard</h1>
         <tr>
             <th>Position</th>
             <th>User ID</th>
