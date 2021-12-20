@@ -14,7 +14,8 @@ if (is_logged_in()) {
 
 // Fetching score data
     $stmt = $db->prepare("SELECT user_id, username, SUM(score) FROM scores JOIN users ON scores.user_id = users.id GROUP BY user_id");
-    $scorelist = $stmt->execute();
+    $stmt->execute();
+    $scorelist = $stmt->fetchAll(PDO::FETCH_ASSOC);
     var_dump($scorelist);
 //
 
