@@ -9,20 +9,25 @@
     //If not owner of profile
         if(isset($_GET['id'])) {
             $pageuserid = $_GET['id'];
-            $isOwner = false;
-            //Point update >
-                $update = $db->prepare("UPDATE users SET points = (SELECT IFNULL(SUM(pointchange), 0) FROM pointhistory WHERE user_id = :uid) WHERE id = :uid");
-                $update->execute([":uid" => $pageuserid]);
-            //
-            //Score history update >
-                $stmt = $db->prepare("SELECT score, CREATED FROM scores WHERE user_id = :username ORDER BY CREATED DESC");
-                $stmt->execute([":username" => $pageuserid]);
-                $scorelist = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            //
-            $fetchuser = $db->prepare("SELECT id, username, email, points, public FROM users WHERE id = :uid LIMIT 1");
-            $fetchuser->execute([":uid" => $pageuserid]);
-            $user = $fetchuser->fetch(PDO::FETCH_ASSOC);
-        } 
+            if($pageuserid == get_user_id()){
+                $isOwner = true;
+            } else {
+                $isOwner = false;
+                //Point update >
+                    $update = $db->prepare("UPDATE users SET points = (SELECT IFNULL(SUM(pointchange), 0) FROM pointhistory WHERE user_id = :uid) WHERE id = :uid");
+                    $update->execute([":uid" => $pageuserid]);
+                //
+                //Score history update >
+                    $stmt = $db->prepare("SELECT score, CREATED FROM scores WHERE user_id = :username ORDER BY CREATED DESC");
+                    $stmt->execute([":username" => $pageuserid]);
+                    $scorelist = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                //
+                $fetchuser = $db->prepare("SELECT id, username, email, points, public FROM users WHERE id = :uid LIMIT 1");
+                $fetchuser->execute([":uid" => $pageuserid]);
+                $user = $fetchuser->fetch(PDO::FETCH_ASSOC);
+            }
+            }
+            
     //
     //If owner of profile
         else {
