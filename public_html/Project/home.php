@@ -31,9 +31,14 @@ if (is_logged_in()) {
 
 //
 ?>
+<style>
+    .title {
+        text-align: center;
+    }
+</style>
 <table style="width:auto">
     <?php if (count($scorelist) > 0) : ?>
-        <h1>High Scores</h1>
+        <h1 class = "title">High Scores</h1>
         <tr>
             <th>ID</th>
             <th>Username</th>
