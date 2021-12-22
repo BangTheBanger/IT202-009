@@ -40,7 +40,6 @@ require_once(__DIR__ . "/../lib/functions.php");
             <li><a href="<?php echo get_url('login.php'); ?>">Login</a></li>
             <li><a href="<?php echo get_url('register.php'); ?>">Register</a></li>
             <li><a href="<?php echo get_url('game.php'); ?>">Breakout</a></li>
-            <li><a href="<?php echo get_url('comp.php'); ?>">Competitions</a></li>
         <?php endif; ?>
         <?php if (has_role("admin")) : ?>
             <li>Admin Access: </li>
