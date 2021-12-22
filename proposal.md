@@ -3,6 +3,7 @@
 ## Github Link: https://github.com/BangTheBanger/IT202-009/tree/prod
 ## Project Board Link: https://github.com/BangTheBanger/IT202-009/projects/1
 ## Website Link: https://fa367-prod.herokuapp.com/Project/login.php
+## Video Link: https://mediaspace.njit.edu/media/IT202-009+-+Arcade+Project+-+Filipe+Atanes/1_cjyaagsp
 ## Your Name: Filipe Atanes
 
 <!--
